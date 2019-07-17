@@ -1,64 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>C:/Users/sangl/Documents/BlogNote/output</id>
+    <id>https://txSangyj.github.io/</id>
     <title>ji</title>
-    <updated>2019-07-16T14:40:51.943Z</updated>
+    <updated>2019-07-17T03:37:14.240Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="C:/Users/sangl/Documents/BlogNote/output"/>
-    <link rel="self" href="C:/Users/sangl/Documents/BlogNote/output/atom.xml"/>
+    <link rel="alternate" href="https://txSangyj.github.io/"/>
+    <link rel="self" href="https://txSangyj.github.io//atom.xml"/>
     <subtitle>学习用</subtitle>
-    <logo>C:/Users/sangl/Documents/BlogNote/output/images/avatar.png</logo>
-    <icon>C:/Users/sangl/Documents/BlogNote/output/favicon.ico</icon>
+    <logo>https://txSangyj.github.io//images/avatar.png</logo>
+    <icon>https://txSangyj.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, ji</rights>
     <entry>
-        <title type="html"><![CDATA[Naive Bayes]]></title>
-        <id>C:/Users/sangl/Documents/BlogNote/output/post/naive-Bayes/index.html</id>
-        <link href="C:/Users/sangl/Documents/BlogNote/output/post/naive-Bayes/index.html">
-        </link>
-        <updated>2018-12-31T09:04:59.000Z</updated>
-        <summary type="html"><![CDATA[<h2 id="简介">简介</h2>
-<p>朴素贝叶斯方法是基于贝叶斯定理和特征条件独立假设的分类方法。贝叶斯训练时学习的是输入和输出的联合概率分布；在预测时基于输入计算后验概率最大的类别作为输出，属于生成模型。</p>
-]]></summary>
-        <content type="html"><![CDATA[<h2 id="简介">简介</h2>
-<p>朴素贝叶斯方法是基于贝叶斯定理和特征条件独立假设的分类方法。贝叶斯训练时学习的是输入和输出的联合概率分布；在预测时基于输入计算后验概率最大的类别作为输出，属于生成模型。</p>
-<!-- more -->
-<h2 id="基本概念">基本概念</h2>
-<h2 id="基本算法">基本算法</h2>
-<ol>
-<li>
-<p>计算先验概率和条件概率（训练过程）</p>
-<p>先验概率（训练集中各类的比例）：</p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><mi>Y</mi><mo>=</mo><msub><mi>c</mi><mi>k</mi></msub><mo>)</mo><mo>=</mo><mfrac><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><mrow><mi>I</mi><mo>(</mo><msub><mi>y</mi><mi>i</mi></msub><mo>=</mo><msub><mi>c</mi><mi>k</mi></msub><mo>)</mo></mrow></mrow><mi>N</mi></mfrac></mrow><annotation encoding="application/x-tex">P(Y=c_k)=\frac{\sum_{i=1}^N{I(y_i=c_k)}}{N}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.356941em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.670941em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.6897100000000003em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.981231em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
-<p>条件概率：</p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><msup><mi>x</mi><mrow><mo>(</mo><mi>j</mi><mo>)</mo></mrow></msup><mo>=</mo><msub><mi>a</mi><mrow><mi>i</mi><mi>l</mi></mrow></msub><mi mathvariant="normal">∣</mi><mi>Y</mi><mo>=</mo><msub><mi>c</mi><mi>k</mi></msub><mo>)</mo><mo>=</mo><mfrac><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><mrow><mi>I</mi><mo>(</mo><msubsup><mi>x</mi><mi>i</mi><mrow><mo>(</mo><mi>j</mi><mo>)</mo></mrow></msubsup><mo>=</mo><msub><mi>a</mi><mrow><mi>j</mi><mi>l</mi></mrow></msub><mo separator="true">,</mo><msub><mi>y</mi><mi>i</mi></msub><mo>=</mo><msub><mi>c</mi><mi>k</mi></msub><mo>)</mo></mrow></mrow><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><mrow><mi>I</mi><mo>(</mo><msub><mi>y</mi><mi>i</mi></msub><mo>=</mo><msub><mi>c</mi><mi>k</mi></msub><mo>)</mo></mrow></mrow></mfrac></mrow><annotation encoding="application/x-tex">P(x^{(j)}=a_{il}|Y=c_k)=\frac{\sum_{i=1}^N{I(x_i^{(j)}=a_{jl},y_i=c_k)}}{\sum_{i=1}^N{I(y_i=c_k)}}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.188em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.938em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.9054510000000002em;vertical-align:-1.170941em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.7345100000000002em;"><span style="top:-2.173569em;"><span class="pstrut" style="height:3.0448em;"></span><span class="mord"><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.981231em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span><span style="top:-3.2748em;"><span class="pstrut" style="height:3.0448em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.73451em;"><span class="pstrut" style="height:3.0448em;"></span><span class="mord"><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.981231em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.0448em;"><span style="top:-2.4231360000000004em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span><span style="top:-3.2198em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.27686399999999994em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.170941em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
-</li>
-<li>
-<p>对于输入<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>，计算各类的后验概率</p>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><mi>Y</mi><mo>=</mo><msub><mi>c</mi><mi>k</mi></msub><mi mathvariant="normal">∣</mi><mi>X</mi><mo>=</mo><mi>x</mi><mo>)</mo><mo>=</mo><mi>P</mi><mo>(</mo><mi>Y</mi><mo>=</mo><msub><mi>c</mi><mi>k</mi></msub><mo>)</mo><msubsup><mo>∏</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><mrow><mi>P</mi><mo>(</mo><msup><mi>X</mi><mrow><mo>(</mo><mi>j</mi><mo>)</mo></mrow></msup><mo>=</mo><msup><mi>x</mi><mrow><mo>(</mo><mi>j</mi><mo>)</mo></mrow></msup><mi mathvariant="normal">∣</mi><mi>Y</mi><mo>=</mo><msub><mi>c</mi><mi>k</mi></msub><mo>)</mo></mrow></mrow><annotation encoding="application/x-tex">P(Y=c_k|X=x)=P(Y=c_k)\prod_{j=1}^{n}{P(X^{(j)}=x^{(j)}|Y=c_k)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.323818em;vertical-align:-0.43581800000000004em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∏</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.804292em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.43581800000000004em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8879999999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8879999999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
-</li>
-<li>
-<p>输出最大后验概率所在的类</p>
-</li>
-</ol>
-<h2 id="实现">实现</h2>
-<p>这里用MNIST数据集，主要想看一下采样生成的数据。采样使用两种方法，比较简单，可以直接看代码。</p>
-<pre><code class="language-python">
-</code></pre>
-<p>记一个小问题：numpy.sum()对array速度快，python sum 对list速度快。</p>
-<h3 id="得到的图片">得到的图片</h3>
-<p><strong>统计得到的概率采样得到的图像</strong></p>
-<p><img src="https://i.loli.net/2019/07/16/5d2de1615942211840.png" alt="1546608103360.png"></p>
-<p><strong>高斯分布采样得到的图像</strong></p>
-<p><img src="https://i.loli.net/2019/07/16/5d2de184b208989354.png" alt="1546609680914.png"></p>
-<h2 id="参考">参考</h2>
-]]></content>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[python 多线程/多进程]]></title>
-        <id>C:/Users/sangl/Documents/BlogNote/output/post/multithreaded-multiprocessing/index.html</id>
-        <link href="C:/Users/sangl/Documents/BlogNote/output/post/multithreaded-multiprocessing/index.html">
+        <id>https://txSangyj.github.io//post/multithreaded-multiprocessing</id>
+        <link href="https://txSangyj.github.io//post/multithreaded-multiprocessing">
         </link>
         <updated>2018-12-28T11:55:14.000Z</updated>
         <content type="html"><![CDATA[<!-- more -->
@@ -193,8 +148,8 @@ if __name__ == '__main__':
     </entry>
     <entry>
         <title type="html"><![CDATA[Attention Mechanism]]></title>
-        <id>C:/Users/sangl/Documents/BlogNote/output/post/Attention-Mechanism/index.html</id>
-        <link href="C:/Users/sangl/Documents/BlogNote/output/post/Attention-Mechanism/index.html">
+        <id>https://txSangyj.github.io//post/Attention-Mechanism</id>
+        <link href="https://txSangyj.github.io//post/Attention-Mechanism">
         </link>
         <updated>2018-10-16T07:01:33.000Z</updated>
         <content type="html"><![CDATA[<!-- more -->
@@ -261,8 +216,8 @@ s-65,47,-65,47z M834 80H400000v40H845z'/></svg></span></span></span><span class=
     </entry>
     <entry>
         <title type="html"><![CDATA[Multi-Task Learning]]></title>
-        <id>C:/Users/sangl/Documents/BlogNote/output/post/Multi-Task-Learning/index.html</id>
-        <link href="C:/Users/sangl/Documents/BlogNote/output/post/Multi-Task-Learning/index.html">
+        <id>https://txSangyj.github.io//post/Multi-Task-Learning</id>
+        <link href="https://txSangyj.github.io//post/Multi-Task-Learning">
         </link>
         <updated>2018-09-19T06:20:24.000Z</updated>
         <summary type="html"><![CDATA[<p>看了一些目标检测的论文之后发现对多任务学习不够了解，下面的内容是<a href="https://arxiv.org/abs/1706.05098">Multi-Taks Learning综述论文</a>的部分总结。</p>
@@ -295,8 +250,8 @@ s-65,47,-65,47z M834 80H400000v40H845z'/></svg></span></span></span><span class=
     </entry>
     <entry>
         <title type="html"><![CDATA[决策树学习]]></title>
-        <id>C:/Users/sangl/Documents/BlogNote/output/post/决策树学习/index.html</id>
-        <link href="C:/Users/sangl/Documents/BlogNote/output/post/决策树学习/index.html">
+        <id>https://txSangyj.github.io//post/决策树学习</id>
+        <link href="https://txSangyj.github.io//post/决策树学习">
         </link>
         <updated>2018-09-06T03:07:49.000Z</updated>
         <summary type="html"><![CDATA[<p>一直以来学习的方向侧重于深度学习方面，看面试题发现缺少决策树方面的知识，补充学习下，大部分内容来自周志华的《机器学习》。</p>
@@ -520,8 +475,8 @@ tree.Summary()
     </entry>
     <entry>
         <title type="html"><![CDATA[试解面试题-1]]></title>
-        <id>C:/Users/sangl/Documents/BlogNote/output/post/试解面试题-1/index.html</id>
-        <link href="C:/Users/sangl/Documents/BlogNote/output/post/试解面试题-1/index.html">
+        <id>https://txSangyj.github.io//post/试解面试题-1</id>
+        <link href="https://txSangyj.github.io//post/试解面试题-1">
         </link>
         <updated>2018-09-04T06:44:07.000Z</updated>
         <summary type="html"><![CDATA[<p>看到机器之心发布的<a href="https://mp.weixin.qq.com/s/aL-gZ9LzYCkpTcsQF1FZjA">25个机器学习面试题</a>，发现不会的还不少，记录一下防止以后面试不会。</p>
@@ -571,8 +526,8 @@ https://www.leiphone.com/news/201706/QFydbeV7FXQtRIOl.html</p>
     </entry>
     <entry>
         <title type="html"><![CDATA[二叉树复习]]></title>
-        <id>C:/Users/sangl/Documents/BlogNote/output/post/二叉树复习/index.html</id>
-        <link href="C:/Users/sangl/Documents/BlogNote/output/post/二叉树复习/index.html">
+        <id>https://txSangyj.github.io//post/二叉树复习</id>
+        <link href="https://txSangyj.github.io//post/二叉树复习">
         </link>
         <updated>2018-09-03T12:47:22.000Z</updated>
         <summary type="html"><![CDATA[<p>放完假刷leetcode发现二叉树遍历都忘记了，复习记录一下。</p>
@@ -688,8 +643,8 @@ print(B.LevelOrder())
     </entry>
     <entry>
         <title type="html"><![CDATA[Click学习]]></title>
-        <id>C:/Users/sangl/Documents/BlogNote/output/post/Click学习/index.html</id>
-        <link href="C:/Users/sangl/Documents/BlogNote/output/post/Click学习/index.html">
+        <id>https://txSangyj.github.io//post/Click学习</id>
+        <link href="https://txSangyj.github.io//post/Click学习">
         </link>
         <updated>2018-07-29T10:21:27.000Z</updated>
         <summary type="html"><![CDATA[<p>最近看的一个开源项目用到了Click包来代替argparse实现命令行传参，简单学习一下Click。Click是一个用于快速创建命令行界面的python包，使用装饰器来把函数方法装饰为命令行接口。</p>
@@ -772,8 +727,8 @@ https://isudox.com/2016/09/03/learning-python-package-click/</p>
     </entry>
     <entry>
         <title type="html"><![CDATA[Evolution Strategy]]></title>
-        <id>C:/Users/sangl/Documents/BlogNote/output/post/Evolution-Strategy/index.html</id>
-        <link href="C:/Users/sangl/Documents/BlogNote/output/post/Evolution-Strategy/index.html">
+        <id>https://txSangyj.github.io//post/Evolution-Strategy</id>
+        <link href="https://txSangyj.github.io//post/Evolution-Strategy">
         </link>
         <updated>2018-07-24T07:12:23.000Z</updated>
         <summary type="html"><![CDATA[<h2 id="介绍">介绍</h2>
@@ -879,8 +834,8 @@ print(np.max(a*np.sin(10*np.pi*a)+2.0))
     </entry>
     <entry>
         <title type="html"><![CDATA[动态规划]]></title>
-        <id>C:/Users/sangl/Documents/BlogNote/output/post/动态规划/index.html</id>
-        <link href="C:/Users/sangl/Documents/BlogNote/output/post/动态规划/index.html">
+        <id>https://txSangyj.github.io//post/动态规划</id>
+        <link href="https://txSangyj.github.io//post/动态规划">
         </link>
         <updated>2018-07-21T03:38:12.000Z</updated>
         <summary type="html"><![CDATA[<p>前面的遗传算法使用背包问题当做例子，然而背包问题通常使用动态规划的方式来解，这里看一下动态规划怎么解决问题。</p>
@@ -972,6 +927,36 @@ print(np.max(a*np.sin(10*np.pi*a)+2.0))
 <hr>
 <p>参考</p>
 <p>https://www.cnblogs.com/steven_oyj/archive/2010/05/22/1741374.html</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Automake升级]]></title>
+        <id>https://txSangyj.github.io//post/Automake升级</id>
+        <link href="https://txSangyj.github.io//post/Automake升级">
+        </link>
+        <updated>2018-07-18T15:32:50.000Z</updated>
+        <summary type="html"><![CDATA[<p>在安装njit-client的过程中，使用autoreconf生成配置文件的时候，显示支持的automake版本为1.15.1以上，而自带的只有1.13，yum源中也找不到新版的automake，只有从源码编译安装。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>在安装njit-client的过程中，使用autoreconf生成配置文件的时候，显示支持的automake版本为1.15.1以上，而自带的只有1.13，yum源中也找不到新版的automake，只有从源码编译安装。</p>
+<!-- more -->
+<p>先上基本步骤</p>
+<pre><code class="language-bash">rpm -e --nodeps automake
+wget http://ftp.gnu.org/gnu/automake/automake-1.15.1.tar.gz
+tar zxvf automake-1.15.1.tar.gz
+cd automake-1.15.1
+./configure --prefix=/usr
+make &amp;&amp; make install
+</code></pre>
+<h4 id="问题1-newly-created-file-is-older-than-distributed-files">问题1 newly created file is older than distributed files!</h4>
+<p>详细信息</p>
+<pre><code class="language-bash">#./configure --prefix=/usr/
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... configure: error: newly created file is older than distributed files!
+Check your system clock
+</code></pre>
+<p>使用hwclock和date看一下时间没发现问题，使用<code>ntpdate ntp1.aliyun.com</code>设置了ntp服务器重新配置也没解决。参考<a href="http://blog.51cto.com/jamai/1727160">这里</a>，用<code>touch *</code>直接刷新一下文件的编辑时间，第一次检查能通过挂在第二次，又对所有源文件执行touch后问题解决，要注意的是每个文件夹都会进行同样的检查。</p>
+<h4 id="问题2-make死循环">问题2 make死循环</h4>
+<p>问题就是执行make之后不停的重复编译，由于在其他电脑编译成功过，确定不是<a href="https://blog.csdn.net/mantis_1984/article/details/72598848">这里</a>提出的依赖关系造成循环。make需要了解计算机时间和它检查的文件的时间。它比较这两个时间，并根据结果确定某个目标是否标记过。还是时间问题，之前使用了两次touch，时间差造成了问题，使用<code>find . | xargs touch</code>刷新目录下所有文件的时间，问题解决。</p>
 ]]></content>
     </entry>
 </feed>

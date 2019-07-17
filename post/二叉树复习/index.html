@@ -12,15 +12,30 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="C:/Users/sangl/Documents/BlogNote/output/favicon.ico?v=1563288050142">
+<link rel="shortcut icon" href="https://txSangyj.github.io//favicon.ico?v=1563334589710">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-<link rel="stylesheet" href="C:/Users/sangl/Documents/BlogNote/output/styles/main.css">
+<link rel="stylesheet" href="https://txSangyj.github.io//styles/main.css">
 
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
 
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
 
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119333147-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119333147-1');
+</script>
 
 
   </head>
@@ -29,10 +44,10 @@
       <div class="site-header-container">
   <div class="site-header">
     <div class="left">
-      <a href="C:/Users/sangl/Documents/BlogNote/output">
-        <img class="avatar" src="C:/Users/sangl/Documents/BlogNote/output/images/avatar.png?v=1563288050142" alt="" width="32px" height="32px">
+      <a href="https://txSangyj.github.io/">
+        <img class="avatar" src="https://txSangyj.github.io//images/avatar.png?v=1563334589710" alt="" width="32px" height="32px">
       </a>
-      <a href="C:/Users/sangl/Documents/BlogNote/output">
+      <a href="https://txSangyj.github.io/">
         <h1 class="site-title">ji</h1>
       </a>
     </div>
@@ -49,25 +64,25 @@
     <div class="menu-list">
       
         
-          <a href="C:/Users/sangl/Documents/BlogNote/output//index.html" class="menu purple-link">
+          <a href="/" class="menu purple-link">
             首页
           </a>
         
       
         
-          <a href="C:/Users/sangl/Documents/BlogNote/output/archives/index.html" class="menu purple-link">
+          <a href="/archives" class="menu purple-link">
             归档
           </a>
         
       
         
-          <a href="C:/Users/sangl/Documents/BlogNote/output/tags/index.html" class="menu purple-link">
+          <a href="/tags" class="menu purple-link">
             标签
           </a>
         
       
         
-          <a href="C:/Users/sangl/Documents/BlogNote/output/post/about/index.html" class="menu purple-link">
+          <a href="/post/about" class="menu purple-link">
             关于
           </a>
         
@@ -87,7 +102,7 @@
               <span>
                 <i class="icon-pricetags-outline"></i>
                 
-                  <a href="C:/Users/sangl/Documents/BlogNote/output/tag/perb82Eii/index.html">
+                  <a href="https://txSangyj.github.io//tag/perb82Eii">
                     Algorithm
                     
                   </a>
@@ -209,7 +224,7 @@ print(B.LevelOrder())
 
         
           <div class="next-post">
-            <a class="purple-link" href="C:/Users/sangl/Documents/BlogNote/output/post/Click学习/index.html">
+            <a class="purple-link" href="https://txSangyj.github.io//post/Click学习">
               <h3 class="post-title">
                 下一篇：Click学习
               </h3>
@@ -218,6 +233,12 @@ print(B.LevelOrder())
           
       </div>
 
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
       
 
       <div class="site-footer">
@@ -235,7 +256,7 @@ print(B.LevelOrder())
       
     
   </div>
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="C:/Users/sangl/Documents/BlogNote/output/atom.xml" target="_blank">RSS</a>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://txSangyj.github.io//atom.xml" target="_blank">RSS</a>
 </div>
 
 
@@ -252,6 +273,29 @@ var app = new Vue({
 })
 
 </script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: 'e34e534eed4c2e648a08',
+        clientSecret: 'f8134536308fd4eae908eaf80934d839b47cfd09',
+        repo: 'txSangyj.github.io',
+        owner: 'txSangyj',
+        admin: ['txSangyj'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
 
 
 
