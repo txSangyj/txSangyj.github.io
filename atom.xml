@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://txSangyj.github.io/</id>
     <title>ji</title>
-    <updated>2019-07-17T03:37:14.240Z</updated>
+    <updated>2019-07-17T07:11:06.619Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://txSangyj.github.io/"/>
     <link rel="self" href="https://txSangyj.github.io//atom.xml"/>
@@ -10,6 +10,32 @@
     <logo>https://txSangyj.github.io//images/avatar.png</logo>
     <icon>https://txSangyj.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, ji</rights>
+    <entry>
+        <title type="html"><![CDATA[Hexo 转到 Gridea]]></title>
+        <id>https://txSangyj.github.io//post/hexo-zhuan-dao-gridea</id>
+        <link href="https://txSangyj.github.io//post/hexo-zhuan-dao-gridea">
+        </link>
+        <updated>2019-07-17T06:36:21.000Z</updated>
+        <summary type="html"><![CDATA[<p>逛论坛时候发现个新玩具<a href="https://gridea.dev/">Gridea</a>，然后就把原来Hexo下的东西迁到了Gridea下。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>逛论坛时候发现个新玩具<a href="https://gridea.dev/">Gridea</a>，然后就把原来Hexo下的东西迁到了Gridea下。</p>
+<!-- more -->
+<h3 id="配置">配置</h3>
+<p>上教程<a href="https://gridea.dev/docs/">Gridea doc</a></p>
+<h3 id="文章">文章</h3>
+<p>原Hexo的source/_post下的.md文件复制到Gridea源文件夹下的posts下。注意posts下<strong>不能</strong>有文件夹。<s>可能是Bug吧。</s></p>
+<h3 id="图片">图片</h3>
+<p>又不能有asset_folder，Gridea插入的图片使用的又是绝对路径，所以把之前的图片转成了图床链接。用的是<a href="https://github.com/kookob/smpic">Simpic</a>上传。</p>
+<h3 id="其他问题">其他问题</h3>
+<ul>
+<li>原来的主题不会适配。</li>
+<li>文章的分类没有自动识别。</li>
+<li>Gridea下写东西<strong>千万不要随便点返回</strong>。</li>
+<li>建议文章都添加'<!-- more -->'不然有的主页显示会出现错位。</li>
+<li>TOC、字数统计、点击统计好像暂不支持。</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[python 多线程/多进程]]></title>
         <id>https://txSangyj.github.io//post/multithreaded-multiprocessing</id>
@@ -927,36 +953,6 @@ print(np.max(a*np.sin(10*np.pi*a)+2.0))
 <hr>
 <p>参考</p>
 <p>https://www.cnblogs.com/steven_oyj/archive/2010/05/22/1741374.html</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Automake升级]]></title>
-        <id>https://txSangyj.github.io//post/Automake升级</id>
-        <link href="https://txSangyj.github.io//post/Automake升级">
-        </link>
-        <updated>2018-07-18T15:32:50.000Z</updated>
-        <summary type="html"><![CDATA[<p>在安装njit-client的过程中，使用autoreconf生成配置文件的时候，显示支持的automake版本为1.15.1以上，而自带的只有1.13，yum源中也找不到新版的automake，只有从源码编译安装。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>在安装njit-client的过程中，使用autoreconf生成配置文件的时候，显示支持的automake版本为1.15.1以上，而自带的只有1.13，yum源中也找不到新版的automake，只有从源码编译安装。</p>
-<!-- more -->
-<p>先上基本步骤</p>
-<pre><code class="language-bash">rpm -e --nodeps automake
-wget http://ftp.gnu.org/gnu/automake/automake-1.15.1.tar.gz
-tar zxvf automake-1.15.1.tar.gz
-cd automake-1.15.1
-./configure --prefix=/usr
-make &amp;&amp; make install
-</code></pre>
-<h4 id="问题1-newly-created-file-is-older-than-distributed-files">问题1 newly created file is older than distributed files!</h4>
-<p>详细信息</p>
-<pre><code class="language-bash">#./configure --prefix=/usr/
-checking for a BSD-compatible install... /usr/bin/install -c
-checking whether build environment is sane... configure: error: newly created file is older than distributed files!
-Check your system clock
-</code></pre>
-<p>使用hwclock和date看一下时间没发现问题，使用<code>ntpdate ntp1.aliyun.com</code>设置了ntp服务器重新配置也没解决。参考<a href="http://blog.51cto.com/jamai/1727160">这里</a>，用<code>touch *</code>直接刷新一下文件的编辑时间，第一次检查能通过挂在第二次，又对所有源文件执行touch后问题解决，要注意的是每个文件夹都会进行同样的检查。</p>
-<h4 id="问题2-make死循环">问题2 make死循环</h4>
-<p>问题就是执行make之后不停的重复编译，由于在其他电脑编译成功过，确定不是<a href="https://blog.csdn.net/mantis_1984/article/details/72598848">这里</a>提出的依赖关系造成循环。make需要了解计算机时间和它检查的文件的时间。它比较这两个时间，并根据结果确定某个目标是否标记过。还是时间问题，之前使用了两次touch，时间差造成了问题，使用<code>find . | xargs touch</code>刷新目录下所有文件的时间，问题解决。</p>
 ]]></content>
     </entry>
 </feed>
