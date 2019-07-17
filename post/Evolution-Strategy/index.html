@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>Evolution Strategy | ji</title>
+<meta name="description" content="学习用">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="C:/Users/sangl/Documents/BlogNote/output/favicon.ico?v=1563288050142">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="C:/Users/sangl/Documents/BlogNote/output/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="C:/Users/sangl/Documents/BlogNote/output">
+        <img class="avatar" src="C:/Users/sangl/Documents/BlogNote/output/images/avatar.png?v=1563288050142" alt="" width="32px" height="32px">
+      </a>
+      <a href="C:/Users/sangl/Documents/BlogNote/output">
+        <h1 class="site-title">ji</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output//index.html" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output/archives/index.html" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output/tags/index.html" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output/post/about/index.html" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">Evolution Strategy</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2018-07-24</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="C:/Users/sangl/Documents/BlogNote/output/tag/0iSKL1pCG/index.html">
+                    RL
+                    
+                      ，
+                    
+                  </a>
+                
+                  <a href="C:/Users/sangl/Documents/BlogNote/output/tag/perb82Eii/index.html">
+                    Algorithm
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <h2 id="介绍">介绍</h2>
+<p>前面学习了遗传算法，最近又看到在强化学习中的应用：<a href="">进化算法玩Atari</a>，今天看一下可以用在神经网络中的进化策略（Evolution Strategy,ES）。</p>
+<!-- more -->
+<p>ES和GA的思想类似，模仿生物进化原理，也存在了十几年，但具体算法实现有所差别。</p>
+<p><strong>思想</strong><br>
+进化策略是一种模仿生物进化的一种求解参数优化问题的方法，它使用<strong>实数值</strong>作为基因，并且假设基因总是服从<strong>零均值、某一方差的高斯分布</strong>的变化产生新的个体，然后保留较好的个体。<br>
+<code>ES可以对实数参数进行优化，给现在的神经网络的训练带来另一个工具。</code><br>
+<strong>和GA的不同</strong></p>
+<ol>
+<li>ES先产生子代，后评估选取子代；GA先评估选取父母，后产生子代；</li>
+<li>ES参数为实数；GA通常为二进制；</li>
+<li>ES通过正态分布变异；GA通过二进制取反变异。</li>
+<li>ES应用于数值优化；GA应用于参数优化。</li>
+<li>ES选择方式确定；GA使用概率进行选择。</li>
+</ol>
+<h2 id="算法">算法</h2>
+<blockquote>
+<p>确定优化函数<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">f(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span>、算法参数<br>
+初始化种群<br>
+循环：</p>
+<blockquote>
+<p>进化（交叉变异）<br>
+评估排序，选择前p个产生下一种群<br>
+直到收敛</p>
+</blockquote>
+</blockquote>
+<p>论文[3]给出的ES算法流程：<br>
+<img src="https://i.loli.net/2019/07/16/5d2de02a81e3837557.png" alt="流程"></p>
+<h3 id="关键步骤">关键步骤</h3>
+<p><strong>初始化</strong>：确定可能存在的参数边界；产生初代种群（通常是服从均匀分布的）；确定变异程度。<br>
+<strong>交叉</strong>：存在离散重组、中值重组、混杂重组三种方式。离散类似与GA的交换参数；中值即取选定父代的参数均值；混杂为选定一个父代，逐参数地随机选定另一个父代进行组合。<br>
+<strong>变异</strong>：在分量上加一个零均值、某一方差的高斯变量。<br>
+<strong>变异</strong>：和GA固定的变异程度不同，ES的变异程序有从大到小的过程。<br>
+<strong>选择</strong>：ES有父代和子代比较的过程，根据选择方式不同，ES可以分为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>μ</mi><mo>+</mo><mi>λ</mi><mo>)</mo><mo>−</mo><mi>E</mi><mi>S</mi></mrow><annotation encoding="application/x-tex">(\mu+\lambda)-ES</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">μ</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">λ</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>μ</mi><mi mathvariant="normal">，</mi><mi>λ</mi><mo>)</mo><mo>−</mo><mi>E</mi><mi>S</mi></mrow><annotation encoding="application/x-tex">(\mu，\lambda)-ES</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">μ</span><span class="mord cjk_fallback">，</span><span class="mord mathdefault">λ</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span>。主要使用后者，即初始有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">μ</span></span></span></span>个个体，每次迭代产生<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>λ</mi></mrow><annotation encoding="application/x-tex">\lambda</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">λ</span></span></span></span>个个体，然后选择<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">μ</span></span></span></span>个作为下一代。</p>
+<h2 id="例子">例子</h2>
+<p><s>这里试着直接使用ES优化一个两层的网络解决异或问题。</s><br>
+上面的例子实验失败了，基本的ES对于局部最优的情况还需要进一步处理。例子还是经典的袋鼠跳函数：f(x)=xsin(10πx)+2。代码如下：</p>
+<pre><code class="language-python">import numpy as np
+_mu = 10
+_lambda = 10
+_epochs = 20
+DNA_SIZE = 1
+DATA_BOUND = [-1,2]
+p = np.random.rand(_mu,2,DNA_SIZE)
+p = p.clip(*DATA_BOUND)
+history = []
+
+def F(x):
+    return x[:,0,:]*np.sin(10*np.pi*x[:,0,:])+2.0
+    
+    
+def generate(p):
+    
+    kids = np.zeros((_lambda,2,DNA_SIZE))
+    for i in range(_lambda):
+        p1_index,p2_index = np.random.choice(range(_mu),2)
+        p1 = p[p1_index,::]
+        p2 = p[p2_index,::]
+        #类似GA的离散交叉
+        cp = np.random.randint(0,2,(2,DNA_SIZE),dtype=np.bool)
+        kids[i,cp] = p1[cp]
+        kids[i,~cp] = p2[~cp]
+        #变异
+        kids[i,1,:] = np.maximum(kids[i,1,:] + (np.random.rand(*kids[i,1,:].shape)-0.5), 0.)
+        kids[i,0,:] += kids[i,1,:] * np.random.randn(*kids[i,0,:].shape)
+        kids = kids.clip(*DATA_BOUND)
+    p_kids = np.concatenate((kids,p))
+    
+    return p_kids
+    
+def select(p,mu):
+    
+    f = F(p)
+    index = f.argsort(axis=0).flatten()
+    index = index[::-1]
+    p = p[index]
+    
+    return p[:mu,::]
+#主循环
+for i in range(_epochs):
+    p_kids = generate(p)
+    p = select(p_kids,_mu)
+    history.append(F(p)[0])
+    print(&quot;epoch{0}: max f(x) value:{1} \r&quot;.format(i,history[i]),end='')
+a = np.linspace(-1,2,num=300)
+print(np.max(a*np.sin(10*np.pi*a)+2.0))
+</code></pre>
+<p>然后ES得到的最大值为3.8501，直接计算得到3.8492，还是比较接近的。</p>
+<h2 id="应用">应用</h2>
+<p>最近ES的应用就是在强化学习方面，openAI做了很多相关的工作；另外还提到了一种CMA-ES（Covariance-Matrix Adaptation Evolution Strategy）的方法，将协方差矩阵的信息使用在优化过程中，可以达到更快的收敛速度，在<a href="http://blog.otoro.net/2017/10/29/visual-evolution-strategies/">这里</a>有介绍和图片演示，另外也有传统ES和GA的比较和演示。</p>
+<hr>
+<p>参考<br>
+<a href="https://www.jiqizhixin.com/articles/2018-07-23-4">进化算法玩Atari</a> &quot;进化算法玩Atari&quot;<br>
+[1] https://blog.csdn.net/u014248127/article/details/79143437<br>
+[2] https://www.jiqizhixin.com/articles/2017-03-26-3<br>
+[3] https://arxiv.org/pdf/1703.03864v2.pdf</p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="C:/Users/sangl/Documents/BlogNote/output/post/动态规划/index.html">
+              <h3 class="post-title">
+                下一篇：动态规划
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">学习用</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="C:/Users/sangl/Documents/BlogNote/output/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

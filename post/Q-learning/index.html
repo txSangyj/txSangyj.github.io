@@ -1,0 +1,497 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>Q-learning | ji</title>
+<meta name="description" content="学习用">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="C:/Users/sangl/Documents/BlogNote/output/favicon.ico?v=1563288050142">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="C:/Users/sangl/Documents/BlogNote/output/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="C:/Users/sangl/Documents/BlogNote/output">
+        <img class="avatar" src="C:/Users/sangl/Documents/BlogNote/output/images/avatar.png?v=1563288050142" alt="" width="32px" height="32px">
+      </a>
+      <a href="C:/Users/sangl/Documents/BlogNote/output">
+        <h1 class="site-title">ji</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output//index.html" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output/archives/index.html" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output/tags/index.html" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output/post/about/index.html" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">Q-learning</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2018-06-19</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="C:/Users/sangl/Documents/BlogNote/output/tag/0iSKL1pCG/index.html">
+                    RL
+                    
+                      ，
+                    
+                  </a>
+                
+                  <a href="C:/Users/sangl/Documents/BlogNote/output/tag/perb82Eii/index.html">
+                    Algorithm
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <p>Qlearning是一种基于价值的强化学习方法 下面是个简单的例子来自<a href="https://morvanzhou.github.io/tutorials/machine-learning/reinforcement-learning/2-3-tabular-q2/">周莫烦</a></p>
+<!-- more -->
+<p>一个一维的世界 -o---T</p>
+<p>o:agent<br>
+T:target<br>
+action{'left','right'}</p>
+<h2 id="基本参数">基本参数</h2>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>γ</mi></mrow><annotation encoding="application/x-tex">\gamma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05556em;">γ</span></span></span></span> 是对未来reward的衰减</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>α</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\alpha &lt; 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 是学习率</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>ϵ</mi></mrow><annotation encoding="application/x-tex">\epsilon</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">ϵ</span></span></span></span> 引入随机性，有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mo>−</mo><mi>ϵ</mi></mrow><annotation encoding="application/x-tex">1-\epsilon</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">ϵ</span></span></span></span>的概率随机选择一个action</p>
+<pre><code class="language-python">import numpy as np
+import pandas as pd
+import time
+
+N_STATES = 6   # 1维世界的宽度
+ACTIONS = ['left', 'right']     # 探索者的可用动作
+EPSILON = 0.9   # 贪婪度 greedy
+ALPHA = 0.1     # 学习率
+GAMMA = 0.9    # 奖励递减值
+MAX_EPISODES = 13   # 最大回合数
+FRESH_TIME = 0.3    # 移动间隔时间
+</code></pre>
+<h2 id="q-table">Q-table</h2>
+<p>Q-laerning 记录对应状态和行为的value，记录在Qtable<br>
+Qtable也就是agent的行为准则</p>
+<pre><code class="language-python">def build_q_table(n_states, actions):
+    table = pd.DataFrame(
+        np.zeros((n_states, len(actions))),     # q_table 全 0 初始
+        columns=actions,    # columns 对应的是行为名称
+    )
+    return table
+
+# q_table:
+&quot;&quot;&quot;
+   left  right
+0   0.0    0.0
+1   0.0    0.0
+2   0.0    0.0
+3   0.0    0.0
+4   0.0    0.0
+5   0.0    0.0
+&quot;&quot;&quot;
+</code></pre>
+<pre><code>'\n   left  right\n0   0.0    0.0\n1   0.0    0.0\n2   0.0    0.0\n3   0.0    0.0\n4   0.0    0.0\n5   0.0    0.0\n'
+</code></pre>
+<h2 id="定义动作方法">定义动作方法</h2>
+<p>根据Qtable和当前state来选择进行的动作<br>
+greedy？</p>
+<pre><code class="language-python"># 在某个 state 地点, 选择行为
+def choose_action(state, q_table):
+    state_actions = q_table.iloc[state, :]  # 选出这个 state 的所有 action 值
+    if (np.random.uniform() &gt; EPSILON) or (state_actions.all() == 0):  # 非贪婪 or 或者这个 state 还没有探索过
+        action_name = np.random.choice(ACTIONS)
+    else:
+        action_name = state_actions.argmax()    # 贪婪模式
+    return action_name
+</code></pre>
+<h2 id="定义环境反馈">定义环境反馈</h2>
+<p>env对于对应的上个state，下个state，做出的action做出reward<br>
+这里例子的reward是唯一且确定的</p>
+<pre><code class="language-python">def get_env_feedback(S, A):
+    # This is how agent will interact with the environment
+    if A == 'right':    # move right
+        if S == N_STATES - 2:   # terminate
+            S_ = 'terminal'
+            R = 1
+        else:
+            S_ = S + 1
+            R = 0
+    else:   # move left
+        R = 0
+        if S == 0:
+            S_ = S  # reach the wall
+        else:
+            S_ = S - 1
+    return S_, R
+</code></pre>
+<h2 id="环境更新">环境更新</h2>
+<p>？？？</p>
+<pre><code class="language-python">def update_env(S, episode, step_counter):
+    # This is how environment be updated
+    env_list = ['-']*(N_STATES-1) + ['T']   # '---------T' our environment
+    if S == 'terminal':
+        interaction = 'Episode %s: total_steps = %s' % (episode+1, step_counter)
+        print('\r{}'.format(interaction), end='')
+        time.sleep(2)
+        print('\r                                ', end='')
+    else:
+        env_list[S] = 'o'
+        interaction = ''.join(env_list)
+        print('\r{}'.format(interaction), end='')
+        time.sleep(FRESH_TIME)
+</code></pre>
+<h2 id="q-learning主要循环">Q-learning主要循环</h2>
+<blockquote>
+<p>Initialize Q(s,a)</p>
+</blockquote>
+<blockquote>
+<p>Repeat(for each episode):</p>
+<blockquote>
+<p>Initialize s<br>
+Repeat (for each step of episode)<br>
+Choose a from s using policy derived from Q(e.g.,epsilon-greedy)<br>
+Take action a，Observe reward r，next state s'</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Q</mi><mo>(</mo><mi>s</mi><mo separator="true">,</mo><mi>a</mi><mo>)</mo><mo>=</mo><mi>Q</mi><mo>(</mo><mi>s</mi><mo separator="true">,</mo><mi>a</mi><mo>)</mo><mo>+</mo><mi>α</mi><mo>[</mo><mi>r</mi><mo>+</mo><mi>γ</mi><mo>×</mo><mi>m</mi><mi>a</mi><msub><mi>x</mi><msup><mi>a</mi><mo mathvariant="normal">′</mo></msup></msub><mo>×</mo><mi>Q</mi><mo>(</mo><msup><mi>s</mi><mo mathvariant="normal">′</mo></msup><mo separator="true">,</mo><msup><mi>a</mi><mo mathvariant="normal">′</mo></msup><mo>)</mo><mo>−</mo><mi>Q</mi><mo>(</mo><mi>s</mi><mo separator="true">,</mo><mi>a</mi><mo>)</mo><mo>]</mo></mrow><annotation encoding="application/x-tex">Q(s,a)= Q(s,a)+ \alpha[r+\gamma×max_{a&#x27;}×Q(s&#x27;,a&#x27;)-Q(s,a)]
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">Q</span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">a</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">Q</span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">a</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05556em;">γ</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32797999999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6828285714285715em;"><span style="top:-2.786em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.051892em;vertical-align:-0.25em;"></span><span class="mord mathdefault">Q</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.801892em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.801892em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">Q</span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">a</span><span class="mclose">)</span><span class="mclose">]</span></span></span></span></span></p>
+<p>s = s'<br>
+until s is terminal</p>
+</blockquote>
+</blockquote>
+<p>s state</p>
+<p>a action</p>
+<p>r reward</p>
+<pre><code class="language-python">def rl():
+    q_table = build_q_table(N_STATES, ACTIONS)  # 初始 q table
+    for episode in range(MAX_EPISODES):     # 回合
+        step_counter = 0
+        S = 0   # 回合初始位置
+        is_terminated = False   # 是否回合结束
+        update_env(S, episode, step_counter)    # 环境更新
+        while not is_terminated:
+
+            A = choose_action(S, q_table)   # 选行为
+            S_, R = get_env_feedback(S, A)  # 实施行为并得到环境的反馈
+            q_predict = q_table.loc[S, A]    # 估算的(状态-行为)值
+            if S_ != 'terminal':
+                q_target = R + GAMMA * q_table.iloc[S_, :].max()   #  实际的(状态-行为)值 (回合没结束)
+            else:
+                q_target = R     #  实际的(状态-行为)值 (回合结束)
+                is_terminated = True    # terminate this episode
+
+            q_table.loc[S, A] += ALPHA * (q_target - q_predict)  #  q_table 更新
+            S = S_  # 探索者移动到下一个 state
+
+            update_env(S, episode, step_counter+1)  # 环境更新
+
+            step_counter += 1
+    return q_table
+</code></pre>
+<pre><code class="language-python">if __name__ == &quot;__main__&quot;:
+    q_table = rl()
+    print('\r\nQ-table:\n')
+    print(q_table)
+</code></pre>
+<pre><code>---o-T
+
+Q-table:
+
+       left     right
+0  0.000029  0.005061
+1  0.000029  0.026896
+2  0.000018  0.111724
+3  0.000073  0.343331
+4  0.000810  0.745813
+5  0.000000  0.000000
+</code></pre>
+<h1 id="q-learning-class">Q-Learning Class</h1>
+<pre><code class="language-python">import numpy as np
+import pandas as pd
+
+class QLearningTable:
+    def __init__(self, env, learning_rate=0.01, reward_decay=0.9, e_greedy=0.9):
+        self.lr = learning_rate # 学习率
+        self.gamma = reward_decay   # 奖励衰减
+        self.epsilon = e_greedy     # 贪婪度
+        if isinstance(env.observation_space,gym.spaces.discrete.Discrete):
+            self.state_dim = env.observation_space.n
+        else:
+            self.state_dim = env.observation_space.shape[0]
+        if isinstance(env.action_space,gym.spaces.discrete.Discrete):
+            self.action_dim = env.action_space.n   
+        else:
+            self.action_dim = env.action_space.shape[0]
+            
+        
+        self.q_table = pd.DataFrame(columns=list(range(0,self.action_dim)) ,dtype=np.float)   # 初始 q_table
+        
+
+        
+    def choose_action(self, observation):
+        observation = str(observation)
+        self.check_state_exist(observation) 
+        # 选择 action
+        if np.random.uniform() &lt; self.epsilon:  # 选择 Q value 最高的 action
+            state_action = self.q_table.loc[observation, :]
+            state_action = state_action.reindex(np.random.permutation(state_action.index))
+            action = state_action.argmax()
+        else:   # 随机选择 action
+            action = np.random.choice(self.q_table.columns)
+        return action
+   
+    def learn(self, state, action, reward, next_state,done):
+        next_state = str(next_state)
+        state = str(state)
+        self.check_state_exist(next_state)  # 检测 q_table 中是否存在 s_ (见后面标题内容)
+        q_predict = self.q_table.loc[state, action]
+        if done==False:
+            q_target = reward + self.gamma * self.q_table.loc[next_state, :].max()  # 下个 state 不是 终止符
+        else:
+            q_target = reward
+        self.q_table.loc[state, action] += self.lr * (q_target - q_predict)  # 更新对应的 state-action 值
+
+    def check_state_exist(self, state):
+        if state not in self.q_table.index:
+            # append new state to q table
+            self.q_table = self.q_table.append(
+                pd.Series(
+                    [0.001]*self.action_dim,
+                    index=self.q_table.columns,
+                    name=state,
+                )
+            )
+</code></pre>
+<h1 id="q-learning-on-gym">Q-Learning on gym</h1>
+<p>查看安装的env</p>
+<pre><code class="language-python">from gym import envs
+#print(envs.registry.all())
+</code></pre>
+<h2 id="创建环境和qtable">创建环境和QTable</h2>
+<p>对于CartPole,返回的observation是一个list，[x,x_dot,theta,theta_dot]</p>
+<pre><code class="language-python">%pdb
+import pandas as pd
+import numpy as np
+import gym
+
+learn_episode = 1000
+learn_step = 100
+env = gym.make('CartPole-v0')
+Qt = QLearningTable(env)
+</code></pre>
+<h2 id="学习qtable">学习QTable</h2>
+<pre><code class="language-python">%pdb on
+for i in range(learn_episode):
+    observation = env.reset()
+    for step in range(learn_step):
+        action = Qt.choose_action(observation)
+        next_observation,reward,done,_ = env.step(action)
+        Qt.learn(next_state=next_observation,state=observation,action=action,reward=reward,done=done)
+        observation = next_observation
+        if done:
+            break
+print(Qt.q_table)
+</code></pre>
+<pre><code>[22974 rows x 2 columns]
+</code></pre>
+<p>显然简单粗暴的将观察转化为字符串得到的结果较差。</p>
+<h2 id="测试">测试</h2>
+<pre><code class="language-python">for i_episode in range(10):
+    observation = env.reset()
+    while(True):
+        env.render()
+        #print(observation)
+        action = Qt.choose_action(observation)
+        observation, reward, done, info = env.step(action)
+        if done:
+            print(&quot;Episode finished after {} timesteps&quot;.format(t+1))
+            break
+</code></pre>
+<pre><code>Episode finished after 200 timesteps
+	 reward 1.0.
+Episode finished after 200 timesteps
+	 reward 1.0....
+</code></pre>
+<h2 id="离散状态空间">离散状态空间</h2>
+<p>从上面的cartpole的结果来看，Q-Learning对于连续性状态空间问题的解决存在局限性，Q-Table的维度可能达到一个很大的尺寸，下面尝试用来尝试解决离散状态空间的问题</p>
+<p>这里用gym内的FrozenLake8x8-v0，同样的是定义环境，学习Q-Table，之后进行测试</p>
+<pre><code class="language-python">import pandas as pd
+import numpy as np
+import gym
+
+learn_episode = 1000
+learn_step = 200
+env = gym.make('FrozenLake-v0')
+Qt = QLearningTable(env,learning_rate=0.1)
+</code></pre>
+<pre><code class="language-python">for i in range(learn_episode):
+    observation = env.reset()
+    for step in range(learn_step):
+        action = Qt.choose_action(observation)
+        next_observation,reward,done,_ = env.step(action)
+        
+        Qt.learn(next_state=next_observation,state=observation,action=action,reward=reward,done=done)
+        observation = next_observation
+        if done:
+            break
+print(Qt.q_table)
+
+</code></pre>
+<pre><code>/home/sangyj/.conda/envs/tf/lib/python3.6/site-packages/ipykernel_launcher.py:32: FutureWarning: 'argmax' is deprecated, use 'idxmax' instead. The behavior of 'argmax'
+will be corrected to return the positional maximum in the future.
+Use 'series.values.argmax' to get the position of the maximum now.
+
+
+           0         1         2         3
+0   0.064842  0.055531  0.060236  0.053204
+1   0.018737  0.039729  0.025952  0.056370
+5   0.001000  0.001000  0.001000  0.001000
+4   0.086859  0.071700  0.048331  0.047095
+8   0.075819  0.122097  0.088587  0.149676
+12  0.001000  0.001000  0.001000  0.001000
+9   0.119481  0.228482  0.133091  0.097725
+2   0.072173  0.055193  0.038618  0.037949
+6   0.054548  0.077508  0.080189  0.003905
+3   0.000688  0.003873  0.001489  0.029156
+7   0.001000  0.001000  0.001000  0.001000
+13  0.130018  0.223768  0.276910  0.201894
+10  0.290034  0.163259  0.211654  0.084711
+11  0.001000  0.001000  0.001000  0.001000
+14  0.232816  0.423925  0.433946  0.431733
+15  0.001000  0.001000  0.001000  0.001000
+</code></pre>
+<pre><code class="language-python">a=0
+for i_episode in range(100):
+    observation = env.reset()
+    for t in range(learn_step):
+        #temp = env.render()
+        #print(observation)
+        action = Qt.choose_action(observation)
+        observation, reward, done, info = env.step(action)
+        if done and reward&gt;0:
+            print(&quot;Episode finished after {} timesteps&quot;.format(t+1))
+            print(&quot;\t reward {}.&quot;.format(reward))
+            a=a+1
+            break
+print(a)
+            
+</code></pre>
+<pre><code>Episode finished after 32 timesteps
+	 reward 1.0.
+Episode finished after 29 timesteps
+	 reward 1.0.
+Episode finished after 66 timesteps
+	 reward 1.0.
+...
+Episode finished after 53 timesteps
+	 reward 1.0.
+Episode finished after 34 timesteps
+	 reward 1.0.
+41#成功次数
+</code></pre>
+<h2 id="结果的优化">结果的优化</h2>
+<p>在上面的结果中最后的reward与步数无关，当reward随着步数的增多而降低时，可以得到一条最优的路径???</p>
+<h2 id="q-learning的问题">Q-learning的问题</h2>
+<p>Q-learning 适用的状态和动作空间非常小；另一方面但如果一个状态从未出现过，Q-learning 是无法处理的。也就是说 Q-learning 压根没有预测能力，也就是没有泛化能力。<br>
+所以下一步转到基于Q-learning的DQN</p>
+
+          </div>
+        </div>
+
+        
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">学习用</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="C:/Users/sangl/Documents/BlogNote/output/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

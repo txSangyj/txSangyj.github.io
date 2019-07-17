@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>CentOS环境配置(1) | ji</title>
+<meta name="description" content="学习用">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="C:/Users/sangl/Documents/BlogNote/output/favicon.ico?v=1563288050142">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="C:/Users/sangl/Documents/BlogNote/output/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="C:/Users/sangl/Documents/BlogNote/output">
+        <img class="avatar" src="C:/Users/sangl/Documents/BlogNote/output/images/avatar.png?v=1563288050142" alt="" width="32px" height="32px">
+      </a>
+      <a href="C:/Users/sangl/Documents/BlogNote/output">
+        <h1 class="site-title">ji</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output//index.html" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output/archives/index.html" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output/tags/index.html" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output/post/about/index.html" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">CentOS环境配置(1)</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2018-07-18</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="C:/Users/sangl/Documents/BlogNote/output/tag/6TykwWblv/index.html">
+                    Linux
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <p>最近在学习一些服务器上面的操作，记录一下遇到的问题备查。</p>
+<!-- more -->
+<h2 id="软件安装">软件安装</h2>
+<p>CentOS使用yum管理软件包，基本操作和apt类似。</p>
+<h3 id="docker">Docker</h3>
+<p>准备用Docker来配置Hadoop等环境，先安装配置Docker<br>
+<code>yum -y install docker	#安装docker</code><br>
+等待安装完成后，运行<code>docker run hello-world</code>看是否安装正确。<br>
+结果输出一条错误信息<br>
+<code>Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?</code><br>
+搜到的原因是docker服务没启动，使用<code>systemctl start docker</code>尝试启动服务，报错</p>
+<pre><code>Job for docker.service failed because the control process exited with error code. See &quot;systemctl status docker.service&quot; and &quot;journalctl -xe&quot; for details.
+</code></pre>
+<p>使用<code>systemctl status docker -l</code>检查出错的原因</p>
+<pre><code>Error starting daemon: SELinux is not supported with the overlay2 graph driver on this kernel. Either boot into a newer kernel or disabl...nabled=false)
+</code></pre>
+<p>答案是这台机器的linux的内核中的SELinux不支持 overlay2 graph driver。也给出了两个解决方法，一是启动新的内核，二是禁用SELinux。这里先禁掉，具体操作是将配置文件的“--selinux-enabled”改成“--selinux-enabled=false”，然后再重启docker。<br>
+配置文件地址：</p>
+<pre><code>Centos ：/etc/sysconfig/docker
+Ubuntu ：/etc/default/docker
+OPTIONS='--selinux-enabled=fasle
+</code></pre>
+<p>使用<code>systemctl enable docker</code>启用服务，重新运行<code>docker run hello-world</code></p>
+<pre><code>$ docker run hello-world
+Unable to find image 'hello-world:latest' locally
+Trying to pull repository docker.io/library/hello-world ... 
+latest: Pulling from docker.io/library/hello-world
+9db2ca6ccae0: Pull complete 
+Digest: sha256:4b8ff392a12ed9ea17784bd3c9a8b1fa3299cac44aca35a85c90c5e3c7afacdc
+Status: Downloaded newer image for docker.io/hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+</code></pre>
+<p>然后用docker pull将Hadoop镜像下载到本地备用。</p>
+<h3 id="jupyter-notebook">jupyter notebook</h3>
+<p>使用conda管理python环境，安装只需要<code>conda install jupyter</code>，之后为了方便远程登录，设置一下密码。<br>
+<strong>1.生成配置文件</strong></p>
+<pre><code>$jupyter notebook --generate-config
+Writing default config to: /home/sangyj/.jupyter/jupyter_notebook_config.py
+</code></pre>
+<p><strong>2.设置密码</strong></p>
+<pre><code>$python
+&gt;&gt;&gt; from notebook.auth import passwd
+&gt;&gt;&gt; passwd()
+Enter password: 
+Verify password: 
+'sha1:6ecaf7be97c9:fbfde7333b19e692a****cd9cafb3aec'
+</code></pre>
+<p>** 3.修改配置**<br>
+将生成的密码添加到<code>~/.jupyter/jupyter_notebook_config.py</code>，另外配置默认不打开本机浏览器。</p>
+<pre><code>c.NotebookApp.password = u'sha1:xxx:xxx'
+c.NotebookApp.open_browser = False
+</code></pre>
+<p>** 4.配置防火墙**<br>
+sudo firewall-cmd --zone=public --add-port=8888/tcp --permanent<br>
+sudo firewall-cmd --reload<br>
+sudo firewall-cmd --zone=public --list-ports</p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="C:/Users/sangl/Documents/BlogNote/output/post/python-关闭信号/index.html">
+              <h3 class="post-title">
+                下一篇：python 关闭信号
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">学习用</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="C:/Users/sangl/Documents/BlogNote/output/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

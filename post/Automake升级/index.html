@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>Automake升级 | ji</title>
+<meta name="description" content="学习用">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="C:/Users/sangl/Documents/BlogNote/output/favicon.ico?v=1563288050142">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="C:/Users/sangl/Documents/BlogNote/output/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="C:/Users/sangl/Documents/BlogNote/output">
+        <img class="avatar" src="C:/Users/sangl/Documents/BlogNote/output/images/avatar.png?v=1563288050142" alt="" width="32px" height="32px">
+      </a>
+      <a href="C:/Users/sangl/Documents/BlogNote/output">
+        <h1 class="site-title">ji</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output//index.html" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output/archives/index.html" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output/tags/index.html" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output/post/about/index.html" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">Automake升级</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2018-07-18</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="C:/Users/sangl/Documents/BlogNote/output/tag/6TykwWblv/index.html">
+                    Linux
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <p>在安装njit-client的过程中，使用autoreconf生成配置文件的时候，显示支持的automake版本为1.15.1以上，而自带的只有1.13，yum源中也找不到新版的automake，只有从源码编译安装。</p>
+<!-- more -->
+<p>先上基本步骤</p>
+<pre><code class="language-bash">rpm -e --nodeps automake
+wget http://ftp.gnu.org/gnu/automake/automake-1.15.1.tar.gz
+tar zxvf automake-1.15.1.tar.gz
+cd automake-1.15.1
+./configure --prefix=/usr
+make &amp;&amp; make install
+</code></pre>
+<h4 id="问题1-newly-created-file-is-older-than-distributed-files">问题1 newly created file is older than distributed files!</h4>
+<p>详细信息</p>
+<pre><code class="language-bash">#./configure --prefix=/usr/
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... configure: error: newly created file is older than distributed files!
+Check your system clock
+</code></pre>
+<p>使用hwclock和date看一下时间没发现问题，使用<code>ntpdate ntp1.aliyun.com</code>设置了ntp服务器重新配置也没解决。参考<a href="http://blog.51cto.com/jamai/1727160">这里</a>，用<code>touch *</code>直接刷新一下文件的编辑时间，第一次检查能通过挂在第二次，又对所有源文件执行touch后问题解决，要注意的是每个文件夹都会进行同样的检查。</p>
+<h4 id="问题2-make死循环">问题2 make死循环</h4>
+<p>问题就是执行make之后不停的重复编译，由于在其他电脑编译成功过，确定不是<a href="https://blog.csdn.net/mantis_1984/article/details/72598848">这里</a>提出的依赖关系造成循环。make需要了解计算机时间和它检查的文件的时间。它比较这两个时间，并根据结果确定某个目标是否标记过。还是时间问题，之前使用了两次touch，时间差造成了问题，使用<code>find . | xargs touch</code>刷新目录下所有文件的时间，问题解决。</p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="C:/Users/sangl/Documents/BlogNote/output/post/CentOS环境配置/index.html">
+              <h3 class="post-title">
+                下一篇：CentOS环境配置(1)
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">学习用</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="C:/Users/sangl/Documents/BlogNote/output/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

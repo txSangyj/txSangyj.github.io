@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>Genetic Algorithm | ji</title>
+<meta name="description" content="学习用">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="C:/Users/sangl/Documents/BlogNote/output/favicon.ico?v=1563288050142">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="C:/Users/sangl/Documents/BlogNote/output/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="C:/Users/sangl/Documents/BlogNote/output">
+        <img class="avatar" src="C:/Users/sangl/Documents/BlogNote/output/images/avatar.png?v=1563288050142" alt="" width="32px" height="32px">
+      </a>
+      <a href="C:/Users/sangl/Documents/BlogNote/output">
+        <h1 class="site-title">ji</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output//index.html" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output/archives/index.html" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output/tags/index.html" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output/post/about/index.html" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">Genetic Algorithm</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2018-06-24</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="C:/Users/sangl/Documents/BlogNote/output/tag/perb82Eii/index.html">
+                    Algorithm
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <p>看Uber的deep-neuroevolution看不懂，先了解一下基本的遗传算法。</p>
+<p>遗传算法的本质是一种并行，高效，全局搜索的方法</p>
+<p>遗传算法将问题的<strong>解</strong>根据实际情况进行编码并将其视为单独的个体，使用编码的交换，突变来产生下一代种群，每次迭代使用适当的评估函数评价个体（解）的适应度，循环迭代取得相对最优的解。</p>
+<!-- more -->
+<h2 id="算法">算法</h2>
+<p>来自<a href="https://zh.wikipedia.org/wiki/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95">wikipedia</a></p>
+<blockquote>
+<p>选择初始种群<br>
+循环</p>
+<blockquote>
+<p>评价适应程度<br>
+产生下一种群（适应度越高，选择概率越大）</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>直到达到停止条件</p>
+</blockquote>
+<p>停止条件可能包括：</p>
+<ul>
+<li>找到了最优值</li>
+<li>适应度已饱和？？</li>
+<li>进化次数限制</li>
+<li>时间限制</li>
+<li>人为干预</li>
+</ul>
+<p>一般在产生下一种群的过程中，还包括个体编码的交换和随机变异，如下图中的描述。图片来自<a href="https://blog.csdn.net/u010451580/article/details/51178225">boat_lee</a>。<br>
+<img src="https://i.loli.net/2019/07/16/5d2de0c011d7a91205.png" alt="流程"></p>
+<h2 id="参数">参数</h2>
+<ul>
+<li>种群规模（P,population size）</li>
+<li>编码长度（I,string length）</li>
+<li>交叉概率（pc，probability of performing crossover）</li>
+<li>变异概率（pm，probability of mutation）</li>
+<li>终止条件（termination criteria）</li>
+</ul>
+<h2 id="例子">例子</h2>
+<p>GA算法可以用来求解优化问题，下面用GA算法来解一个简单的0-1背包问题</p>
+<p>问题描述：</p>
+<p>有 N 件物品和一个容量为 V 的背包。第 i 件物品的费用是 c[i]，价值是 w[i]。求解将哪些物品装入背包可使价值总和最大。</p>
+<pre><code class="language-python">import numpy as np
+
+#设置参数
+episodes = 10
+capacity  = 200
+goods = np.array([[20,30],[40,75],[80,100],[60,90],[6,8],[50,50]])
+
+population_size = 25
+pc = 0.6
+pm = 0.2
+code_len = goods.shape[0]
+
+#记录
+history = {}
+#相关函数定义
+def compute_weight_value(p,goods):
+    &quot;&quot;&quot;
+    计算所选物品的重量和价值
+    &quot;&quot;&quot;
+    w_v = np.dot(p,goods)
+    w = w_v[:,0]
+    v = w_v[:,1]
+    out_of_capacity = np.argwhere(w&gt;capacity)
+    v[out_of_capacity]=0
+    return w,v
+
+def select(p,v,n):
+    &quot;&quot;&quot;
+    轮盘赌方式选取子代
+    &quot;&quot;&quot;
+    prob = v/v.sum()
+    prob_ = prob.cumsum()
+    selected = np.zeros(shape=(n,code_len),dtype=np.uint32)
+    for i in range(n):
+        idx = np.argwhere(np.random.rand()&lt;prob_)[0]
+        selected[i,:] = p[idx,:]
+    return selected
+
+def mutation(p):
+    &quot;&quot;&quot;
+    变异函数
+    pm=0.2
+    &quot;&quot;&quot;
+    for i in range(p.shape[0]):
+        if np.random.rand()&lt;pm:
+            p[i,:] = np.bitwise_xor(p[i,:], np.random.randint(2,size=(1,p.shape[1])))
+    return p
+
+def crossover(p):
+    &quot;&quot;&quot;
+    编码交叉
+    &quot;&quot;&quot;
+    cross_len = int(code_len/2)
+    selected = np.zeros(shape=(2,p.shape[1]),dtype=np.uint32)
+    idx=[0,0]
+    selected_num = 0
+    for i in range(p.shape[1]):
+        if np.random.rand()&lt;pc:
+            selected[selected_num] = p[i,:]
+            idx[selected_num] = i
+            selected_num +=1
+            if selected_num//2&gt;0:
+                p[idx[0],:] = np.concatenate((selected[0,:cross_len],selected[1,cross_len:]))
+                p[idx[1],:] = np.concatenate((selected[1,:cross_len],selected[0,cross_len:]))
+                selected_num%=2
+    return p
+</code></pre>
+<pre><code class="language-python">#随机产生初始种群
+population = np.random.randint(2,size=(population_size,code_len),dtype=np.uint32)
+
+#主循环
+for i in range(episodes):
+    w,v = compute_weight_value(population,goods)
+    p_ = select(population,v,population_size)
+    p_ = crossover(p_)
+    p_ = mutation(p_)
+    population = p_
+    history[i] = [w[np.argmax(v)],v.max()]
+history
+</code></pre>
+<pre><code>{0: [186, 273],
+ 1: [186, 273],
+ 2: [186, 273],
+ 3: [186, 273],
+ 4: [186, 273],
+ 5: [200, 295],
+ 6: [200, 295],
+ 7: [200, 295],
+ 8: [200, 295],
+ 9: [200, 295]}
+</code></pre>
+<h2 id="问题">问题</h2>
+<p>由于遗传算法得到的是近似的最优解，在多次运行时并不能每次都得到最优解（不太适合背包问题）</p>
+<p>实现方面的要点为<strong>适应函数</strong>和<strong>编码</strong>（二进制编码，浮点编码，符号编码）</p>
+<hr>
+<p><a href="https://blog.csdn.net/u010451580/article/details/51178225">更详细的文章</a></p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="C:/Users/sangl/Documents/BlogNote/output/post/DQN/index.html">
+              <h3 class="post-title">
+                下一篇：Deep Q Network
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">学习用</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="C:/Users/sangl/Documents/BlogNote/output/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>Multi-Task Learning | ji</title>
+<meta name="description" content="学习用">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="C:/Users/sangl/Documents/BlogNote/output/favicon.ico?v=1563288050142">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="C:/Users/sangl/Documents/BlogNote/output/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="C:/Users/sangl/Documents/BlogNote/output">
+        <img class="avatar" src="C:/Users/sangl/Documents/BlogNote/output/images/avatar.png?v=1563288050142" alt="" width="32px" height="32px">
+      </a>
+      <a href="C:/Users/sangl/Documents/BlogNote/output">
+        <h1 class="site-title">ji</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output//index.html" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output/archives/index.html" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output/tags/index.html" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output/post/about/index.html" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">Multi-Task Learning</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2018-09-19</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="C:/Users/sangl/Documents/BlogNote/output/tag/S9xG6B0kK/index.html">
+                    ML
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <p>看了一些目标检测的论文之后发现对多任务学习不够了解，下面的内容是<a href="https://arxiv.org/abs/1706.05098">Multi-Taks Learning综述论文</a>的部分总结。</p>
+<!-- more -->
+<h3 id="概念">概念</h3>
+<p>在传统的机器学习中通常针对一个任务来优化模型，对不同的任务使用不同的模型。Multi-Task Learning(MTL)使用共享某些隐层表达的方式来实现同时完成多个任务(或是利用辅助任务提升主任务的效果)。</p>
+<p>例如在Fast RCNN中，object Classifier 和bounding box regressor共享Conv feature map，使用multi-task loss来进行训练，可以同时完成目标识别与定位。</p>
+<h4 id="两种共享方式">两种共享方式</h4>
+<p>提到的多任务学习主要分为两种：<br>
+<strong>hard parameter sharing</strong>：不同任务直接共享隐藏层。<br>
+<code>降低过拟合风险（相对于单一任务，模型要学习更多更通用的表达。）</code><br>
+**soft parameter sharing：**每个任务对应一个模型，添加额外的权重代价（L2，trace norm）约束各个模型中的某些层。<br>
+<code>在非神经网络的方法中更常见。</code></p>
+<h3 id="mtl有效的原因">MTL有效的原因</h3>
+<ol>
+<li>同样的数据集对于不同的任务，噪声的定义可能是不同的，同时学习目标A和B对于目标的对应噪声有平均的效果，也能防止过拟合其中一个目标；</li>
+<li>任务A难以被学习时，那些对任务B有用的特征可能对A同样有用；</li>
+<li>对于不同任务，隐层学习到的特征也有不同，共享隐层增加了特征数量；</li>
+<li>多任务模型学习到的Feature Representation有利于新任务的推广；</li>
+<li>有正则化效果。<br>
+<strong>任务之间要相关，否则结果可能更差</strong></li>
+</ol>
+<h3 id="dl中的应用和发展">DL中的应用和发展</h3>
+<p>DL中层与层之间的互联或者说结构之间的互联天然地为hard parameter sharing提供了基础，可以简单的预定义某些层为共享层。MTL在深度学习上还有一些其他的结构比如Fully-Adaptive Feature Sharing、Tensor factorisation for MTL等。但要注意的是，如果任务不是紧密相关或者需要在不同级别上进行进一步推理，这样的参数共享效果并不好。</p>
+<h3 id="辅助任务">辅助任务</h3>
+<p>另一个重点是，即使我们只需要模型完成任务A，可能在加入辅助任务B之后得到对于任务A的更好的学习。但是如何选择任务B是一个问题，一般假设辅助任务应该以某种方式与主任务相关或有助于预测主任务。但是如何定义这样的相关性仍然是一个问题，这一方面还有待探索。</p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="C:/Users/sangl/Documents/BlogNote/output/post/决策树学习/index.html">
+              <h3 class="post-title">
+                下一篇：决策树学习
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">学习用</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="C:/Users/sangl/Documents/BlogNote/output/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

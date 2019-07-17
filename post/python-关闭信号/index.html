@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>python 关闭信号 | ji</title>
+<meta name="description" content="学习用">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="C:/Users/sangl/Documents/BlogNote/output/favicon.ico?v=1563288050142">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="C:/Users/sangl/Documents/BlogNote/output/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="C:/Users/sangl/Documents/BlogNote/output">
+        <img class="avatar" src="C:/Users/sangl/Documents/BlogNote/output/images/avatar.png?v=1563288050142" alt="" width="32px" height="32px">
+      </a>
+      <a href="C:/Users/sangl/Documents/BlogNote/output">
+        <h1 class="site-title">ji</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output//index.html" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output/archives/index.html" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output/tags/index.html" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="C:/Users/sangl/Documents/BlogNote/output/post/about/index.html" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">python 关闭信号</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2018-07-16</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="C:/Users/sangl/Documents/BlogNote/output/tag/6TykwWblv/index.html">
+                    Linux
+                    
+                      ，
+                    
+                  </a>
+                
+                  <a href="C:/Users/sangl/Documents/BlogNote/output/tag/jOPoKNR3Gb/index.html">
+                    python
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <p>最近在jupyter notebook中运行一个回归任务的时候总会出现一个Kernel Restarting的提示，python输出部分也没有报错，很是迷茫。</p>
+<!-- more -->
+<p>然后在PyCharm中Debug了一下相关的代码，输出显示python进程在运行时被杀掉了，最后的输出是：<br>
+<code>Process finished with exit code 137 (interrupted by signal 9: SIGKILL)</code></p>
+<p><a href="https://stackoverflow.com/questions/43268156/process-finished-with-exit-code-137-in-pycharm">这里</a>给出的回答是“In most of the cases, it caused because of excessive memory usage.”</p>
+<p>因运行时CPU占用较高，自己不确定原因，使用dmesg查询日志了解一下具体的原因方便修改程序。终端中输入：<br>
+<code>dmesg -T | grep -E -i -B100 'killed process'</code></p>
+<p>得到日志如下：</p>
+<pre><code>[一 7月 16 20:07:50 2018] Out of memory: Kill process 648 (python) score 607 or sacrifice child
+[一 7月 16 20:07:50 2018] Killed process 648 (python) total-vm:9058460kB, anon-rss:6678640kB, file-rss:0kB, shmem-rss:0kB
+</code></pre>
+<p>可以看出python被杀掉的原因确实是OOM。</p>
+<p>这里涉及到Linux的信号机制，比如常见的Ctrl-C就是向程序发送SIGINT信号，其中部分信号可以用程序捕获并进行相应的处理，放个表格在这备用。</p>
+<p>| 信号 |  值 | 处理动作 | 发出原因 |<br>
+|-| - | - |<br>
+| SIGHUP | 1 | A | 终端挂起或者控制进程终止 |<br>
+| SIGINT | 2 | A | 键盘中断 |<br>
+| SIGQUIT | 3 | C | 键盘的退出键被按下  |<br>
+| SIGILL | 4 | C | 非法指令  |<br>
+| SIGABRT | 6 | C | 由abort(3)发出的退出指令  |<br>
+| SIGFPE | 8 | C | 浮点异常  |<br>
+|** SIGKILL** | 9 | AEF | **Kill信号  **|<br>
+| SIGSEGV | 11  | C  | 无效的内存引用  |<br>
+| SIGPIPE | 13  | A  | 管道破裂: 写一个没有读端口的管道  |<br>
+| SIGALRM | 14 |  A |  由alarm(2)发出的信号  |<br>
+| SIGTERM | 15 |  A |  终止信号  |<br>
+| SIGUSR1 | 30,10,16 |  A  | 用户自定义信号1  |<br>
+| SIGUSR2 | 31,12,17 |  A  | 用户自定义信号2  |<br>
+| SIGCHLD | 20,17,18  | B  | 子进程结束信号  |<br>
+| SIGCONT | 19,18,25 | 进程继续 |（曾被停止的进程） |<br>
+| SIGSTOP | 17,19,23 | DEF | 终止进程<br>
+| SIGTSTP | 18,20,24 | D | 控制终端（tty）上按下停止键 |<br>
+| SIGTTIN | 21,21,26 | D | 后台进程企图从控制终端读 |<br>
+| SIGTTOU | 22,22,27 | D | 后台进程企图从控制终端写 |</p>
+<hr>
+<p>参考：<br>
+<a href="https://www.cnblogs.com/xybaby/p/8098229.html">https://www.cnblogs.com/xybaby/p/8098229.html</a><br>
+<a href="https://stackoverflow.com/questions/43268156/process-finished-with-exit-code-137-in-pycharm">https://stackoverflow.com/questions/43268156/process-finished-with-exit-code-137-in-pycharm</a></p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="C:/Users/sangl/Documents/BlogNote/output/post/Genetic-Algorithm/index.html">
+              <h3 class="post-title">
+                下一篇：Genetic Algorithm
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">学习用</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="C:/Users/sangl/Documents/BlogNote/output/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>
