@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://txSangyj.github.io/</id>
     <title>ji</title>
-    <updated>2019-07-17T07:11:06.619Z</updated>
+    <updated>2019-07-17T07:20:06.067Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://txSangyj.github.io/"/>
     <link rel="self" href="https://txSangyj.github.io//atom.xml"/>
@@ -31,7 +31,7 @@
 <li>原来的主题不会适配。</li>
 <li>文章的分类没有自动识别。</li>
 <li>Gridea下写东西<strong>千万不要随便点返回</strong>。</li>
-<li>建议文章都添加'<!-- more -->'不然有的主页显示会出现错位。</li>
+<li>建议文章都添加&lt;!-- more --&gt;不然有的主页显示会出现错位。</li>
 <li>TOC、字数统计、点击统计好像暂不支持。</li>
 </ul>
 ]]></content>
