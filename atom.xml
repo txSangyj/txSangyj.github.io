@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://txSangyj.github.io/</id>
     <title>ji</title>
-    <updated>2019-07-17T07:20:06.067Z</updated>
+    <updated>2019-07-19T06:26:46.115Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://txSangyj.github.io/"/>
     <link rel="self" href="https://txSangyj.github.io//atom.xml"/>
@@ -10,6 +10,118 @@
     <logo>https://txSangyj.github.io//images/avatar.png</logo>
     <icon>https://txSangyj.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, ji</rights>
+    <entry>
+        <title type="html"><![CDATA[C++ lambda]]></title>
+        <id>https://txSangyj.github.io//post/c-lambda</id>
+        <link href="https://txSangyj.github.io//post/c-lambda">
+        </link>
+        <updated>2019-07-18T06:49:17.000Z</updated>
+        <summary type="html"><![CDATA[<p>C++中lambda的介绍和简单使用。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>C++中lambda的介绍和简单使用。</p>
+<!-- more -->
+<h3 id="构成">构成</h3>
+<p>C++11下lambda表达式完全体的构成：<br>
+[ captures ]  ( params ) specifiers exception attr -&gt; ret { body }</p>
+<p>其中params和ret可以省略，省略返回值类型相当于返回auto类型，省略（params）相当于lambda函数不接受参数输入，对应以下几种变体：</p>
+<ul>
+<li>[ captures ] ( params ) -&gt; ret { body }</li>
+<li>[ captures ] ( params ) { body }</li>
+<li>[ captures ] { body }</li>
+</ul>
+<h3 id="captures">captures</h3>
+<p>支持值捕获、引用捕获和隐式捕获。<br>
+<strong>值捕获和引用捕获</strong><br>
+在变量前使用前缀=来表示值捕获，&amp;表示引用捕获。变量在captures列表只能出现一次，当变量被一种方式隐式捕获时，显示捕获只能将其声明为另一种捕获方式。<br>
+【1】中的例子：</p>
+<pre><code class="language-c++">// 默认引用捕获
+struct S2 { void f(int i); };
+void S2::f(int i)
+{
+    [&amp;]{};          // OK: by-reference capture default
+    [&amp;, i]{};       // OK: by-reference capture, except i is captured by copy
+    [&amp;, &amp;i] {};     // Error: by-reference capture when by-reference is the default
+    [&amp;, this] {};   // OK, equivalent to [&amp;]
+    [&amp;, this, i]{}; // OK, equivalent to [&amp;, i]
+}
+</code></pre>
+<pre><code class="language-c++">// 默认值捕获
+struct S2 { void f(int i); };
+void S2::f(int i)
+{
+    [=]{};          // OK: by-copy capture default
+    [=, &amp;i]{};      // OK: by-copy capture, except i is captured by reference
+    [=, *this]{};   // until C++17: Error: invalid syntax
+                    // since c++17: OK: captures the enclosing S2 by copy
+    [=, this] {};   // until C++20: Error: this when = is the default
+                    // since C++20: OK, same as [=]
+}
+</code></pre>
+<p><strong>隐式捕获</strong><br>
+上面的例子中可以看到，当捕获列表的首项为=及&amp;时会按相应的捕获方式捕获所用的变量和this下的成员变量。另外lambda表达式可以不捕获而使用或读取一些变量，比如全局变量、静态局部变量等，具体类型可以查看参考[1]。</p>
+<pre><code class="language-c++">
+#include &lt;iostream&gt;
+using namespace std;
+
+int i = 10;
+int main()
+{
+    static int j = 1;
+    auto f = []() {cout &lt;&lt;&quot;i:&quot;&lt;&lt; i &lt;&lt;&quot;\tj:&quot;&lt;&lt; j; };
+    f();
+}
+// out:
+// i:10	j:1
+</code></pre>
+<h3 id="params">params</h3>
+<p>和函数参数差不多，在C++14后不支持指定参数默认值且支持用auto声明参数。<br>
+<strong>参数名与变量名相同会隐藏所捕获的变量。</strong></p>
+<h3 id="ret">ret</h3>
+<p>返回值类型，可省略。省略后要注意不同分支下返回值类型要保持一致。</p>
+<h3 id="body">body</h3>
+<p>函数体。当变量为值捕获时，要在lambda表达式的parameter list（不可省略） 和 return type（省略或&quot;-&gt;ret&quot;形式）之间指定说明符为mutable才能修改变量的值，但仍是值引用。</p>
+<pre><code class="language-c++">
+int i = 0;
+auto f = [i]() mutable {return ++i; };
+cout &lt;&lt; &quot;i:&quot; &lt;&lt; i &lt;&lt; &quot;\tf():&quot; &lt;&lt; f();
+
+// out:
+// i:0     f():1
+</code></pre>
+<h3 id="例子">例子</h3>
+<p>在一些需要输入函数的时候就可以用lambda生成匿名函数传入，比如std中的sort、for_each等函数。</p>
+<pre><code class="language-c++">int main()
+{
+    using namespace std;
+    vector&lt;int&gt; nums = { 1,2,3,4,5,6,7 };
+
+    // 使用lambda和for_each定义一个函数用于输出vector
+    auto print_vec = [](const vector&lt;int&gt; vec) {
+        for_each(vec.begin(), vec.end(), [](int i) {cout &lt;&lt; i &lt;&lt; '\t'; });
+    };
+    print_vec(nums);
+    cout &lt;&lt; endl;
+
+    // 引用方式修改值
+    for_each(nums.begin(), nums.end(), [](int&amp; i) { i -= 4; });
+    print_vec(nums);
+    cout &lt;&lt; endl;
+
+    // sort自定义排序
+    sort(nums.begin(), nums.end(), [](int a, int b) -&gt; bool { return abs(a) &lt; abs(b); }); 
+    print_vec(nums);
+    cout &lt;&lt; endl;
+}
+// out:
+// 1       2       3       4       5       6       7
+// -3      -2      -1      0       1       2       3
+// 0       -1      1       -2      2       -3      3
+</code></pre>
+<hr>
+<h3 id="参考">参考</h3>
+<p>[1]<a href="https://zh.cppreference.com/w/cpp/language/lambda">cppreference-lambda</a></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hexo 转到 Gridea]]></title>
         <id>https://txSangyj.github.io//post/hexo-zhuan-dao-gridea</id>
@@ -856,103 +968,6 @@ print(np.max(a*np.sin(10*np.pi*a)+2.0))
 [1] https://blog.csdn.net/u014248127/article/details/79143437<br>
 [2] https://www.jiqizhixin.com/articles/2017-03-26-3<br>
 [3] https://arxiv.org/pdf/1703.03864v2.pdf</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[动态规划]]></title>
-        <id>https://txSangyj.github.io//post/动态规划</id>
-        <link href="https://txSangyj.github.io//post/动态规划">
-        </link>
-        <updated>2018-07-21T03:38:12.000Z</updated>
-        <summary type="html"><![CDATA[<p>前面的遗传算法使用背包问题当做例子，然而背包问题通常使用动态规划的方式来解，这里看一下动态规划怎么解决问题。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>前面的遗传算法使用背包问题当做例子，然而背包问题通常使用动态规划的方式来解，这里看一下动态规划怎么解决问题。</p>
-<!-- more -->
-<h2 id="介绍">介绍</h2>
-<p>动态规划（Dynamic programming）是一种通过把原问题<strong>分解</strong>为相对简单的子问题的方式求解复杂问题的方法。<br>
-适用于满足有<strong>重叠子问题</strong>（overlap sub-problem）、<strong>无后效性</strong>、具有<strong>最优子结构</strong>（optimal sub-structure）的问题求解。<br>
-<code>重叠子问题：一个子问题在不同阶段的决策中可能被多次用到。</code><br>
-<code>无后效性：某状态以后的过程不会影响以前的状态，只与当前状态有关。</code><br>
-<code>最优子结构:问题的最优解所包含的子问题的解也是最优的。</code></p>
-<p>例如斐波那契数列问题，递归解法时间复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(2^n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>，添加记忆后复杂度下降到O(n)，</p>
-<h2 id="设计步骤">设计步骤</h2>
-<p>动态规划解决的问题通常是多阶段的决策问题，通过一个决策序列完成从初始状态到结束状态的转移，通常我们求解的就是最优的决策序列。动态规划的一般设计模式主要有以下几个步骤：<br>
-<strong>1. 划分阶段</strong><br>
-将问题划分为<strong>有序</strong>的多个阶段。<br>
-<strong>2. 确定状态和状态变量</strong><br>
-将问题的不同阶段的情况表示出来，状态的选择满足无后效性。<br>
-<strong>3. 状态转移方程</strong><br>
-状态转移方程是动态规划的关键，状态转移是根据上一阶段的状态和决策导出本阶段的状态，而状态转移方程常常是根据相邻阶段状态之间的关系来决定的。<br>
-<strong>4. 边界条件</strong><br>
-状态转移方程是一个递推式，需要一个终止条件，通常来说边界条件也决定了程序中循环的出口。</p>
-<h2 id="实现">实现</h2>
-<p>设计完解决问题的<strong>阶段、状态、转移方程</strong>,就可以通过状态转移的递推关系来解决问题，由于重叠子问题的存在，通常将子问题的解保存在表中以减少计算。使用状态和决策建立决策表，整个求解过程就是填写表格，得到一个最优的决策表。</p>
-<h2 id="两个例子">两个例子</h2>
-<h3 id="house-robberleetcode-198">house robber(leetcode 198)</h3>
-<p>问题描述：给定一个数组，在不选取相邻数值的条件下输出能选取数值之和的最大值。<br>
-<code>[1,2,3,1]-&gt;[1,3]-&gt;4</code><br>
-有序地处理数组，在处理每一个数值时都是一个不同的阶段；状态即为已选取的数值之和；决策为选或不选(0-1)。<br>
-转移方程如下，<em>v</em>为给定数组</p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mi>n</mi><mo>)</mo><mo>=</mo><mrow><mo fence="true">{</mo><mtable><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>f</mi><mo>(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>)</mo><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext>不选</mtext></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>v</mi><mo>[</mo><mi>n</mi><mo>]</mo><mo>+</mo><mi>f</mi><mo>(</mo><mi>n</mi><mo>−</mo><mn>2</mn><mo>)</mo><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext>选</mtext></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">f(n)= 
- \begin{cases}
- f(n-1), &amp; \text {不选} \\\\
- v[n]+f(n-2), &amp; \text {选}
- \end{cases}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:4.32em;vertical-align:-1.9100000000000001em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.35002em;"><span style="top:-2.19999em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎩</span></span></span><span style="top:-2.19999em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:-3.1500100000000004em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎨</span></span></span><span style="top:-4.30001em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:-4.60002em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎧</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.8500199999999998em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.41em;"><span style="top:-4.41em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mpunct">,</span></span></span><span style="top:-2.97em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"></span></span><span style="top:-1.5300000000000002em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mopen">[</span><span class="mord mathdefault">n</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">2</span><span class="mclose">)</span><span class="mpunct">,</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.9099999999999997em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:1em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.41em;"><span style="top:-4.41em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">不选</span></span></span></span><span style="top:-1.5299999999999998em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">选</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.9100000000000001em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
-<p>边界条件由递推式可得，数组长度小于二时另行处理，或求得<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">f(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>时完成递推，最优决策由在每个决策分支取max取得。</p>
-<p>代码：</p>
-<pre><code>def rob(self, nums):
-    &quot;&quot;&quot;
-    :type nums: List[int]
-    :rtype: int
-    &quot;&quot;&quot;
-    if len(nums)==0:
-        return 0
-    elif len(nums)==1:
-        return nums[0]
-    opt = [0]*len(nums)
-    opt[0] = nums[0]
-    opt[1] = max(nums[0],nums[1])
-    for i in range(2,len(nums)):
-        A = opt[i-2]+nums[i]
-        B = opt[i-1]
-        opt[i] = max(A,B)
-    return opt[len(nums)-1]
-</code></pre>
-<h3 id="使用最小花费爬楼梯leetcode746">使用最小花费爬楼梯(leetcode746)</h3>
-<p>问题描述：数组的每个索引做为一个阶梯，第 i个阶梯对应着一个非负数的体力花费值 cost<a href="%E7%B4%A2%E5%BC%95%E4%BB%8E0%E5%BC%80%E5%A7%8B">i</a>。每当你爬上一个阶梯你都要花费对应的体力花费值，然后你可以选择继续爬一个阶梯或者爬两个阶梯。需要找到达到楼层顶部的最低花费。可以选择从索引为 0 或 1 的元素作为初始阶梯。<br>
-同样的，有序地处理数组，在处理每一个数值时都是一个不同的阶段；状态即为已选取的数值之和；决策为爬一层或爬两层。<br>
-转移方程如下，<em>v</em>为给定数组</p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mi>n</mi><mo>)</mo><mo>=</mo><mrow><mo fence="true">{</mo><mtable><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>v</mi><mo>[</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>]</mo><mo>+</mo><mi>f</mi><mo>(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>)</mo><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext>爬一层</mtext></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>v</mi><mo>[</mo><mi>n</mi><mo>−</mo><mn>2</mn><mo>]</mo><mo>+</mo><mi>f</mi><mo>(</mo><mi>n</mi><mo>−</mo><mn>2</mn><mo>)</mo><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext>爬两层</mtext></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex"> f(n)= \begin{cases} v[n-1]+f(n-1), &amp; \text {爬一层} \\\\ v[n-2]+f(n-2), &amp; \text{爬两层} \end{cases}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:4.32em;vertical-align:-1.9100000000000001em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.35002em;"><span style="top:-2.19999em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎩</span></span></span><span style="top:-2.19999em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:-3.1500100000000004em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎨</span></span></span><span style="top:-4.30001em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:-4.60002em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎧</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.8500199999999998em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.41em;"><span style="top:-4.41em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mopen">[</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mpunct">,</span></span></span><span style="top:-2.97em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"></span></span><span style="top:-1.5300000000000002em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mopen">[</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">2</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">2</span><span class="mclose">)</span><span class="mpunct">,</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.9099999999999997em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:1em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.41em;"><span style="top:-4.41em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">爬一层</span></span></span></span><span style="top:-1.5299999999999998em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">爬两层</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.9100000000000001em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
-<p>边界条件由递推式可得，数组长度小于二时另行处理，或求得<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">f(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>时完成递推，最优决策由在每个决策分支取min取得。<br>
-代码：</p>
-<pre><code>def minCostClimbingStairs(self, cost):
-        &quot;&quot;&quot;
-        :type cost: List[int]
-        :rtype: int
-        &quot;&quot;&quot;
-        l = len(cost)
-        if l == 0:
-            return 0
-        elif l == 1:
-            return cost[0]
-        elif l == 2:
-            return min(cost[0],cost[1])
-        opt = [0]*(l+1)
-        opt[0] = 0
-        opt[1] = 0
-        for i in range(2,l+1):
-            opt[i] = min(opt[i-1]+cost[i-1],opt[i-2]+cost[i-2])
-        return opt[l]
-</code></pre>
-<p>每个阶段只有一个状态-&gt;递推；<br>
-每个阶段的最优状态都是由上一个阶段的最优状态得到的-&gt;贪心；<br>
-每个阶段的最优状态是由之前所有阶段的状态的组合得到的-&gt;搜索；<br>
-每个阶段的最优状态可以从之前某个阶段的某个或某些状态直接得到而不管之前这个状态是如何得到的-&gt;动态规划。<a href="https://www.zhihu.com/question/23995189/answer/35429905">zhihu</a></p>
-<hr>
-<p>参考</p>
-<p>https://www.cnblogs.com/steven_oyj/archive/2010/05/22/1741374.html</p>
 ]]></content>
     </entry>
 </feed>

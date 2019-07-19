@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>C++ lambda | ji</title>
+<meta name="description" content="学习用">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://txSangyj.github.io//favicon.ico?v=1563517586174">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://txSangyj.github.io//styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119333147-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119333147-1');
+</script>
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://txSangyj.github.io/">
+        <img class="avatar" src="https://txSangyj.github.io//images/avatar.png?v=1563517586174" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://txSangyj.github.io/">
+        <h1 class="site-title">ji</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">C++ lambda</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2019-07-18</span>
+            
+          </div>
+          <div class="post-content">
+            <p>C++中lambda的介绍和简单使用。</p>
+<!-- more -->
+<h3 id="构成">构成</h3>
+<p>C++11下lambda表达式完全体的构成：<br>
+[ captures ]  ( params ) specifiers exception attr -&gt; ret { body }</p>
+<p>其中params和ret可以省略，省略返回值类型相当于返回auto类型，省略（params）相当于lambda函数不接受参数输入，对应以下几种变体：</p>
+<ul>
+<li>[ captures ] ( params ) -&gt; ret { body }</li>
+<li>[ captures ] ( params ) { body }</li>
+<li>[ captures ] { body }</li>
+</ul>
+<h3 id="captures">captures</h3>
+<p>支持值捕获、引用捕获和隐式捕获。<br>
+<strong>值捕获和引用捕获</strong><br>
+在变量前使用前缀=来表示值捕获，&amp;表示引用捕获。变量在captures列表只能出现一次，当变量被一种方式隐式捕获时，显示捕获只能将其声明为另一种捕获方式。<br>
+【1】中的例子：</p>
+<pre><code class="language-c++">// 默认引用捕获
+struct S2 { void f(int i); };
+void S2::f(int i)
+{
+    [&amp;]{};          // OK: by-reference capture default
+    [&amp;, i]{};       // OK: by-reference capture, except i is captured by copy
+    [&amp;, &amp;i] {};     // Error: by-reference capture when by-reference is the default
+    [&amp;, this] {};   // OK, equivalent to [&amp;]
+    [&amp;, this, i]{}; // OK, equivalent to [&amp;, i]
+}
+</code></pre>
+<pre><code class="language-c++">// 默认值捕获
+struct S2 { void f(int i); };
+void S2::f(int i)
+{
+    [=]{};          // OK: by-copy capture default
+    [=, &amp;i]{};      // OK: by-copy capture, except i is captured by reference
+    [=, *this]{};   // until C++17: Error: invalid syntax
+                    // since c++17: OK: captures the enclosing S2 by copy
+    [=, this] {};   // until C++20: Error: this when = is the default
+                    // since C++20: OK, same as [=]
+}
+</code></pre>
+<p><strong>隐式捕获</strong><br>
+上面的例子中可以看到，当捕获列表的首项为=及&amp;时会按相应的捕获方式捕获所用的变量和this下的成员变量。另外lambda表达式可以不捕获而使用或读取一些变量，比如全局变量、静态局部变量等，具体类型可以查看参考[1]。</p>
+<pre><code class="language-c++">
+#include &lt;iostream&gt;
+using namespace std;
+
+int i = 10;
+int main()
+{
+    static int j = 1;
+    auto f = []() {cout &lt;&lt;&quot;i:&quot;&lt;&lt; i &lt;&lt;&quot;\tj:&quot;&lt;&lt; j; };
+    f();
+}
+// out:
+// i:10	j:1
+</code></pre>
+<h3 id="params">params</h3>
+<p>和函数参数差不多，在C++14后不支持指定参数默认值且支持用auto声明参数。<br>
+<strong>参数名与变量名相同会隐藏所捕获的变量。</strong></p>
+<h3 id="ret">ret</h3>
+<p>返回值类型，可省略。省略后要注意不同分支下返回值类型要保持一致。</p>
+<h3 id="body">body</h3>
+<p>函数体。当变量为值捕获时，要在lambda表达式的parameter list（不可省略） 和 return type（省略或&quot;-&gt;ret&quot;形式）之间指定说明符为mutable才能修改变量的值，但仍是值引用。</p>
+<pre><code class="language-c++">
+int i = 0;
+auto f = [i]() mutable {return ++i; };
+cout &lt;&lt; &quot;i:&quot; &lt;&lt; i &lt;&lt; &quot;\tf():&quot; &lt;&lt; f();
+
+// out:
+// i:0     f():1
+</code></pre>
+<h3 id="例子">例子</h3>
+<p>在一些需要输入函数的时候就可以用lambda生成匿名函数传入，比如std中的sort、for_each等函数。</p>
+<pre><code class="language-c++">int main()
+{
+    using namespace std;
+    vector&lt;int&gt; nums = { 1,2,3,4,5,6,7 };
+
+    // 使用lambda和for_each定义一个函数用于输出vector
+    auto print_vec = [](const vector&lt;int&gt; vec) {
+        for_each(vec.begin(), vec.end(), [](int i) {cout &lt;&lt; i &lt;&lt; '\t'; });
+    };
+    print_vec(nums);
+    cout &lt;&lt; endl;
+
+    // 引用方式修改值
+    for_each(nums.begin(), nums.end(), [](int&amp; i) { i -= 4; });
+    print_vec(nums);
+    cout &lt;&lt; endl;
+
+    // sort自定义排序
+    sort(nums.begin(), nums.end(), [](int a, int b) -&gt; bool { return abs(a) &lt; abs(b); }); 
+    print_vec(nums);
+    cout &lt;&lt; endl;
+}
+// out:
+// 1       2       3       4       5       6       7
+// -3      -2      -1      0       1       2       3
+// 0       -1      1       -2      2       -3      3
+</code></pre>
+<hr>
+<h3 id="参考">参考</h3>
+<p>[1]<a href="https://zh.cppreference.com/w/cpp/language/lambda">cppreference-lambda</a></p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://txSangyj.github.io//post/hexo-zhuan-dao-gridea">
+              <h3 class="post-title">
+                下一篇：Hexo 转到 Gridea
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      <div class="site-footer">
+  <div class="slogan">学习用</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://txSangyj.github.io//atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: 'e34e534eed4c2e648a08',
+        clientSecret: 'f8134536308fd4eae908eaf80934d839b47cfd09',
+        repo: 'txSangyj.github.io',
+        owner: 'txSangyj',
+        admin: ['txSangyj'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>
