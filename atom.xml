@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://txSangyj.github.io/</id>
     <title>ji</title>
-    <updated>2019-07-19T06:26:46.115Z</updated>
+    <updated>2019-07-31T02:19:49.193Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://txSangyj.github.io/"/>
     <link rel="self" href="https://txSangyj.github.io//atom.xml"/>
@@ -10,6 +10,54 @@
     <logo>https://txSangyj.github.io//images/avatar.png</logo>
     <icon>https://txSangyj.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, ji</rights>
+    <entry>
+        <title type="html"><![CDATA[Universal Pooling]]></title>
+        <id>https://txSangyj.github.io//post/universal-pooling</id>
+        <link href="https://txSangyj.github.io//post/universal-pooling">
+        </link>
+        <updated>2019-07-30T01:57:38.000Z</updated>
+        <summary type="html"><![CDATA[<p>逛Paperweekly看到的一篇论文，只用过池化还没看过相关论文。看完也没有太惊艳的感觉，可能池化操作还是不被看好吧。InceptionV4中的Reduction Block也是Maxpooling和卷积层同时使用，GAN为了不丢失信息也是卷积层替代，除了Global average pooling (GAP)这种替代全连接层的操作。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>逛Paperweekly看到的一篇论文，只用过池化还没看过相关论文。看完也没有太惊艳的感觉，可能池化操作还是不被看好吧。InceptionV4中的Reduction Block也是Maxpooling和卷积层同时使用，GAN为了不丢失信息也是卷积层替代，除了Global average pooling (GAP)这种替代全连接层的操作。</p>
+<!-- more -->
+<h1 id="池化">池化</h1>
+<p>简单的卷积神经网络一般包括卷积层、池化层以及全连接层。池化在其中是一种降采样的过程，主要分为平均池化和最大池化。</p>
+<h2 id="常用池化">常用池化</h2>
+<p>常见的就是Maxpooling和Meanpooling，容易理解，直接上图。<br>
+Maxpooling:<br>
+<img src="https://i.loli.net/2019/07/31/5d40f8c5cf32a37790.png" alt="Maxpooling"><br>
+Meanpooling/Averagepooling:<br>
+<img src="https://i.loli.net/2019/07/31/5d40f91906e0b64625.png" alt="Meanpooling"></p>
+<h2 id="池化作用">池化作用</h2>
+<ul>
+<li>降采样，降低参数量和计算量。</li>
+<li>增大后续层单元的感受野。</li>
+<li>降低微弱噪声和畸变的影响</li>
+</ul>
+<h1 id="universal-pooling">Universal Pooling</h1>
+<p>提出的通用池化层可以生成任意类型的池化，核心类似注意力机制。<br>
+<strong>核心</strong>：Universal pooling can be considered as a channel-wise local spatial attention module.</p>
+<blockquote>
+<p>The basic idea of universal pooling is to interpret pooling as attention and extend it to the general channelwise local spatial attention. That is, the  universal pooling selects pooling weights for each channel and they are <strong>trained</strong> together with other feature extraction parts.</p>
+</blockquote>
+<p>定义的池化操作的限制：</p>
+<ol>
+<li>channel-wise:每个channel分开来训练权重参数 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>π</mi></mrow><annotation encoding="application/x-tex">\pi</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">π</span></span></span></span>。</li>
+<li>仅池化给定块</li>
+<li>池化不能改变特征的尺度（块内权重之和为1）<br>
+<img src="https://i.loli.net/2019/07/30/5d3fda16bc1f829435.jpg" alt="结构"><br>
+结构上Block1.1是一个内部神经网络，还是可以使用卷积层、全连接层、批归一化层等进行构建，神经网络的输入是单个特征图，输出为临时特征图，尺寸和输入相同，经过block1.2进行块内（形状由步长决定）的softmax转化为各分块的内部权重<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>π</mi></mrow><annotation encoding="application/x-tex">\pi</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">π</span></span></span></span>，然后Pooling map和Feature map作点积、块内求和等操作得到池化后的输出。</li>
+</ol>
+<h1 id="存在的问题">存在的问题</h1>
+<ol>
+<li>池化操作使用较少，特征图的尺度变换基本上由卷积层的stride和padding控制。</li>
+<li>增加了参数量和计算量，附加了一个内部的神经网络，带来了额外的结构设计问题。</li>
+<li>学习MaxPooling这种高度非线性化的函数可能存在困难。</li>
+</ol>
+<hr>
+<p><a href="https://arxiv.org/abs/1907.11440">论文地址</a></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[C++ lambda]]></title>
         <id>https://txSangyj.github.io//post/c-lambda</id>
@@ -861,113 +909,6 @@ if __name__ =='__main__':
 <p>参考：<br>
 http://funhacks.net/2016/12/20/click/<br>
 https://isudox.com/2016/09/03/learning-python-package-click/</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Evolution Strategy]]></title>
-        <id>https://txSangyj.github.io//post/Evolution-Strategy</id>
-        <link href="https://txSangyj.github.io//post/Evolution-Strategy">
-        </link>
-        <updated>2018-07-24T07:12:23.000Z</updated>
-        <summary type="html"><![CDATA[<h2 id="介绍">介绍</h2>
-<p>前面学习了遗传算法，最近又看到在强化学习中的应用：<a href="">进化算法玩Atari</a>，今天看一下可以用在神经网络中的进化策略（Evolution Strategy,ES）。</p>
-]]></summary>
-        <content type="html"><![CDATA[<h2 id="介绍">介绍</h2>
-<p>前面学习了遗传算法，最近又看到在强化学习中的应用：<a href="">进化算法玩Atari</a>，今天看一下可以用在神经网络中的进化策略（Evolution Strategy,ES）。</p>
-<!-- more -->
-<p>ES和GA的思想类似，模仿生物进化原理，也存在了十几年，但具体算法实现有所差别。</p>
-<p><strong>思想</strong><br>
-进化策略是一种模仿生物进化的一种求解参数优化问题的方法，它使用<strong>实数值</strong>作为基因，并且假设基因总是服从<strong>零均值、某一方差的高斯分布</strong>的变化产生新的个体，然后保留较好的个体。<br>
-<code>ES可以对实数参数进行优化，给现在的神经网络的训练带来另一个工具。</code><br>
-<strong>和GA的不同</strong></p>
-<ol>
-<li>ES先产生子代，后评估选取子代；GA先评估选取父母，后产生子代；</li>
-<li>ES参数为实数；GA通常为二进制；</li>
-<li>ES通过正态分布变异；GA通过二进制取反变异。</li>
-<li>ES应用于数值优化；GA应用于参数优化。</li>
-<li>ES选择方式确定；GA使用概率进行选择。</li>
-</ol>
-<h2 id="算法">算法</h2>
-<blockquote>
-<p>确定优化函数<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">f(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span>、算法参数<br>
-初始化种群<br>
-循环：</p>
-<blockquote>
-<p>进化（交叉变异）<br>
-评估排序，选择前p个产生下一种群<br>
-直到收敛</p>
-</blockquote>
-</blockquote>
-<p>论文[3]给出的ES算法流程：<br>
-<img src="https://i.loli.net/2019/07/16/5d2de02a81e3837557.png" alt="流程"></p>
-<h3 id="关键步骤">关键步骤</h3>
-<p><strong>初始化</strong>：确定可能存在的参数边界；产生初代种群（通常是服从均匀分布的）；确定变异程度。<br>
-<strong>交叉</strong>：存在离散重组、中值重组、混杂重组三种方式。离散类似与GA的交换参数；中值即取选定父代的参数均值；混杂为选定一个父代，逐参数地随机选定另一个父代进行组合。<br>
-<strong>变异</strong>：在分量上加一个零均值、某一方差的高斯变量。<br>
-<strong>变异</strong>：和GA固定的变异程度不同，ES的变异程序有从大到小的过程。<br>
-<strong>选择</strong>：ES有父代和子代比较的过程，根据选择方式不同，ES可以分为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>μ</mi><mo>+</mo><mi>λ</mi><mo>)</mo><mo>−</mo><mi>E</mi><mi>S</mi></mrow><annotation encoding="application/x-tex">(\mu+\lambda)-ES</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">μ</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">λ</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>μ</mi><mi mathvariant="normal">，</mi><mi>λ</mi><mo>)</mo><mo>−</mo><mi>E</mi><mi>S</mi></mrow><annotation encoding="application/x-tex">(\mu，\lambda)-ES</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">μ</span><span class="mord cjk_fallback">，</span><span class="mord mathdefault">λ</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span>。主要使用后者，即初始有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">μ</span></span></span></span>个个体，每次迭代产生<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>λ</mi></mrow><annotation encoding="application/x-tex">\lambda</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">λ</span></span></span></span>个个体，然后选择<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">μ</span></span></span></span>个作为下一代。</p>
-<h2 id="例子">例子</h2>
-<p><s>这里试着直接使用ES优化一个两层的网络解决异或问题。</s><br>
-上面的例子实验失败了，基本的ES对于局部最优的情况还需要进一步处理。例子还是经典的袋鼠跳函数：f(x)=xsin(10πx)+2。代码如下：</p>
-<pre><code class="language-python">import numpy as np
-_mu = 10
-_lambda = 10
-_epochs = 20
-DNA_SIZE = 1
-DATA_BOUND = [-1,2]
-p = np.random.rand(_mu,2,DNA_SIZE)
-p = p.clip(*DATA_BOUND)
-history = []
-
-def F(x):
-    return x[:,0,:]*np.sin(10*np.pi*x[:,0,:])+2.0
-    
-    
-def generate(p):
-    
-    kids = np.zeros((_lambda,2,DNA_SIZE))
-    for i in range(_lambda):
-        p1_index,p2_index = np.random.choice(range(_mu),2)
-        p1 = p[p1_index,::]
-        p2 = p[p2_index,::]
-        #类似GA的离散交叉
-        cp = np.random.randint(0,2,(2,DNA_SIZE),dtype=np.bool)
-        kids[i,cp] = p1[cp]
-        kids[i,~cp] = p2[~cp]
-        #变异
-        kids[i,1,:] = np.maximum(kids[i,1,:] + (np.random.rand(*kids[i,1,:].shape)-0.5), 0.)
-        kids[i,0,:] += kids[i,1,:] * np.random.randn(*kids[i,0,:].shape)
-        kids = kids.clip(*DATA_BOUND)
-    p_kids = np.concatenate((kids,p))
-    
-    return p_kids
-    
-def select(p,mu):
-    
-    f = F(p)
-    index = f.argsort(axis=0).flatten()
-    index = index[::-1]
-    p = p[index]
-    
-    return p[:mu,::]
-#主循环
-for i in range(_epochs):
-    p_kids = generate(p)
-    p = select(p_kids,_mu)
-    history.append(F(p)[0])
-    print(&quot;epoch{0}: max f(x) value:{1} \r&quot;.format(i,history[i]),end='')
-a = np.linspace(-1,2,num=300)
-print(np.max(a*np.sin(10*np.pi*a)+2.0))
-</code></pre>
-<p>然后ES得到的最大值为3.8501，直接计算得到3.8492，还是比较接近的。</p>
-<h2 id="应用">应用</h2>
-<p>最近ES的应用就是在强化学习方面，openAI做了很多相关的工作；另外还提到了一种CMA-ES（Covariance-Matrix Adaptation Evolution Strategy）的方法，将协方差矩阵的信息使用在优化过程中，可以达到更快的收敛速度，在<a href="http://blog.otoro.net/2017/10/29/visual-evolution-strategies/">这里</a>有介绍和图片演示，另外也有传统ES和GA的比较和演示。</p>
-<hr>
-<p>参考<br>
-<a href="https://www.jiqizhixin.com/articles/2018-07-23-4">进化算法玩Atari</a> &quot;进化算法玩Atari&quot;<br>
-[1] https://blog.csdn.net/u014248127/article/details/79143437<br>
-[2] https://www.jiqizhixin.com/articles/2017-03-26-3<br>
-[3] https://arxiv.org/pdf/1703.03864v2.pdf</p>
 ]]></content>
     </entry>
 </feed>
