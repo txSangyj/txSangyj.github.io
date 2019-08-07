@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://txSangyj.github.io//favicon.ico?v=1564539540382">
+<link rel="shortcut icon" href="https://txSangyj.github.io//favicon.ico?v=1565148106482">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://txSangyj.github.io//styles/main.css">
 
@@ -45,7 +45,7 @@
   <div class="site-header">
     <div class="left">
       <a href="https://txSangyj.github.io/">
-        <img class="avatar" src="https://txSangyj.github.io//images/avatar.png?v=1564539540382" alt="" width="32px" height="32px">
+        <img class="avatar" src="https://txSangyj.github.io//images/avatar.png?v=1565148106482" alt="" width="32px" height="32px">
       </a>
       <a href="https://txSangyj.github.io/">
         <h1 class="site-title">ji</h1>
@@ -105,14 +105,32 @@
             
           </div>
           <div class="post-content">
-            <!-- more -->
-<h2 id="进程和线程">进程和线程</h2>
-<p>进程和线程区别也是常问的问题，这也记一下。</p>
-<h3 id="进程">进程</h3>
+            <p><ul class="markdownIt-TOC">
+<li><a href="#%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B">进程和线程</a>
+<ul>
+<li><a href="#%E8%BF%9B%E7%A8%8B">进程</a></li>
+<li><a href="#%E7%BA%BF%E7%A8%8B">线程</a></li>
+<li><a href="#%E5%8C%BA%E5%88%AB">区别</a></li>
+</ul>
+</li>
+<li><a href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B">多线程</a>
+<ul>
+<li><a href="#gil">GIL</a></li>
+<li><a href="#threading">threading</a></li>
+</ul>
+</li>
+<li><a href="#%E5%A4%9A%E8%BF%9B%E7%A8%8B">多进程</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+<br>
+进程和线程区别也是常问的问题，这也记一下。</p>
+<!-- more -->
+<h1 id="进程和线程">进程和线程</h1>
+<h2 id="进程">进程</h2>
 <p>可执行的程序加载到内存中，系统为它分配资源后运行中的程序称之为进程。进程是程序关于某数据集合的一次运行活动，是操作系统进行资源分配（地址空间、内存、数据栈）和调度的基本单位。</p>
-<h3 id="线程">线程</h3>
+<h2 id="线程">线程</h2>
 <p>线程被包含在进程中，是进程中的实际运作单位，是操作系统进行调度的最小单位。线程是属于进程的，同一进程下的线程共享相同的运行环境。</p>
-<h3 id="区别">区别</h3>
+<h2 id="区别">区别</h2>
 <ol>
 <li>
 <p>进程是资源分配的单位；线程是CPU调度的单位。</p>
@@ -133,11 +151,11 @@
 </blockquote>
 </li>
 </ol>
-<h2 id="多线程">多线程</h2>
-<h3 id="gil">GIL</h3>
+<h1 id="多线程">多线程</h1>
+<h2 id="gil">GIL</h2>
 <p>Python代码执行由Python虚拟机控制，而对Python虚拟机的访问由全局解释器锁GIL控制，它保证即使在多核心处理器上同一时刻也只有一个线程在运行。多线程环境下虚拟机的运行方式是（获得锁-切换到一个线程运行-间隔检查/sleep-睡眠-解锁）的循环。</p>
 <p>线程在处理I/O调用的时候会释放GIL，而CPU密集型的线程会在自己的时间片内一直占用处理器。所以CPU密集型的任务不推荐使用多线程。</p>
-<h3 id="threading">threading</h3>
+<h2 id="threading">threading</h2>
 <p>threading的Thread类提供两种方式创建线程：1、传递一个可调用对象；2、派生一个子类，重写run方法。</p>
 <pre><code class="language-python">import threading
 from time import sleep,ctime
@@ -186,7 +204,7 @@ if __name__ == '__main__':
 <li>print函数不是线程安全的，可以用sys.stdout.write方法替换。</li>
 <li>这段没有线程通信，参考里有讲的很详细的文章。</li>
 </ul>
-<h2 id="多进程">多进程</h2>
+<h1 id="多进程">多进程</h1>
 <p>Python多进程使用的是multiprocessing包，在接口定义上与threading大致相同。</p>
 <pre><code>import multiprocessing as mp   
 import sys
@@ -226,7 +244,7 @@ if __name__ == '__main__':
 <p><img src="https://i.loli.net/2019/07/16/5d2de1bc235d083052.png" alt="能被序列化的对象"></p>
 <p>再引一张进程池工作方式的图，感觉很有用，来自[4]。</p>
 <p><img src="https://i.loli.net/2019/07/16/5d2de1e40b90751549.png" alt="进程池工作方式"></p>
-<h2 id="参考">参考</h2>
+<h1 id="参考">参考</h1>
 <p>[1] 了解GIL看这里http://cenalulu.github.io/python/gil-in-python/</p>
 <p>[2] 多线程这篇内容更全面http://codingpy.com/article/python-201-a-tutorial-on-threads/</p>
 <p>[3] 多进程pickle问题解决看这里https://strcpy.me/index.php/archives/318/</p>

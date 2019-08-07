@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://txSangyj.github.io//favicon.ico?v=1564539540382">
+<link rel="shortcut icon" href="https://txSangyj.github.io//favicon.ico?v=1565148106482">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://txSangyj.github.io//styles/main.css">
 
@@ -45,7 +45,7 @@
   <div class="site-header">
     <div class="left">
       <a href="https://txSangyj.github.io/">
-        <img class="avatar" src="https://txSangyj.github.io//images/avatar.png?v=1564539540382" alt="" width="32px" height="32px">
+        <img class="avatar" src="https://txSangyj.github.io//images/avatar.png?v=1565148106482" alt="" width="32px" height="32px">
       </a>
       <a href="https://txSangyj.github.io/">
         <h1 class="site-title">ji</h1>
@@ -95,7 +95,19 @@
             
           </div>
           <div class="post-content">
-            <p>逛Paperweekly看到的一篇论文，只用过池化还没看过相关论文。看完也没有太惊艳的感觉，可能池化操作还是不被看好吧。InceptionV4中的Reduction Block也是Maxpooling和卷积层同时使用，GAN为了不丢失信息也是卷积层替代，除了Global average pooling (GAP)这种替代全连接层的操作。</p>
+            <p><ul class="markdownIt-TOC">
+<li><a href="#%E6%B1%A0%E5%8C%96">池化</a>
+<ul>
+<li><a href="#%E5%B8%B8%E7%94%A8%E6%B1%A0%E5%8C%96">常用池化</a></li>
+<li><a href="#%E6%B1%A0%E5%8C%96%E4%BD%9C%E7%94%A8">池化作用</a></li>
+</ul>
+</li>
+<li><a href="#universal-pooling">Universal Pooling</a></li>
+<li><a href="#%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98">存在的问题</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+<br>
+逛Paperweekly看到的一篇论文，只用过池化还没看过相关论文。看完也没有太惊艳的感觉，可能池化操作还是不被看好吧。InceptionV4中的Reduction Block也是Maxpooling和卷积层同时使用，GAN为了不丢失信息也是卷积层替代，除了Global average pooling (GAP)这种替代全连接层的操作。</p>
 <!-- more -->
 <h1 id="池化">池化</h1>
 <p>简单的卷积神经网络一般包括卷积层、池化层以及全连接层。池化在其中是一种降采样的过程，主要分为平均池化和最大池化。</p>
@@ -132,6 +144,7 @@ Meanpooling/Averagepooling:<br>
 <li>学习MaxPooling这种高度非线性化的函数可能存在困难。</li>
 </ol>
 <hr>
+<h1 id="参考">参考</h1>
 <p><a href="https://arxiv.org/abs/1907.11440">论文地址</a></p>
 
           </div>

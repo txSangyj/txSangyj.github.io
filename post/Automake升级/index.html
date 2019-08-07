@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://txSangyj.github.io//favicon.ico?v=1564539540382">
+<link rel="shortcut icon" href="https://txSangyj.github.io//favicon.ico?v=1565148106482">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://txSangyj.github.io//styles/main.css">
 
@@ -45,7 +45,7 @@
   <div class="site-header">
     <div class="left">
       <a href="https://txSangyj.github.io/">
-        <img class="avatar" src="https://txSangyj.github.io//images/avatar.png?v=1564539540382" alt="" width="32px" height="32px">
+        <img class="avatar" src="https://txSangyj.github.io//images/avatar.png?v=1565148106482" alt="" width="32px" height="32px">
       </a>
       <a href="https://txSangyj.github.io/">
         <h1 class="site-title">ji</h1>
@@ -105,7 +105,12 @@
             
           </div>
           <div class="post-content">
-            <p>在安装njit-client的过程中，使用autoreconf生成配置文件的时候，显示支持的automake版本为1.15.1以上，而自带的只有1.13，yum源中也找不到新版的automake，只有从源码编译安装。</p>
+            <p><ul class="markdownIt-TOC">
+<li><a href="#%E9%97%AE%E9%A2%981-newly-created-file-is-older-than-distributed-files">问题1 newly created file is older than distributed files!</a></li>
+<li><a href="#%E9%97%AE%E9%A2%982-make%E6%AD%BB%E5%BE%AA%E7%8E%AF">问题2 make死循环</a></li>
+</ul>
+<br>
+在安装njit-client的过程中，使用autoreconf生成配置文件的时候，显示支持的automake版本为1.15.1以上，而自带的只有1.13，yum源中也找不到新版的automake，只有从源码编译安装。</p>
 <!-- more -->
 <p>先上基本步骤</p>
 <pre><code class="language-bash">rpm -e --nodeps automake
@@ -115,7 +120,7 @@ cd automake-1.15.1
 ./configure --prefix=/usr
 make &amp;&amp; make install
 </code></pre>
-<h4 id="问题1-newly-created-file-is-older-than-distributed-files">问题1 newly created file is older than distributed files!</h4>
+<h1 id="问题1-newly-created-file-is-older-than-distributed-files">问题1 newly created file is older than distributed files!</h1>
 <p>详细信息</p>
 <pre><code class="language-bash">#./configure --prefix=/usr/
 checking for a BSD-compatible install... /usr/bin/install -c
@@ -123,7 +128,7 @@ checking whether build environment is sane... configure: error: newly created fi
 Check your system clock
 </code></pre>
 <p>使用hwclock和date看一下时间没发现问题，使用<code>ntpdate ntp1.aliyun.com</code>设置了ntp服务器重新配置也没解决。参考<a href="http://blog.51cto.com/jamai/1727160">这里</a>，用<code>touch *</code>直接刷新一下文件的编辑时间，第一次检查能通过挂在第二次，又对所有源文件执行touch后问题解决，要注意的是每个文件夹都会进行同样的检查。</p>
-<h4 id="问题2-make死循环">问题2 make死循环</h4>
+<h1 id="问题2-make死循环">问题2 make死循环</h1>
 <p>问题就是执行make之后不停的重复编译，由于在其他电脑编译成功过，确定不是<a href="https://blog.csdn.net/mantis_1984/article/details/72598848">这里</a>提出的依赖关系造成循环。make需要了解计算机时间和它检查的文件的时间。它比较这两个时间，并根据结果确定某个目标是否标记过。还是时间问题，之前使用了两次touch，时间差造成了问题，使用<code>find . | xargs touch</code>刷新目录下所有文件的时间，问题解决。</p>
 
           </div>

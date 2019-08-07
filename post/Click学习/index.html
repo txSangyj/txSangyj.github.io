@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://txSangyj.github.io//favicon.ico?v=1564539540382">
+<link rel="shortcut icon" href="https://txSangyj.github.io//favicon.ico?v=1565148106482">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://txSangyj.github.io//styles/main.css">
 
@@ -45,7 +45,7 @@
   <div class="site-header">
     <div class="left">
       <a href="https://txSangyj.github.io/">
-        <img class="avatar" src="https://txSangyj.github.io//images/avatar.png?v=1564539540382" alt="" width="32px" height="32px">
+        <img class="avatar" src="https://txSangyj.github.io//images/avatar.png?v=1565148106482" alt="" width="32px" height="32px">
       </a>
       <a href="https://txSangyj.github.io/">
         <h1 class="site-title">ji</h1>
@@ -105,9 +105,19 @@
             
           </div>
           <div class="post-content">
-            <p>最近看的一个开源项目用到了Click包来代替argparse实现命令行传参，简单学习一下Click。Click是一个用于快速创建命令行界面的python包，使用装饰器来把函数方法装饰为命令行接口。</p>
+            <p><ul class="markdownIt-TOC">
+<li><a href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95">基本用法</a></li>
+<li><a href="#%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD">常用功能</a>
+<ul>
+<li><a href="#clickoption">click.option</a></li>
+<li><a href="#clickgroup">click.group</a></li>
+</ul>
+</li>
+</ul>
+<br>
+最近看的一个开源项目用到了Click包来代替argparse实现命令行传参，简单学习一下Click。Click是一个用于快速创建命令行界面的python包，使用装饰器来把函数方法装饰为命令行接口。</p>
 <!-- more -->
-<h2 id="基本用法">基本用法</h2>
+<h1 id="基本用法">基本用法</h1>
 <p><a href="http://click.pocoo.org">官方</a>给的hello.py例子。</p>
 <pre><code class="language-python">import click
 
@@ -134,8 +144,8 @@ Options:
   	--name TEXT      The person to greet.
   	--help           Show this message and exit.
 </code></pre>
-<h2 id="常用功能">常用功能</h2>
-<h3 id="clickoption">click.option</h3>
+<h1 id="常用功能">常用功能</h1>
+<h2 id="clickoption">click.option</h2>
 <p>option从命令行读取参数值然后传递给函数，常用的设置参数有：</p>
 <ul>
 <li>default</li>
@@ -154,7 +164,7 @@ Options:
 <li>option的值可以从环境变量中提取</li>
 <li>option在帮助页面中完整记录</li>
 </ul>
-<h3 id="clickgroup">click.group</h3>
+<h2 id="clickgroup">click.group</h2>
 <p>装饰器command可以把函数变为命令行接口，而group装饰器可以用来连接不用的命令，下面是一个使用了两种方式将命令行添加到命令组中的例子。</p>
 <pre><code class="language-python">$group.py
 @click.group()

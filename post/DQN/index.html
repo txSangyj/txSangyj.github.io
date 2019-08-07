@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://txSangyj.github.io//favicon.ico?v=1564539540382">
+<link rel="shortcut icon" href="https://txSangyj.github.io//favicon.ico?v=1565148106482">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://txSangyj.github.io//styles/main.css">
 
@@ -45,7 +45,7 @@
   <div class="site-header">
     <div class="left">
       <a href="https://txSangyj.github.io/">
-        <img class="avatar" src="https://txSangyj.github.io//images/avatar.png?v=1564539540382" alt="" width="32px" height="32px">
+        <img class="avatar" src="https://txSangyj.github.io//images/avatar.png?v=1565148106482" alt="" width="32px" height="32px">
       </a>
       <a href="https://txSangyj.github.io/">
         <h1 class="site-title">ji</h1>
@@ -105,7 +105,25 @@
             
           </div>
           <div class="post-content">
-            <p>DQN是Deep Learning和Q Learning结合起来的算法，可以解决动作空间和状态空间是<strong>连续</strong>的问题，而且使用神经网络可以自动提取特征</p>
+            <p><ul class="markdownIt-TOC">
+<li><a href="#dqn%E7%9A%84%E8%A6%81%E7%82%B9">DQN的要点</a>
+<ul>
+<li><a href="#%E7%BB%8F%E9%AA%8C%E5%9B%9E%E6%94%BE">经验回放</a></li>
+<li><a href="#%E5%86%BB%E7%BB%93%E7%9B%AE%E6%A0%87%E7%BD%91%E7%BB%9C">冻结目标网络</a></li>
+<li><a href="#%E7%AE%97%E6%B3%95">算法</a></li>
+</ul>
+</li>
+<li><a href="#dqn%E7%9A%84%E4%B8%89%E5%A4%A7%E6%94%B9%E8%BF%9B">DQN的三大改进</a>
+<ul>
+<li><a href="#double-q-network">Double Q-Network</a></li>
+<li><a href="#prioritized-replay">Prioritized replay</a></li>
+<li><a href="#dueling-network">Dueling Network</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+<br>
+DQN是Deep Learning和Q Learning结合起来的算法，可以解决动作空间和状态空间是<strong>连续</strong>的问题，而且使用神经网络可以自动提取特征</p>
 <p>DQN的基础是用一个深度神经网络来作为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Q</mi><mo>(</mo><mi>s</mi><mo separator="true">,</mo><mi>a</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">Q(s,a)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">Q</span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">a</span><span class="mclose">)</span></span></span></span>值(即QTable)的代替，无论是基于概率还是基于价值的迭代，近似得到的是一个可以基于当前s,a来预估得到的r的函数，而通过神经网络可以拟合得到这个函数</p>
 <!-- more -->
 <hr>
@@ -158,6 +176,7 @@ V代表当前state的值，A代表每个动作在这个state上的advantage</p>
 <p class='katex-block katex-error' title='ParseError: KaTeX parse error: Got function &#039;\sum&#039; with no arguments as argument to &#039;\underset&#039; at position 85: …|}\underset{a&#039;}\̲s̲u̲m̲ ̲A(s,a&#039;;\theta,\…'>\underset{a&#039;\in actionspace}{max}A(s,a&#039;;\theta,\alpha))\to\frac{1}{|A|}\underset{a&#039;}\sum A(s,a&#039;;\theta,\alpha)
 </p>
 <hr>
+<h1 id="参考">参考</h1>
 <p><a href="https://arxiv.org/pdf/1509.06461v3.pdf">Double Q-learning 原文</a><br>
 <a href="https://morvanzhou.github.io/tutorials/machine-learning/reinforcement-learning/4-5-double_DQN/">周莫烦</a><br>
 https://blog.csdn.net/songrotek/article/details/50580904<br>
