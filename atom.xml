@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://txSangyj.github.io/</id>
     <title>ji</title>
-    <updated>2019-08-07T03:22:00.124Z</updated>
+    <updated>2019-08-07T06:33:39.615Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://txSangyj.github.io/"/>
     <link rel="self" href="https://txSangyj.github.io//atom.xml"/>
@@ -10,6 +10,87 @@
     <logo>https://txSangyj.github.io//images/avatar.png</logo>
     <icon>https://txSangyj.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, ji</rights>
+    <entry>
+        <title type="html"><![CDATA[torch/libtorch 多输入]]></title>
+        <id>https://txSangyj.github.io//post/torchlibtorch-duo-shu-ru</id>
+        <link href="https://txSangyj.github.io//post/torchlibtorch-duo-shu-ru">
+        </link>
+        <updated>2019-08-07T02:40:33.000Z</updated>
+        <summary type="html"><![CDATA[<p><br>
+一个小坑，多输入的pytorch模型在导出pt文件供libtorch调用时候，python下模型的forward方法不能使用tuple的形式传入inputs。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#pytorch%E4%B8%8B">pytorch下</a>
+<ul>
+<li><a href="#%E6%95%B0%E6%8D%AE%E8%BE%93%E5%85%A5">数据输入</a></li>
+</ul>
+</li>
+<li><a href="#libtorch%E4%B8%8B">libtorch下</a></li>
+</ul>
+<br>
+一个小坑，多输入的pytorch模型在导出pt文件供libtorch调用时候，python下模型的forward方法不能使用tuple的形式传入inputs。</p>
+<!-- more -->
+<h1 id="pytorch下">pytorch下</h1>
+<p>pytorch下多输入比较方便，修改模型的forward方法就可以。</p>
+<h2 id="数据输入">数据输入</h2>
+<p>在处理图片时经常需要多输入，比如分类时输入额外特征、检测时输入定界框，而pytorch已经实现了基本的Dataset类，实现多输入使用的就是派生一个自定义的Dataset然后实现数据读取以及__getitem__、__len__方法供Dataloader调用。</p>
+<p>下面是自己用到的代码，自定义还是比较简单。</p>
+<pre><code class="language-python">
+import os
+import numpy as np
+from torch.utils.data import DataLoader,Dataset
+from torchvision.datasets.folder import default_loader
+
+
+class CustomDataset(Dataset):
+    def __init__(self,
+                 img_path,
+                 txt_path,
+                 loader = default_loader,
+                 img_transform=None,
+                 ):
+        with open(txt_path, 'r') as f:
+            lines = f.readlines()
+            self.imgs = [
+                os.path.join(img_path, i.split(',')[0].partition('\\')[2]) for i in lines
+            ]
+            self.label_list = [i.split('\\')[1] for i in lines]
+            self.feature_list = np.array([list(map(float,[i.split(',')[1],i.split(',')[2],
+                                            i.split(',')[3],i.split(',')[4],
+                                            i.split(',')[5],i.split(',')[6]]))
+                                 for i in lines])
+        self.feature_list[:,2:] = self.feature_list[:,2:] / 28
+        self.img_transform = img_transform
+        self.loader = loader
+        self.labels = list(set(self.label_list))
+        self.labels.sort()
+        self.class_to_idx = dict(zip(self.labels ,range(len(self.labels))))
+        self.label_list = [self.class_to_idx[c] for c in self.label_list]
+
+    def __getitem__(self, index):
+        img_path = self.imgs[index]
+        extra_feature = self.feature_list[index]
+        label = self.label_list[index]
+        img = self.loader(img_path)
+        if self.img_transform is not None:
+            img = self.img_transform(img)
+        return img, extra_feature, label
+
+    def __len__(self):
+        return len(self.label_list)
+
+</code></pre>
+<h1 id="libtorch下">libtorch下</h1>
+<p>libtorch下模型的forward方法的输入是一个向量，如果模型的forward方法每个参数对应一个输入的话，在对应位置输入就没问题，但是如果python模型使用了tuple来传inputs，那可能遇到下面几种参数不匹配的错误，在libtorch中调用模型的forward时无法将输入的std::vector&lt;torch::IValue&gt;转换为(Tensor, Tensor)。</p>
+<pre><code>Expected value of type (Tensor, Tensor) for argument 'argument_1' in position 0, but instead got value of type Tensor. Declaration: forward((Tensor, Tensor) argument_1) -&gt; Tensor
+</code></pre>
+<p>或者</p>
+<pre><code>Expected at most 1 argument(s) for operator 'forward', but received 2 argument(s). Declaration: forward((Tensor, Tensor) argument_1) -&gt; Tensor 
+</code></pre>
+<p>另外还有在torch.jit.trace阶段可能碰到的错误，可以多包裹一层tuple解决，例如((sample_input_1, sample_input_2),)。</p>
+<pre><code>TypeError: forward() takes 2 positional arguments but 3 were given</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Universal Pooling]]></title>
         <id>https://txSangyj.github.io//post/universal-pooling</id>
@@ -941,101 +1022,6 @@ print(B.LevelOrder())
 [2, 6, 4, 7, 1, 5, 3]<br>
 [6, 7, 4, 2, 5, 3, 1]<br>
 [1, 2, 3, 4, 5, 6, 7]</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Click学习]]></title>
-        <id>https://txSangyj.github.io//post/Click学习</id>
-        <link href="https://txSangyj.github.io//post/Click学习">
-        </link>
-        <updated>2018-07-29T10:21:27.000Z</updated>
-        <summary type="html"><![CDATA[<p><br>
-最近看的一个开源项目用到了Click包来代替argparse实现命令行传参，简单学习一下Click。Click是一个用于快速创建命令行界面的python包，使用装饰器来把函数方法装饰为命令行接口。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95">基本用法</a></li>
-<li><a href="#%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD">常用功能</a>
-<ul>
-<li><a href="#clickoption">click.option</a></li>
-<li><a href="#clickgroup">click.group</a></li>
-</ul>
-</li>
-</ul>
-<br>
-最近看的一个开源项目用到了Click包来代替argparse实现命令行传参，简单学习一下Click。Click是一个用于快速创建命令行界面的python包，使用装饰器来把函数方法装饰为命令行接口。</p>
-<!-- more -->
-<h1 id="基本用法">基本用法</h1>
-<p><a href="http://click.pocoo.org">官方</a>给的hello.py例子。</p>
-<pre><code class="language-python">import click
-
-@click.command()
-@click.option('--count', default=1, help='Number of greetings.')
-@click.option('--name', prompt='Your name',help='The person to greet.')
-def hello(count, name):
-   	&quot;&quot;&quot;Simple program that greets NAME for a total of COUNT times.&quot;&quot;&quot;
-   	for x in range(count):
-       	click.echo('Hello %s!' % name)
-
-if __name__ == '__main__':
-   	hello()
-</code></pre>
-<p>可以看到click使用@click.command()把hello变成命令行接口，添加了两个count和name两个选项（可以指定默认值、也可以执行时输入），输出使用click.echo。执行的话可以直接<code>python hello.py --count=3</code>，同时click会自动使用指定的help参数和函数字符串生成帮助文档。<br>
-生成的帮助文档：</p>
-<pre><code class="language-bash">$ python hello --help
-Usage: hello.py [OPTIONS]
-
-  	Simple program that greets NAME for a total of COUNT times.
-
-Options:
-  	--count INTEGER  Number of greetings.
-  	--name TEXT      The person to greet.
-  	--help           Show this message and exit.
-</code></pre>
-<h1 id="常用功能">常用功能</h1>
-<h2 id="clickoption">click.option</h2>
-<p>option从命令行读取参数值然后传递给函数，常用的设置参数有：</p>
-<ul>
-<li>default</li>
-<li>help</li>
-<li>type：支持click.Path()、click.Choice(choices)等高级类型；支持tuple指定多个参数的不同类型</li>
-<li>nargs：支持多个参数，转为tuple传给函数</li>
-<li>prompt</li>
-<li>required</li>
-<li>multiple：可以实现<code>git commit -m foo -m bar</code>的效果</li>
-</ul>
-<p>option还支持很多其他的功能，比如密码输入、确认提示、从环境或文件中取得参数值、对某些参数执行回调函数等，其他参数可以参考<a href="http://click.pocoo.org/5/options/">官方的options文档</a>，例子和文档都很完善，就不搬运了。<br>
-命令行传递参数还可以使用**@click.argument()<strong>来实现，和option的用法大致相同，可以接受</strong>任意**数量的参数，下面是和option的一些不同：</p>
-<ul>
-<li>不支持自动提示缺少的输入(prompt)</li>
-<li>不支持作为标志</li>
-<li>option的值可以从环境变量中提取</li>
-<li>option在帮助页面中完整记录</li>
-</ul>
-<h2 id="clickgroup">click.group</h2>
-<p>装饰器command可以把函数变为命令行接口，而group装饰器可以用来连接不用的命令，下面是一个使用了两种方式将命令行添加到命令组中的例子。</p>
-<pre><code class="language-python">$group.py
-@click.group()
-def cli():
-    pass
-
-@cli.command()
-def initdb():
-    click.echo('Initialized the database')
-
-@click.command()
-def dropdb():
-    click.echo('Dropped the database')
-
-cli.add_command(dropdb)
-    
-if __name__ =='__main__':
-    cli()
-</code></pre>
-<p>然后就可以使用<code>python group.py initdb/dropdb</code>来分别调用不同的函数。同样的，click也会分别对组中不同的命令生成帮助文档。</p>
-<hr>
-<p>参考：<br>
-http://funhacks.net/2016/12/20/click/<br>
-https://isudox.com/2016/09/03/learning-python-package-click/</p>
 ]]></content>
     </entry>
 </feed>
