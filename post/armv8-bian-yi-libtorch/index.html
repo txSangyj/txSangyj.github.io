@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>python 关闭信号 | ji</title>
+<title>aarch64下编译libtorch | ji</title>
 <meta name="description" content="学习用">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -89,80 +89,77 @@
       <div class="content-container">
         <div class="post-detail">
           
-          <h2 class="post-title">python 关闭信号</h2>
+          <h2 class="post-title">aarch64下编译libtorch</h2>
           <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2018-07-16</span>
-            
-              <span>
-                <i class="icon-pricetags-outline"></i>
-                
-                  <a href="https://txSangyj.github.io//tag/6TykwWblv">
-                    Linux
-                    
-                      ，
-                    
-                  </a>
-                
-                  <a href="https://txSangyj.github.io//tag/jOPoKNR3Gb">
-                    python
-                    
-                  </a>
-                
-              </span>
+            <span><i class="icon-calendar-outline"></i> 2019-08-15</span>
             
           </div>
           <div class="post-content">
-            <p><ul class="markdownIt-TOC">
-<li><a href="#%E5%8F%82%E8%80%83">参考：</a></li>
-</ul>
-<br>
-最近在jupyter notebook中运行一个回归任务的时候总会出现一个Kernel Restarting的提示，python输出部分也没有报错，很是迷茫。</p>
+            <p>把写的libtorch调用模型的程序移植到了下Ubuntu下发现没有问题，libtorch提供了预编译好的库。放到基于Arm的国产主机上就提示libtorch.so不是动态库文件，需要从源代码编译libtorch。不过没啥难点，踩坑文。</p>
 <!-- more -->
-<p>然后在PyCharm中Debug了一下相关的代码，输出显示python进程在运行时被杀掉了，最后的输出是：<br>
-<code>Process finished with exit code 137 (interrupted by signal 9: SIGKILL)</code></p>
-<p><a href="https://stackoverflow.com/questions/43268156/process-finished-with-exit-code-137-in-pycharm">这里</a>给出的回答是“In most of the cases, it caused because of excessive memory usage.”</p>
-<p>因运行时CPU占用较高，自己不确定原因，使用dmesg查询日志了解一下具体的原因方便修改程序。终端中输入：<br>
-<code>dmesg -T | grep -E -i -B100 'killed process'</code></p>
-<p>得到日志如下：</p>
-<pre><code>[一 7月 16 20:07:50 2018] Out of memory: Kill process 648 (python) score 607 or sacrifice child
-[一 7月 16 20:07:50 2018] Killed process 648 (python) total-vm:9058460kB, anon-rss:6678640kB, file-rss:0kB, shmem-rss:0kB
+<h1 id="获取源码">获取源码</h1>
+<pre><code class="language-bash">
+git clone https://github.com/pytorch/pytorch --recursive &amp;&amp; cd pytorch
+git checkout v1.2.0 # 真的勇士敢于在master分支下编译
+#下载编译需要的子模块
+git submodule sync
+git submodule update --init --recursive
 </code></pre>
-<p>可以看出python被杀掉的原因确实是OOM。</p>
-<p>这里涉及到Linux的信号机制，比如常见的Ctrl-C就是向程序发送SIGINT信号，其中部分信号可以用程序捕获并进行相应的处理，放个表格在这备用。</p>
-<p>| 信号 |  值 | 处理动作 | 发出原因 |<br>
-|-| - | - |<br>
-| SIGHUP | 1 | A | 终端挂起或者控制进程终止 |<br>
-| SIGINT | 2 | A | 键盘中断 |<br>
-| SIGQUIT | 3 | C | 键盘的退出键被按下  |<br>
-| SIGILL | 4 | C | 非法指令  |<br>
-| SIGABRT | 6 | C | 由abort(3)发出的退出指令  |<br>
-| SIGFPE | 8 | C | 浮点异常  |<br>
-|** SIGKILL** | 9 | AEF | **Kill信号  **|<br>
-| SIGSEGV | 11  | C  | 无效的内存引用  |<br>
-| SIGPIPE | 13  | A  | 管道破裂: 写一个没有读端口的管道  |<br>
-| SIGALRM | 14 |  A |  由alarm(2)发出的信号  |<br>
-| SIGTERM | 15 |  A |  终止信号  |<br>
-| SIGUSR1 | 30,10,16 |  A  | 用户自定义信号1  |<br>
-| SIGUSR2 | 31,12,17 |  A  | 用户自定义信号2  |<br>
-| SIGCHLD | 20,17,18  | B  | 子进程结束信号  |<br>
-| SIGCONT | 19,18,25 | 进程继续 |（曾被停止的进程） |<br>
-| SIGSTOP | 17,19,23 | DEF | 终止进程<br>
-| SIGTSTP | 18,20,24 | D | 控制终端（tty）上按下停止键 |<br>
-| SIGTTIN | 21,21,26 | D | 后台进程企图从控制终端读 |<br>
-| SIGTTOU | 22,22,27 | D | 后台进程企图从控制终端写 |</p>
+<h1 id="python环境">python环境</h1>
+<p>pytorch官方给出的环境是用conda装的，然而悲剧的是官方并没有给出aarch64的安装文件，所以还是使用pip来安装。还有个问题是很多python库并没有发布对应架构下的包，好在编译libtorch需要的python环境较为简单。编译完之后导出python环境发现，编译libtorch必须的包应该只有pyyaml（不太确定）。当然cmake和gcc等工具还是必须的。<br>
+安装pyyaml的命令：</p>
+<pre><code>pip install pyyaml
+</code></pre>
+<blockquote>
+<p>不使用tools下的脚本而直接用cmake来编译的话可能python环境都不需要了...</p>
+</blockquote>
+<h1 id="编译libtorch">编译libtorch</h1>
+<p>在编译之前可以使用export或者cmake-gui关闭一些不必要的编译选项来加快编译速度，类似：</p>
+<pre><code>export USE_CUDA=False
+export BUILD_TEST=False
+</code></pre>
+<p>官方提供了一键式编译工具，在pytorch/tools/build_libtorch.py。只需要运行：</p>
+<pre><code class="language-bash">
+#pytorch$
+mkdir build &amp;&amp; cd build
+python ../tools/build_libtorch.py
+</code></pre>
+<p>就会在build下生成对应的文件，我们需要的动态库文件libtorch.so在build/lib/下。</p>
+<h1 id="整理libtorch">整理libtorch</h1>
+<ol>
+<li>复制pytorch下torch、caffe2、c10以及aten\source下的ATen、TH等文件夹到libtorch/include下，得到libtorch的C++接口。</li>
+<li>复制build/lib下编译好的库文件到libtorch/lib下。</li>
+<li>复制pytorch/torch/share/cmake文件夹到libtorch/share下。<br>
+得到的libtorch主要结构：<br>
+libtorch.<br>
+├─include<br>
+│  ├─ATen<br>
+│  ├─c10<br>
+│  ├─caffe2<br>
+│  ├─TH<br>
+│  ├─THCUNN<br>
+│  ├─THNN<br>
+│  └─torch<br>
+├─lib<br>
+└─share<br>
+└─cmake<br>
+├─ATen<br>
+├─Caffe2<br>
+├─Gloo<br>
+└─Torch</li>
+</ol>
 <hr>
-<h1 id="参考">参考：</h1>
-<p><a href="https://www.cnblogs.com/xybaby/p/8098229.html">https://www.cnblogs.com/xybaby/p/8098229.html</a><br>
-<a href="https://stackoverflow.com/questions/43268156/process-finished-with-exit-code-137-in-pycharm">https://stackoverflow.com/questions/43268156/process-finished-with-exit-code-137-in-pycharm</a></p>
+<p>如果你需要pytorch编译可以参考一下<a href="https://nmilosev.svbtle.com/compling-arm-stuff-without-an-arm-board-build-pytorch-for-the-raspberry-pi">这篇</a><br>
+ps：还是对CMakeLists不太熟啊。</p>
 
           </div>
         </div>
 
         
           <div class="next-post">
-            <a class="purple-link" href="https://txSangyj.github.io//post/Genetic-Algorithm">
+            <a class="purple-link" href="https://txSangyj.github.io//post/torchlibtorch-duo-shu-ru">
               <h3 class="post-title">
-                下一篇：Genetic Algorithm
+                下一篇：torch/libtorch 多输入
               </h3>
             </a>
           </div>

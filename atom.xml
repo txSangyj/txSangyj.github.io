@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://txSangyj.github.io/</id>
     <title>ji</title>
-    <updated>2019-08-07T06:33:39.615Z</updated>
+    <updated>2019-08-16T02:49:57.612Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://txSangyj.github.io/"/>
     <link rel="self" href="https://txSangyj.github.io//atom.xml"/>
@@ -10,6 +10,72 @@
     <logo>https://txSangyj.github.io//images/avatar.png</logo>
     <icon>https://txSangyj.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, ji</rights>
+    <entry>
+        <title type="html"><![CDATA[aarch64下编译libtorch]]></title>
+        <id>https://txSangyj.github.io//post/armv8-bian-yi-libtorch</id>
+        <link href="https://txSangyj.github.io//post/armv8-bian-yi-libtorch">
+        </link>
+        <updated>2019-08-15T02:32:27.000Z</updated>
+        <summary type="html"><![CDATA[<p>把写的libtorch调用模型的程序移植到了下Ubuntu下发现没有问题，libtorch提供了预编译好的库。放到基于Arm的国产主机上就提示libtorch.so不是动态库文件，需要从源代码编译libtorch。不过没啥难点，踩坑文。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>把写的libtorch调用模型的程序移植到了下Ubuntu下发现没有问题，libtorch提供了预编译好的库。放到基于Arm的国产主机上就提示libtorch.so不是动态库文件，需要从源代码编译libtorch。不过没啥难点，踩坑文。</p>
+<!-- more -->
+<h1 id="获取源码">获取源码</h1>
+<pre><code class="language-bash">
+git clone https://github.com/pytorch/pytorch --recursive &amp;&amp; cd pytorch
+git checkout v1.2.0 # 真的勇士敢于在master分支下编译
+#下载编译需要的子模块
+git submodule sync
+git submodule update --init --recursive
+</code></pre>
+<h1 id="python环境">python环境</h1>
+<p>pytorch官方给出的环境是用conda装的，然而悲剧的是官方并没有给出aarch64的安装文件，所以还是使用pip来安装。还有个问题是很多python库并没有发布对应架构下的包，好在编译libtorch需要的python环境较为简单。编译完之后导出python环境发现，编译libtorch必须的包应该只有pyyaml（不太确定）。当然cmake和gcc等工具还是必须的。<br>
+安装pyyaml的命令：</p>
+<pre><code>pip install pyyaml
+</code></pre>
+<blockquote>
+<p>不使用tools下的脚本而直接用cmake来编译的话可能python环境都不需要了...</p>
+</blockquote>
+<h1 id="编译libtorch">编译libtorch</h1>
+<p>在编译之前可以使用export或者cmake-gui关闭一些不必要的编译选项来加快编译速度，类似：</p>
+<pre><code>export USE_CUDA=False
+export BUILD_TEST=False
+</code></pre>
+<p>官方提供了一键式编译工具，在pytorch/tools/build_libtorch.py。只需要运行：</p>
+<pre><code class="language-bash">
+#pytorch$
+mkdir build &amp;&amp; cd build
+python ../tools/build_libtorch.py
+</code></pre>
+<p>就会在build下生成对应的文件，我们需要的动态库文件libtorch.so在build/lib/下。</p>
+<h1 id="整理libtorch">整理libtorch</h1>
+<ol>
+<li>复制pytorch下torch、caffe2、c10以及aten\source下的ATen、TH等文件夹到libtorch/include下，得到libtorch的C++接口。</li>
+<li>复制build/lib下编译好的库文件到libtorch/lib下。</li>
+<li>复制pytorch/torch/share/cmake文件夹到libtorch/share下。<br>
+得到的libtorch主要结构：<br>
+libtorch.<br>
+├─include<br>
+│  ├─ATen<br>
+│  ├─c10<br>
+│  ├─caffe2<br>
+│  ├─TH<br>
+│  ├─THCUNN<br>
+│  ├─THNN<br>
+│  └─torch<br>
+├─lib<br>
+└─share<br>
+└─cmake<br>
+├─ATen<br>
+├─Caffe2<br>
+├─Gloo<br>
+└─Torch</li>
+</ol>
+<hr>
+<p>如果你需要pytorch编译可以参考一下<a href="https://nmilosev.svbtle.com/compling-arm-stuff-without-an-arm-board-build-pytorch-for-the-raspberry-pi">这篇</a><br>
+ps：还是对CMakeLists不太熟啊。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[torch/libtorch 多输入]]></title>
         <id>https://txSangyj.github.io//post/torchlibtorch-duo-shu-ru</id>
@@ -898,130 +964,6 @@ tree.Summary()
 https://blog.csdn.net/login_sonata/article/details/73929426<br>
 http://sofasofa.io/forum_main_post.php?postid=1001106<br>
 https://www.leiphone.com/news/201706/QFydbeV7FXQtRIOl.html</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[二叉树复习]]></title>
-        <id>https://txSangyj.github.io//post/二叉树复习</id>
-        <link href="https://txSangyj.github.io//post/二叉树复习">
-        </link>
-        <updated>2018-09-03T12:47:22.000Z</updated>
-        <summary type="html"><![CDATA[<p><br>
-放完假刷leetcode发现二叉树遍历都忘记了，复习记录一下。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#%E5%AE%9A%E4%B9%89">定义</a></li>
-<li><a href="#%E6%80%A7%E8%B4%A8">性质</a></li>
-<li><a href="#%E9%81%8D%E5%8E%86">遍历</a></li>
-</ul>
-<br>
-放完假刷leetcode发现二叉树遍历都忘记了，复习记录一下。</p>
-<!-- more -->
-<h1 id="定义">定义</h1>
-<p>二叉树（Binary tree）是每个节点最多只有两个分支的树结构，且分支左右次序不能随意颠倒。</p>
-<p>在编程题中看到的二叉树通常使用Null值将其填充为完全二叉树后给出，如<code>[1,2,3,None,4,5,None,6,7]</code>表达的是下图的二叉树。<br>
-<img src="https://i.loli.net/2019/07/16/5d2de12a5e53461304.png" alt="二叉树"><br>
-下面用python方式定义一个二叉树的类，并给出将上面的列表转换为二叉树的方式。</p>
-<pre><code class="language-python">class TreeNode(object):
-    &quot;&quot;&quot;树节点类&quot;&quot;&quot;
-    def __init__(self, val=None):
-        self.val = val
-        self.left = None
-        self.right = None
-
-
-class BTree(object):
-    &quot;&quot;&quot;二叉树类&quot;&quot;&quot;
-    def __init__(self,nodes=[]):
-        &quot;&quot;&quot;从列表初始化一个二叉树&quot;&quot;&quot;
-        assert type(nodes) is list
-        if not nodes:
-             return None
-        self.root = TreeNode(nodes[0])
-        queue = [self.root]
-        length = len(nodes)
-        nums = 1
-        while nums &lt; length:
-            node = queue.pop(0)
-            if node:
-                node.left = TreeNode(nodes[nums]) if nodes[nums] else None
-                queue.append(node.left)
-                if nums + 1 &lt; length:
-                    node.right = TreeNode(nodes[nums+1]) if nodes[nums+1] else None
-                    queue.append(node.right)
-                    nums += 1
-                nums += 1
-</code></pre>
-<h1 id="性质">性质</h1>
-<ul>
-<li>第i层至多有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2^{i-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.824664em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span>个节点</li>
-<li>深度为k的二叉树至多有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>k</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^k-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.932438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>个节点</li>
-<li>如果叶节点数为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>n</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">n_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，为有两个子节点的节点数为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>n</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">n_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>n</mi><mn>0</mn></msub><mo>=</mo><msub><mi>n</mi><mn>2</mn></msub><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n_0=n_2+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></li>
-<li>具有n个结点的完全二叉树的深度为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>⌊</mo><mrow><msub><mrow><mi>l</mi><mi>o</mi><mi>g</mi></mrow><mn>2</mn></msub><mi>n</mi></mrow><mo>⌋</mo><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\lfloor{ {log}_2n}\rfloor+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⌊</span><span class="mord"><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mord mathdefault">n</span></span><span class="mclose">⌋</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></li>
-</ul>
-<h1 id="遍历">遍历</h1>
-<p>二叉树遍历有先序遍历、中序遍历、后序遍历、层次遍历，下面是各种遍历的非递归写法。</p>
-<pre><code class="language-python">    def MidOrder(self):
-        &quot;&quot;&quot;中序遍历&quot;&quot;&quot;
-        valuelist = list()
-        node = self.root
-        stack = list()
-        while(node != None or len(stack)&gt;0):
-            if node:
-                stack.append(node)
-                node = node.left
-            else:
-                node = stack.pop()
-                valuelist.append(node.val)
-                node = node.right
-        return valuelist
-    
-    def PostOrder(self):
-        &quot;&quot;&quot;后序遍历&quot;&quot;&quot;
-        valuelist = list()
-        node = self.root
-        stack1 = list()
-        stack2 = list()
-        stack1.append(node)
-        while(len(stack1)&gt;0):
-            node = stack1.pop()
-            if node.left:
-                stack1.append(node.left)
-            if node.right:
-                stack1.append(node.right)
-            stack2.append(node)
-        while stack2:
-            valuelist.append(stack2.pop().val)
-        return valuelist
-    
-    def LevelOrder(self):
-        &quot;&quot;&quot;层序遍历&quot;&quot;&quot;
-        valuelist = list()
-        node = self.root
-        queue = list()
-        queue.append(node)
-        while queue:
-            node = queue.pop(0)
-            valuelist.append(node.val)
-            if node.left != None:
-                queue.append(node.left)
-            if node.right != None:
-                queue.append(node.right)
-        return valuelist
-</code></pre>
-<p>测试一下输出顺序是否正确。</p>
-<pre><code class="language-python">B = BTree([1,2,3,None,4,5,None,6,7])
-
-print(B.PreOrder())
-print(B.MidOrder())
-print(B.PostOrder())
-print(B.LevelOrder())
-</code></pre>
-<p>得到的输出</p>
-<p>[1, 2, 4, 6, 7, 3, 5]<br>
-[2, 6, 4, 7, 1, 5, 3]<br>
-[6, 7, 4, 2, 5, 3, 1]<br>
-[1, 2, 3, 4, 5, 6, 7]</p>
 ]]></content>
     </entry>
 </feed>
