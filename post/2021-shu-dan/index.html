@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>Automake升级 | ji</title>
+<title>2021书单 | ji</title>
 <meta name="description" content="学习用">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -89,56 +89,34 @@
       <div class="content-container">
         <div class="post-detail">
           
-          <h2 class="post-title">Automake升级</h2>
+          <h2 class="post-title">2021书单</h2>
           <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2018-07-18</span>
-            
-              <span>
-                <i class="icon-pricetags-outline"></i>
-                
-                  <a href="https://txSangyj.github.io/tag/6TykwWblv/">
-                    Linux
-                    
-                  </a>
-                
-              </span>
+            <span><i class="icon-calendar-outline"></i> 2021-03-03</span>
             
           </div>
           <div class="post-content">
-            <p><ul class="markdownIt-TOC">
-<li><a href="#%E9%97%AE%E9%A2%981-newly-created-file-is-older-than-distributed-files">问题1 newly created file is older than distributed files!</a></li>
-<li><a href="#%E9%97%AE%E9%A2%982-make%E6%AD%BB%E5%BE%AA%E7%8E%AF">问题2 make死循环</a></li>
-</ul>
-<br>
-在安装njit-client的过程中，使用autoreconf生成配置文件的时候，显示支持的automake版本为1.15.1以上，而自带的只有1.13，yum源中也找不到新版的automake，只有从源码编译安装。</p>
+            <p>都三月了，书看了几本？</p>
 <!-- more -->
-<p>先上基本步骤</p>
-<pre><code class="language-bash">rpm -e --nodeps automake
-wget http://ftp.gnu.org/gnu/automake/automake-1.15.1.tar.gz
-tar zxvf automake-1.15.1.tar.gz
-cd automake-1.15.1
-./configure --prefix=/usr
-make &amp;&amp; make install
+<h2 id="已">已：</h2>
+<pre><code>《娱乐至死》：像看一篇论文。不看抖音，看完微博都想卸了。应该控制一下获取无用信息的频率了。
 </code></pre>
-<h1 id="问题1-newly-created-file-is-older-than-distributed-files">问题1 newly created file is older than distributed files!</h1>
-<p>详细信息</p>
-<pre><code class="language-bash">#./configure --prefix=/usr/
-checking for a BSD-compatible install... /usr/bin/install -c
-checking whether build environment is sane... configure: error: newly created file is older than distributed files!
-Check your system clock
+<h2 id="在">在：</h2>
+<pre><code>《沙丘》：读译文真是痛苦，不知道能不能坚持读完。
+《小狗钱钱》：
+    1. 小目标，开家小书店要多少钱？
+    2. 养鹅🐧
+    3. “  这真的有必要吗”
+    4. 周四记账
 </code></pre>
-<p>使用hwclock和date看一下时间没发现问题，使用<code>ntpdate ntp1.aliyun.com</code>设置了ntp服务器重新配置也没解决。参考<a href="http://blog.51cto.com/jamai/1727160">这里</a>，用<code>touch *</code>直接刷新一下文件的编辑时间，第一次检查能通过挂在第二次，又对所有源文件执行touch后问题解决，要注意的是每个文件夹都会进行同样的检查。</p>
-<h1 id="问题2-make死循环">问题2 make死循环</h1>
-<p>问题就是执行make之后不停的重复编译，由于在其他电脑编译成功过，确定不是<a href="https://blog.csdn.net/mantis_1984/article/details/72598848">这里</a>提出的依赖关系造成循环。make需要了解计算机时间和它检查的文件的时间。它比较这两个时间，并根据结果确定某个目标是否标记过。还是时间问题，之前使用了两次touch，时间差造成了问题，使用<code>find . | xargs touch</code>刷新目录下所有文件的时间，问题解决。</p>
 
           </div>
         </div>
 
         
           <div class="next-post">
-            <a class="purple-link" href="https://txSangyj.github.io/post/CentOS环境配置/">
+            <a class="purple-link" href="https://txSangyj.github.io/post/armv8-bian-yi-libtorch/">
               <h3 class="post-title">
-                下一篇：CentOS环境配置(1)
+                下一篇：aarch64下编译libtorch
               </h3>
             </a>
           </div>

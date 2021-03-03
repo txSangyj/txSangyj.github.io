@@ -2,18 +2,41 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://txSangyj.github.io/</id>
     <title>ji</title>
-    <updated>2019-08-16T02:49:57.612Z</updated>
+    <updated>2021-03-03T15:10:09.755Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://txSangyj.github.io/"/>
-    <link rel="self" href="https://txSangyj.github.io//atom.xml"/>
+    <link rel="self" href="https://txSangyj.github.io/atom.xml"/>
     <subtitle>学习用</subtitle>
-    <logo>https://txSangyj.github.io//images/avatar.png</logo>
-    <icon>https://txSangyj.github.io//favicon.ico</icon>
-    <rights>All rights reserved 2019, ji</rights>
+    <logo>https://txSangyj.github.io/images/avatar.png</logo>
+    <icon>https://txSangyj.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2021, ji</rights>
+    <entry>
+        <title type="html"><![CDATA[2021书单]]></title>
+        <id>https://txSangyj.github.io/post/2021-shu-dan/</id>
+        <link href="https://txSangyj.github.io/post/2021-shu-dan/">
+        </link>
+        <updated>2021-03-03T14:53:31.000Z</updated>
+        <summary type="html"><![CDATA[<p>都三月了，书看了几本？</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>都三月了，书看了几本？</p>
+<!-- more -->
+<h2 id="已">已：</h2>
+<pre><code>《娱乐至死》：像看一篇论文。不看抖音，看完微博都想卸了。应该控制一下获取无用信息的频率了。
+</code></pre>
+<h2 id="在">在：</h2>
+<pre><code>《沙丘》：读译文真是痛苦，不知道能不能坚持读完。
+《小狗钱钱》：
+    1. 小目标，开家小书店要多少钱？
+    2. 养鹅🐧
+    3. “  这真的有必要吗”
+    4. 周四记账
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[aarch64下编译libtorch]]></title>
-        <id>https://txSangyj.github.io//post/armv8-bian-yi-libtorch</id>
-        <link href="https://txSangyj.github.io//post/armv8-bian-yi-libtorch">
+        <id>https://txSangyj.github.io/post/armv8-bian-yi-libtorch/</id>
+        <link href="https://txSangyj.github.io/post/armv8-bian-yi-libtorch/">
         </link>
         <updated>2019-08-15T02:32:27.000Z</updated>
         <summary type="html"><![CDATA[<p>把写的libtorch调用模型的程序移植到了下Ubuntu下发现没有问题，libtorch提供了预编译好的库。放到基于Arm的国产主机上就提示libtorch.so不是动态库文件，需要从源代码编译libtorch。不过没啥难点，踩坑文。</p>
@@ -78,8 +101,8 @@ ps：还是对CMakeLists不太熟啊。</p>
     </entry>
     <entry>
         <title type="html"><![CDATA[torch/libtorch 多输入]]></title>
-        <id>https://txSangyj.github.io//post/torchlibtorch-duo-shu-ru</id>
-        <link href="https://txSangyj.github.io//post/torchlibtorch-duo-shu-ru">
+        <id>https://txSangyj.github.io/post/torchlibtorch-duo-shu-ru/</id>
+        <link href="https://txSangyj.github.io/post/torchlibtorch-duo-shu-ru/">
         </link>
         <updated>2019-08-07T02:40:33.000Z</updated>
         <summary type="html"><![CDATA[<p><br>
@@ -159,8 +182,8 @@ class CustomDataset(Dataset):
     </entry>
     <entry>
         <title type="html"><![CDATA[Universal Pooling]]></title>
-        <id>https://txSangyj.github.io//post/universal-pooling</id>
-        <link href="https://txSangyj.github.io//post/universal-pooling">
+        <id>https://txSangyj.github.io/post/universal-pooling/</id>
+        <link href="https://txSangyj.github.io/post/universal-pooling/">
         </link>
         <updated>2019-07-30T01:57:38.000Z</updated>
         <summary type="html"><![CDATA[<p><br>
@@ -185,9 +208,9 @@ class CustomDataset(Dataset):
 <h2 id="常用池化">常用池化</h2>
 <p>常见的就是Maxpooling和Meanpooling，容易理解，直接上图。<br>
 Maxpooling:<br>
-<img src="https://i.loli.net/2019/07/31/5d40f8c5cf32a37790.png" alt="Maxpooling"><br>
+<img src="https://i.loli.net/2019/07/31/5d40f8c5cf32a37790.png" alt="Maxpooling" loading="lazy"><br>
 Meanpooling/Averagepooling:<br>
-<img src="https://i.loli.net/2019/07/31/5d40f91906e0b64625.png" alt="Meanpooling"></p>
+<img src="https://i.loli.net/2019/07/31/5d40f91906e0b64625.png" alt="Meanpooling" loading="lazy"></p>
 <h2 id="池化作用">池化作用</h2>
 <ul>
 <li>降采样，降低参数量和计算量。</li>
@@ -205,7 +228,7 @@ Meanpooling/Averagepooling:<br>
 <li>channel-wise:每个channel分开来训练权重参数 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>π</mi></mrow><annotation encoding="application/x-tex">\pi</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">π</span></span></span></span>。</li>
 <li>仅池化给定块</li>
 <li>池化不能改变特征的尺度（块内权重之和为1）<br>
-<img src="https://i.loli.net/2019/07/30/5d3fda16bc1f829435.jpg" alt="结构"><br>
+<img src="https://i.loli.net/2019/07/30/5d3fda16bc1f829435.jpg" alt="结构" loading="lazy"><br>
 结构上Block1.1是一个内部神经网络，还是可以使用卷积层、全连接层、批归一化层等进行构建，神经网络的输入是单个特征图，输出为临时特征图，尺寸和输入相同，经过block1.2进行块内（形状由步长决定）的softmax转化为各分块的内部权重<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>π</mi></mrow><annotation encoding="application/x-tex">\pi</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">π</span></span></span></span>，然后Pooling map和Feature map作点积、块内求和等操作得到池化后的输出。</li>
 </ol>
 <h1 id="存在的问题">存在的问题</h1>
@@ -221,8 +244,8 @@ Meanpooling/Averagepooling:<br>
     </entry>
     <entry>
         <title type="html"><![CDATA[C++ lambda]]></title>
-        <id>https://txSangyj.github.io//post/c-lambda</id>
-        <link href="https://txSangyj.github.io//post/c-lambda">
+        <id>https://txSangyj.github.io/post/c-lambda/</id>
+        <link href="https://txSangyj.github.io/post/c-lambda/">
         </link>
         <updated>2019-07-18T06:49:17.000Z</updated>
         <summary type="html"><![CDATA[<p><br>
@@ -347,8 +370,8 @@ cout &lt;&lt; &quot;i:&quot; &lt;&lt; i &lt;&lt; &quot;\tf():&quot; &lt;&lt; f()
     </entry>
     <entry>
         <title type="html"><![CDATA[Hexo 转到 Gridea]]></title>
-        <id>https://txSangyj.github.io//post/hexo-zhuan-dao-gridea</id>
-        <link href="https://txSangyj.github.io//post/hexo-zhuan-dao-gridea">
+        <id>https://txSangyj.github.io/post/hexo-zhuan-dao-gridea/</id>
+        <link href="https://txSangyj.github.io/post/hexo-zhuan-dao-gridea/">
         </link>
         <updated>2019-07-17T06:36:21.000Z</updated>
         <summary type="html"><![CDATA[<p><br>
@@ -381,8 +404,8 @@ cout &lt;&lt; &quot;i:&quot; &lt;&lt; i &lt;&lt; &quot;\tf():&quot; &lt;&lt; f()
     </entry>
     <entry>
         <title type="html"><![CDATA[python 多线程/多进程]]></title>
-        <id>https://txSangyj.github.io//post/multithreaded-multiprocessing</id>
-        <link href="https://txSangyj.github.io//post/multithreaded-multiprocessing">
+        <id>https://txSangyj.github.io/post/multithreaded-multiprocessing/</id>
+        <link href="https://txSangyj.github.io/post/multithreaded-multiprocessing/">
         </link>
         <updated>2018-12-28T11:55:14.000Z</updated>
         <summary type="html"><![CDATA[<p><br>
@@ -482,7 +505,7 @@ if __name__ == '__main__':
     for t in thread_list:
         print(t.getResult())
 </code></pre>
-<p><img src="https://i.loli.net/2019/07/16/5d2de1b3af4d466932.png" alt="运行截图"></p>
+<figure data-type="image" tabindex="1"><img src="https://i.loli.net/2019/07/16/5d2de1b3af4d466932.png" alt="运行截图" loading="lazy"></figure>
 <ul>
 <li>print函数不是线程安全的，可以用sys.stdout.write方法替换。</li>
 <li>这段没有线程通信，参考里有讲的很详细的文章。</li>
@@ -522,11 +545,11 @@ if __name__ == '__main__':
     res_list = [pool.apply_async(loop,(i,)).get() for i in range(4)]
     print(res_list)
 </code></pre>
-<p><img src="https://i.loli.net/2019/07/16/5d2de1d4531ef71329.png" alt="运行截图"></p>
+<figure data-type="image" tabindex="2"><img src="https://i.loli.net/2019/07/16/5d2de1d4531ef71329.png" alt="运行截图" loading="lazy"></figure>
 <p>多进程有一个坑点，进程间pickle进行数据序列化传递数据，然而有些数据不能被序列化，图片来自[5]。</p>
-<p><img src="https://i.loli.net/2019/07/16/5d2de1bc235d083052.png" alt="能被序列化的对象"></p>
+<figure data-type="image" tabindex="3"><img src="https://i.loli.net/2019/07/16/5d2de1bc235d083052.png" alt="能被序列化的对象" loading="lazy"></figure>
 <p>再引一张进程池工作方式的图，感觉很有用，来自[4]。</p>
-<p><img src="https://i.loli.net/2019/07/16/5d2de1e40b90751549.png" alt="进程池工作方式"></p>
+<figure data-type="image" tabindex="4"><img src="https://i.loli.net/2019/07/16/5d2de1e40b90751549.png" alt="进程池工作方式" loading="lazy"></figure>
 <h1 id="参考">参考</h1>
 <p>[1] 了解GIL看这里http://cenalulu.github.io/python/gil-in-python/</p>
 <p>[2] 多线程这篇内容更全面http://codingpy.com/article/python-201-a-tutorial-on-threads/</p>
@@ -538,8 +561,8 @@ if __name__ == '__main__':
     </entry>
     <entry>
         <title type="html"><![CDATA[Attention Mechanism]]></title>
-        <id>https://txSangyj.github.io//post/Attention-Mechanism</id>
-        <link href="https://txSangyj.github.io//post/Attention-Mechanism">
+        <id>https://txSangyj.github.io/post/Attention-Mechanism/</id>
+        <link href="https://txSangyj.github.io/post/Attention-Mechanism/">
         </link>
         <updated>2018-10-16T07:01:33.000Z</updated>
         <summary type="html"><![CDATA[<p></p>
@@ -627,8 +650,8 @@ s-65,47,-65,47z M834 80H400000v40H845z'/></svg></span></span></span><span class=
     </entry>
     <entry>
         <title type="html"><![CDATA[Multi-Task Learning]]></title>
-        <id>https://txSangyj.github.io//post/Multi-Task-Learning</id>
-        <link href="https://txSangyj.github.io//post/Multi-Task-Learning">
+        <id>https://txSangyj.github.io/post/Multi-Task-Learning/</id>
+        <link href="https://txSangyj.github.io/post/Multi-Task-Learning/">
         </link>
         <updated>2018-09-19T06:20:24.000Z</updated>
         <summary type="html"><![CDATA[<p><br>
@@ -673,8 +696,8 @@ s-65,47,-65,47z M834 80H400000v40H845z'/></svg></span></span></span><span class=
     </entry>
     <entry>
         <title type="html"><![CDATA[决策树学习]]></title>
-        <id>https://txSangyj.github.io//post/决策树学习</id>
-        <link href="https://txSangyj.github.io//post/决策树学习">
+        <id>https://txSangyj.github.io/post/决策树学习/</id>
+        <link href="https://txSangyj.github.io/post/决策树学习/">
         </link>
         <updated>2018-09-06T03:07:49.000Z</updated>
         <summary type="html"><![CDATA[<p><br>
@@ -913,57 +936,6 @@ class DecisionTree(object):
 tree = DecisionTree(train_X=X,train_Y=Y)
 tree.Summary()
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[试解面试题-1]]></title>
-        <id>https://txSangyj.github.io//post/试解面试题-1</id>
-        <link href="https://txSangyj.github.io//post/试解面试题-1">
-        </link>
-        <updated>2018-09-04T06:44:07.000Z</updated>
-        <summary type="html"><![CDATA[<p>看到机器之心发布的<a href="https://mp.weixin.qq.com/s/aL-gZ9LzYCkpTcsQF1FZjA">25个机器学习面试题</a>，发现不会的还不少，记录一下防止以后面试不会。</p>
-<p>因为基本找不到直接的答案，现有的回答可能还有错误，欢迎指正。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>看到机器之心发布的<a href="https://mp.weixin.qq.com/s/aL-gZ9LzYCkpTcsQF1FZjA">25个机器学习面试题</a>，发现不会的还不少，记录一下防止以后面试不会。</p>
-<p>因为基本找不到直接的答案，现有的回答可能还有错误，欢迎指正。</p>
-<!-- more -->
-<hr>
-<p><strong>1:</strong> 不是，置信度表示95%的试验情况下，输出值在真实估计值的置信区间（正态分布$\pm1.96\frac {\sigma} {\sqrt{n} } $）内，不保证是真实的估计值。</p>
-<p><strong>2:</strong> Hadoop在读取和写入时会考虑节点之间的距离（带宽），保证较好的读写性能；KNN在分类时通过计算距离最小的的K个样本来确定待分类数据点的类别。</p>
-<p><strong>3:</strong> 决策树。单层的感知机无法表达异或函数，而两层的决策树可以。</p>
-<p><strong>4:</strong> 决策树。不使用激活函数，整个网络作为整体对于输入仍然是线性的。<br>
-<code>决策树是用超平面对数据进行划分，可以得到非线性的决策边界。</code></p>
-<p><strong>5:</strong> 神经网络可以通过自编码器的方式来实现数据的降维：即输入输出均为原数据，中间层维度小于原数据维度；整体训练使误差降低，取中间层输出即为数据的降维表达。</p>
-<p><strong>6:</strong> 去除噪声；表示路程、价格等属性的偏置。</p>
-<p><strong>7:</strong> 看这里吧。https://blog.csdn.net/zouxy09/article/details/24971995</p>
-<p><strong>8:</strong> 中心极限定理：任何独立同分布的随机变量序列, 不论它的分布是什么, 只要存在有限的方差, 那么它们的标准化部分和都渐近于标准正态分布。然后由正态分布的性质可知，有99%的数据落在均值附近+/-3个标准差之内。<br>
-<code>为什么题给的是89%，这里处理有错？</code></p>
-<p><strong>9:</strong> 矩阵乘法的时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>N</mi><mn>2.376</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(N^{2.376})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">.</span><span class="mord mtight">3</span><span class="mord mtight">7</span><span class="mord mtight">6</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>，简单的公式<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup><mo>≤</mo><mo>(</mo><mi>a</mi><mo>+</mo><mi>b</mi><msup><mo>)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">a^2+b^2\leq(a+b)^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.950078em;vertical-align:-0.13597em;"></span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault">b</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>。</p>
-<p><strong>10:</strong> 自变量不只是时间，过去的数据也是自变量的一部分。<br>
-<code>仅有‘变量-时间’一组数据，对过去过拟合，预测能力不足？</code></p>
-<p><strong>11:</strong> 无力回答...<br>
-<code>以特征数为节点数，能构成的不同的二叉树个数？但是特征不是可能会有重复使用的吗？</code></p>
-<p><strong>12:</strong> 神经网络需要的数据量较大，训练时间长；决策树参数少；决策树模型解释性好，可以用来提取规则。</p>
-<p><strong>13:</strong> 可以使用ES、GA等算法直接优化神经网络的参数。</p>
-<p><strong>14:</strong> 线性回归。</p>
-<p><strong>15:</strong> PCA学习一种线性投影将输入数据变换为元素之间彼此不相关的表示。自变量相关性较高会导致主成分保留的信息较多的来自与相关性的较高的数据，而其他的数据信息被较少的保留。<br>
-<code>感觉这样理解有问题，直觉上相关性应该带来更好的压缩率啊。</code></p>
-<p><strong>16:</strong> 陨石撞地球是一个小概率事件，99%的准确率可能只是粗暴的将所有数据划分到‘不会发生’的类别。同时，陨石撞地球是一个代价敏感的问题。解决方法：1.添加其他评估指标（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">F_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>等）；2.对两种事件赋予非均等代价。</p>
-<p><strong>17:</strong> 决策树的split_node、神经网络的sigmoid函数、SVM的核函数等？</p>
-<p><strong>18:</strong> 因变量过多，变量数超过样本数，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>X</mi><mi>T</mi></msup><mi>X</mi></mrow><annotation encoding="application/x-tex">X^TX</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span></span></span></span>不满秩，得到的最小二乘的解不唯一。</p>
-<p><strong>19:</strong> 时序模型要考虑时间的先后顺序，随机分割数据会有数据泄露的问题。可以通过保证测试集数据时间顺序在训练集之后来解决一部分问题。这样带来另一个问题是数据前面的一部分不会出现在测试集，减少没次的训练集数量，增加折数可以减少这一部分的数据量。</p>
-<p><strong>20:</strong> 对于分类问题会出现随机选取的样本类别数量不平衡，可能导致得到的分类器对某类过拟合。在原数据类别较为平衡的情况下可以分别对各类随机抽样；原类别不平衡的话可以采用小类过采样，增加其他评估指标等办法。</p>
-<p><strong>21:</strong> 不太明白。我的理解，准确率是模型性能的一个方面。牺牲精度提升模型运行速度？</p>
-<p><strong>22:</strong> 并行化使用随机森林。随机森利采用bagging的思想，可以并行化；提升树使用boosting的思想，根据前一轮学习结果选取训练集，树是串行生成的。</p>
-<p><strong>23:</strong> 感知机能（且一定能）将线性可分的数据集分开，并且感知机训练的迭代步数是有上界的。<br>
-<code>线性判别分析（最小化同类投影点距离，最大化异类投影点距离）能用在这里吗？</code></p>
-<p><strong>24:</strong> KNN的空间复杂度较高；较小的内存下，logistics回归可以使用mini-batch进行训练。</p>
-<p><strong>25:</strong> 虽然数据点和特征增长的比例相同，但特征维度增加，变量可能的配置以指数级增长，多收集的数据点不足以描述数据样本特征空间。</p>
-<h2 id="参考">参考</h2>
-<p>https://blog.csdn.net/heyongluoyao8/article/details/49408131<br>
-https://blog.csdn.net/login_sonata/article/details/73929426<br>
-http://sofasofa.io/forum_main_post.php?postid=1001106<br>
-https://www.leiphone.com/news/201706/QFydbeV7FXQtRIOl.html</p>
 ]]></content>
     </entry>
 </feed>

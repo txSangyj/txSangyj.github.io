@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://txSangyj.github.io//favicon.ico?v=1565923792481">
+<link rel="shortcut icon" href="https://txSangyj.github.io//favicon.ico?v=1614784204647">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://txSangyj.github.io//styles/main.css">
 
@@ -45,7 +45,7 @@
   <div class="site-header">
     <div class="left">
       <a href="https://txSangyj.github.io/">
-        <img class="avatar" src="https://txSangyj.github.io//images/avatar.png?v=1565923792481" alt="" width="32px" height="32px">
+        <img class="avatar" src="https://txSangyj.github.io//images/avatar.png?v=1614784204647" alt="" width="32px" height="32px">
       </a>
       <a href="https://txSangyj.github.io/">
         <h1 class="site-title">ji</h1>
@@ -114,9 +114,9 @@
 <h2 id="常用池化">常用池化</h2>
 <p>常见的就是Maxpooling和Meanpooling，容易理解，直接上图。<br>
 Maxpooling:<br>
-<img src="https://i.loli.net/2019/07/31/5d40f8c5cf32a37790.png" alt="Maxpooling"><br>
+<img src="https://i.loli.net/2019/07/31/5d40f8c5cf32a37790.png" alt="Maxpooling" loading="lazy"><br>
 Meanpooling/Averagepooling:<br>
-<img src="https://i.loli.net/2019/07/31/5d40f91906e0b64625.png" alt="Meanpooling"></p>
+<img src="https://i.loli.net/2019/07/31/5d40f91906e0b64625.png" alt="Meanpooling" loading="lazy"></p>
 <h2 id="池化作用">池化作用</h2>
 <ul>
 <li>降采样，降低参数量和计算量。</li>
@@ -134,7 +134,7 @@ Meanpooling/Averagepooling:<br>
 <li>channel-wise:每个channel分开来训练权重参数 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>π</mi></mrow><annotation encoding="application/x-tex">\pi</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">π</span></span></span></span>。</li>
 <li>仅池化给定块</li>
 <li>池化不能改变特征的尺度（块内权重之和为1）<br>
-<img src="https://i.loli.net/2019/07/30/5d3fda16bc1f829435.jpg" alt="结构"><br>
+<img src="https://i.loli.net/2019/07/30/5d3fda16bc1f829435.jpg" alt="结构" loading="lazy"><br>
 结构上Block1.1是一个内部神经网络，还是可以使用卷积层、全连接层、批归一化层等进行构建，神经网络的输入是单个特征图，输出为临时特征图，尺寸和输入相同，经过block1.2进行块内（形状由步长决定）的softmax转化为各分块的内部权重<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>π</mi></mrow><annotation encoding="application/x-tex">\pi</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">π</span></span></span></span>，然后Pooling map和Feature map作点积、块内求和等操作得到池化后的输出。</li>
 </ol>
 <h1 id="存在的问题">存在的问题</h1>
@@ -152,7 +152,7 @@ Meanpooling/Averagepooling:<br>
 
         
           <div class="next-post">
-            <a class="purple-link" href="https://txSangyj.github.io//post/c-lambda">
+            <a class="purple-link" href="https://txSangyj.github.io/post/c-lambda/">
               <h3 class="post-title">
                 下一篇：C++ lambda
               </h3>
