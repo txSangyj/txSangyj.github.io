@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>aarch64下编译libtorch | ji</title>
+<title>对话分类竞赛总结 | ji</title>
 <meta name="description" content="学习用">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -89,77 +89,77 @@
       <div class="content-container">
         <div class="post-detail">
           
-          <h2 class="post-title">aarch64下编译libtorch</h2>
+          <h2 class="post-title">对话分类竞赛总结</h2>
           <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2019-08-15</span>
+            <span><i class="icon-calendar-outline"></i> 2021-03-05</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://txSangyj.github.io/tag/rr50mIWJF/">
+                    DL
+                    
+                      ，
+                    
+                  </a>
+                
+                  <a href="https://txSangyj.github.io/tag/XKEp4cjOVd/">
+                    NLP
+                    
+                  </a>
+                
+              </span>
             
           </div>
           <div class="post-content">
-            <p>把写的libtorch调用模型的程序移植到了下Ubuntu下发现没有问题，libtorch提供了预编译好的库。放到基于Arm的国产主机上就提示libtorch.so不是动态库文件，需要从源代码编译libtorch。不过没啥难点，踩坑文。</p>
+            <p>一篇旧文。</p>
 <!-- more -->
-<h1 id="获取源码">获取源码</h1>
-<pre><code class="language-bash">
-git clone https://github.com/pytorch/pytorch --recursive &amp;&amp; cd pytorch
-git checkout v1.2.0 # 真的勇士敢于在master分支下编译
-#下载编译需要的子模块
-git submodule sync
-git submodule update --init --recursive
-</code></pre>
-<h1 id="python环境">python环境</h1>
-<p>pytorch官方给出的环境是用conda装的，然而悲剧的是官方并没有给出aarch64的安装文件，所以还是使用pip来安装。还有个问题是很多python库并没有发布对应架构下的包，好在编译libtorch需要的python环境较为简单。编译完之后导出python环境发现，编译libtorch必须的包应该只有pyyaml（不太确定）。当然cmake和gcc等工具还是必须的。<br>
-安装pyyaml的命令：</p>
-<pre><code>pip install pyyaml
-</code></pre>
-<blockquote>
-<p>不使用tools下的脚本而直接用cmake来编译的话可能python环境都不需要了...</p>
-</blockquote>
-<h1 id="编译libtorch">编译libtorch</h1>
-<p>在编译之前可以使用export或者cmake-gui关闭一些不必要的编译选项来加快编译速度，类似：</p>
-<pre><code>export USE_CUDA=False
-export BUILD_TEST=False
-</code></pre>
-<p>官方提供了一键式编译工具，在pytorch/tools/build_libtorch.py。只需要运行：</p>
-<pre><code class="language-bash">
-#pytorch$
-mkdir build &amp;&amp; cd build
-python ../tools/build_libtorch.py
-</code></pre>
-<p>就会在build下生成对应的文件，我们需要的动态库文件libtorch.so在build/lib/下。</p>
-<h1 id="整理libtorch">整理libtorch</h1>
+<h1 id="总结">总结</h1>
+<h2 id="初赛">初赛</h2>
+<p>第一次接触NLP问题，初赛时间较为充裕，而Bert处理短文本性能足够。应尽量尝试多种可行方式解决问题，而不是只拿着Bert跑无意义的结果。</p>
+<h2 id="复赛决赛">复赛&amp;决赛</h2>
+<ul>
+<li>复赛阶段数据量大，试错成本更高，完全应该进行大的改动再重新迭代。</li>
+<li>数据处理和基础模型没有大问题，但是完全忘记了在提交结果阶段使用<strong>集成学习</strong>方法。</li>
+<li>没有对长文本进行进一步处理，取首尾截断不如训练两个模型<strong>分别处理首尾</strong>之后再进行投票。</li>
+<li>程序总是有Bug，一个on_epoch_end的问题就是九个小时左右时间的浪费。</li>
+<li>batch_size/model 过大，训练时无法测试</li>
+<li>虽然做了客服标记的统一化，但是标记本身是否正确未可知。</li>
+<li>复赛阶段工作量预估不足。</li>
+</ul>
+<h2 id="其他">其他</h2>
+<ul>
+<li>文本是机器翻译得来的， 可以进一步处理。（将方言转化得到的无意义的同音词替换为行业高频用词是一个好方向）</li>
+<li>或者将对话双方文本分别训练也是一个方向。</li>
+<li>长文本甚至可以做一个摘要生成的模型来处理成短文本。</li>
+<li>BiLSTM+Attention机制没有做完，或者在BiLSTM各时间步上隐层上取Max做输出，在其他数据集上效果均优于直接使用BiLSTM。</li>
+<li>梯度累加变相增大Batch_size的实验没有做完，新建Module类可以解决loss和原计算图无法关联的问题。（较小的模型比如共享参数的TextCNN可以做到256的batch_size，16倍于bert方法）</li>
+<li>Bert本身没有问题，但是训练用的语料不同效果不同，也可能影响最后效果。</li>
+</ul>
+<h2 id="后续应用">后续应用</h2>
+<ul>
+<li>
+<p>落地方面思考不足，自然语言处理工作在客服对话上可用的有：</p>
 <ol>
-<li>复制pytorch下torch、caffe2、c10以及aten\source下的ATen、TH等文件夹到libtorch/include下，得到libtorch的C++接口。</li>
-<li>复制build/lib下编译好的库文件到libtorch/lib下。</li>
-<li>复制pytorch/torch/share/cmake文件夹到libtorch/share下。<br>
-得到的libtorch主要结构：<br>
-libtorch.<br>
-├─include<br>
-│  ├─ATen<br>
-│  ├─c10<br>
-│  ├─caffe2<br>
-│  ├─TH<br>
-│  ├─THCUNN<br>
-│  ├─THNN<br>
-│  └─torch<br>
-├─lib<br>
-└─share<br>
-└─cmake<br>
-├─ATen<br>
-├─Caffe2<br>
-├─Gloo<br>
-└─Torch</li>
+<li>投诉分类（将和故障高度相关的投诉分类抽取，设置告警（一个问题是误告警怎么闭环处理，没有进行一个较好的回答）</li>
+<li>多分类，客户可能存在多种需求，单个标签描述不便（程序上改为输出层sigmoid激活，使用二元分类损失，按每类概率&gt;0.5取对应标签。</li>
+<li>不局限于分类，语义理解聚类客户诉求、根据对话方式进行用户分类匹配客服、为什么会出现长对话（话术提炼、优化效率）。</li>
 </ol>
+</li>
+<li>
+<p>TensorRT推理速度有极大提高（成百倍500ms-&gt;2ms），可以尝试。</p>
+</li>
+</ul>
 <hr>
-<p>如果你需要pytorch编译可以参考一下<a href="https://nmilosev.svbtle.com/compling-arm-stuff-without-an-arm-board-build-pytorch-for-the-raspberry-pi">这篇</a><br>
-ps：还是对CMakeLists不太熟啊。</p>
 
           </div>
         </div>
 
         
           <div class="next-post">
-            <a class="purple-link" href="https://txSangyj.github.io/post/torchlibtorch-duo-shu-ru/">
+            <a class="purple-link" href="https://txSangyj.github.io/post/2021-shu-dan/">
               <h3 class="post-title">
-                下一篇：torch/libtorch 多输入
+                下一篇：2021书单
               </h3>
             </a>
           </div>
