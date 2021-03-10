@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://txSangyj.github.io/</id>
     <title>ji</title>
-    <updated>2021-03-08T07:53:06.925Z</updated>
+    <updated>2021-03-10T14:52:47.903Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://txSangyj.github.io/"/>
     <link rel="self" href="https://txSangyj.github.io/atom.xml"/>
@@ -70,18 +70,26 @@
         <content type="html"><![CDATA[<p>都三月了，书看了几本？</p>
 <!-- more -->
 <h2 id="已">已：</h2>
-<pre><code>《娱乐至死》：像看一篇论文。不看抖音，看完微博都想卸了。应该控制一下获取无用信息的频率了。
-《小狗钱钱》1&amp;2：
-    1. 小目标，开家小书店要多少钱？
+<h3 id="娱乐至死">《娱乐至死》</h3>
+<p>像看一篇论文。不看抖音，看完微博都想卸了。应该控制一下获取无用信息的频率了。</p>
+<h3 id="小狗钱钱12">《小狗钱钱》1&amp;2</h3>
+<pre><code>    1. 小目标，开家小书店要多少钱？
     2. 养鹅🐧
     3. “这真的有必要吗”
     4. 周四记账
     5. 第二册更像“儿童读物”
 </code></pre>
 <h2 id="在">在：</h2>
-<pre><code>《沙丘》：读译文真是痛苦，不知道能不能坚持读完。
-《伟大作品的隐秘结构》
+<h3 id="伟大作品的隐秘结构">《伟大作品的隐秘结构》</h3>
+<p>无结论的两难结构：举例有《伽利略传》、《老人与海》等等。<s>《我们与恶的距离》算不算...</s><br>
+<s>半透明的双层结构：还没看到。。。</s></p>
+<blockquote>
+<p>艺术创造靠一种神奇的虚设触及了人们的两重共性：一是所刻画的对象在人们中的共性；二是欣赏者内心的某种共性。</p>
+</blockquote>
+<pre><code>艺术眼光不是政治眼光里提到契诃夫的《万卡》，随手一搜发现《山海情》里念的课文就是这个。
 </code></pre>
+<h3 id="沙丘">《沙丘》</h3>
+<p>读译文真是痛苦，不知道能不能坚持读完。</p>
 ]]></content>
     </entry>
     <entry>
