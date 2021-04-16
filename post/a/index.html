@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>Hexo 转到 Gridea | ji</title>
+<title>一个简单的脚本 | ji</title>
 <meta name="description" content="学习用">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -89,54 +89,64 @@
       <div class="content-container">
         <div class="post-detail">
           
-          <h2 class="post-title">Hexo 转到 Gridea</h2>
+          <h2 class="post-title">一个简单的脚本</h2>
           <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2019-07-17</span>
-            
-              <span>
-                <i class="icon-pricetags-outline"></i>
-                
-                  <a href="https://txSangyj.github.io/tag/MQ1c5AU6R/">
-                    水
-                    
-                  </a>
-                
-              </span>
+            <span><i class="icon-calendar-outline"></i> 2021-04-16</span>
             
           </div>
           <div class="post-content">
-            <p><ul class="markdownIt-TOC">
-<li><a href="#%E9%85%8D%E7%BD%AE">配置</a></li>
-<li><a href="#%E6%96%87%E7%AB%A0">文章</a></li>
-<li><a href="#%E5%9B%BE%E7%89%87">图片</a></li>
-<li><a href="#%E5%85%B6%E4%BB%96%E9%97%AE%E9%A2%98">其他问题</a></li>
-</ul>
-<br>
-逛论坛时候发现个新玩具<a href="https://gridea.dev/">Gridea</a>，然后就把原来Hexo下的东西迁到了Gridea下。</p>
+            <p>迫于被远程桌面输命令疯狂重复按键折磨吐了写的，不过这样自动补全没了。<s>好在不需要再用了</s></p>
 <!-- more -->
-<h1 id="配置">配置</h1>
-<p>上教程<a href="https://gridea.dev/docs/">Gridea doc</a></p>
-<h1 id="文章">文章</h1>
-<p>原Hexo的source/_post下的.md文件复制到Gridea源文件夹下的posts下。注意posts下<strong>不能</strong>有文件夹。<s>可能是Bug吧。</s></p>
-<h1 id="图片">图片</h1>
-<p>又不能有asset_folder，Gridea插入的图片使用的又是绝对路径，所以把之前的图片转成了图床链接。用的是<a href="https://github.com/kookob/smpic">Simpic</a>上传。</p>
-<h1 id="其他问题">其他问题</h1>
-<ul>
-<li>原来的主题不会适配。</li>
-<li>文章的分类没有自动识别。</li>
-<li>Gridea下写东西<strong>千万不要随便点返回</strong>。</li>
-<li>建议文章都添加&lt;!-- more --&gt;不然有的主页显示会出现错位。</li>
-<li>字数统计、点击统计好像暂不支持。</li>
-</ul>
+<pre><code class="language-pyhton"># test.py
+import win32gui,win32api,win32con
+import time
+
+def send_to_cmd():
+    wndtitle = u&quot;&quot; # 窗口名称，可以spy++获取
+    wndclass = None 
+    wnd = win32gui.FindWindow(wndclass, wndtitle)
+    win32api.keybd_event(13, 0, 0, 0)
+    win32gui.SetForegroundWindow(wnd)
+    win32api.SetCursorPos((1000, 200)) # 鼠标位置1
+    win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTDOWN, 100, 100, 0, 0)
+    time.sleep(0.2)
+    win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTUP, 100, 100, 0, 0)
+    
+    wndtitle = u&quot;C:\WINDOWS\system32\cmd.exe - python  test.py&quot;
+    wndclass = None 
+    wnd = win32gui.FindWindow(wndclass, wndtitle)
+    win32api.keybd_event(13, 0, 0, 0) #
+    win32gui.SetForegroundWindow(wnd)
+    win32api.SetCursorPos((100, 100)) # 鼠标位置2
+    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 100, 100, 0, 0)
+    time.sleep(0.2)
+    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 100, 100, 0, 0)
+    
+    
+def inputtxt(string):
+    import win32clipboard as w
+    w.OpenClipboard()
+    w.SetClipboardData(win32con.CF_UNICODETEXT,string)
+    w.CloseClipboard()
+
+if __name__=='__main__':
+    while True:
+        s = input()
+        if s!='quitcmd':
+            inputtxt(s+'\n')
+            send_to_cmd()
+        else:
+            break
+</code></pre>
 
           </div>
         </div>
 
         
           <div class="next-post">
-            <a class="purple-link" href="https://txSangyj.github.io/post/multithreaded-multiprocessing/">
+            <a class="purple-link" href="https://txSangyj.github.io/post/dui-hua-fen-lei-jing-sai-zong-jie/">
               <h3 class="post-title">
-                下一篇：python 多线程/多进程
+                下一篇：对话分类竞赛总结
               </h3>
             </a>
           </div>
