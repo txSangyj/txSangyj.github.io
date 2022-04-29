@@ -2,14 +2,14 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://txSangyj.github.io/</id>
     <title>ji</title>
-    <updated>2021-04-16T12:00:38.597Z</updated>
+    <updated>2022-04-29T09:13:23.461Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://txSangyj.github.io/"/>
     <link rel="self" href="https://txSangyj.github.io/atom.xml"/>
     <subtitle>学习用</subtitle>
     <logo>https://txSangyj.github.io/images/avatar.png</logo>
     <icon>https://txSangyj.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2021, ji</rights>
+    <rights>All rights reserved 2022, ji</rights>
     <entry>
         <title type="html"><![CDATA[一个简单的脚本]]></title>
         <id>https://txSangyj.github.io/post/a/</id>
@@ -118,13 +118,16 @@ if __name__=='__main__':
         <link href="https://txSangyj.github.io/post/2021-shu-dan/">
         </link>
         <updated>2021-03-03T14:53:31.000Z</updated>
-        <summary type="html"><![CDATA[<p>都三月了，书看了几本？</p>
+        <summary type="html"><![CDATA[<p>都三月了，书看了几本？<br>
+2022.3.7 Update 回顾一下。</p>
 ]]></summary>
-        <content type="html"><![CDATA[<p>都三月了，书看了几本？</p>
+        <content type="html"><![CDATA[<p>都三月了，书看了几本？<br>
+2022.3.7 Update 回顾一下。</p>
 <!-- more -->
 <h2 id="已">已：</h2>
 <h3 id="娱乐至死">《娱乐至死》</h3>
-<p>像看一篇论文。不看抖音，看完微博都想卸了。应该控制一下获取无用信息的频率了。</p>
+<p>像看一篇论文。不看抖音，看完微博都想卸了。应该控制一下获取无用信息的频率了。<br>
+回想起来私货很多。</p>
 <h3 id="小狗钱钱12">《小狗钱钱》1&amp;2</h3>
 <pre><code>    1. 小目标，开家小书店要多少钱？
     2. 养鹅🐧
@@ -141,8 +144,20 @@ if __name__=='__main__':
 </blockquote>
 <pre><code>艺术眼光不是政治眼光里提到契诃夫的《万卡》，随手一搜发现《山海情》里念的课文就是这个。
 </code></pre>
-<h3 id="沙丘">《沙丘》</h3>
-<p>读译文真是痛苦，不知道能不能坚持读完。</p>
+<blockquote>
+<p>后面发现是教材，看了个序？</p>
+</blockquote>
+<h3 id="沙丘"><s>《沙丘》</s></h3>
+<h2 id="~~读译文真是痛苦不知道能不能坚持读完-~~果然没看完-202237-update">~~读译文真是痛苦，不知道能不能坚持读完。~~果然没看完。<br>
+2022.3.7 Update</h2>
+<h3 id="丧钟为谁而鸣">《丧钟为谁而鸣》</h3>
+<p>2077里面带出来的。不过也没读完，进度50%吧。</p>
+<h3 id="风声">《风声》</h3>
+<p>回顾完电影去看，发现内容居然差别有点大。</p>
+<h3 id="文化苦旅">《文化苦旅》</h3>
+<p>10+年后又看王道士。</p>
+<h3 id="白鹿原">《白鹿原》</h3>
+<p>看完气的吃不下饭。</p>
 ]]></content>
     </entry>
     <entry>
