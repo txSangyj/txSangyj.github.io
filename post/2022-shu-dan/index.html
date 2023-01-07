@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>Multi-Task Learning | ji</title>
+<title> 2022书单 | ji</title>
 <meta name="description" content="学习用">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -89,66 +89,65 @@
       <div class="content-container">
         <div class="post-detail">
           
-          <h2 class="post-title">Multi-Task Learning</h2>
+          <h2 class="post-title"> 2022书单</h2>
           <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2018-09-19</span>
-            
-              <span>
-                <i class="icon-pricetags-outline"></i>
-                
-                  <a href="https://txSangyj.github.io/tag/S9xG6B0kK/">
-                    ML
-                    
-                  </a>
-                
-              </span>
+            <span><i class="icon-calendar-outline"></i> 2023-01-03</span>
             
           </div>
           <div class="post-content">
-            <p><ul class="markdownIt-TOC">
-<li><a href="#%E6%A6%82%E5%BF%B5">概念</a>
-<ul>
-<li><a href="#%E4%B8%A4%E7%A7%8D%E5%85%B1%E4%BA%AB%E6%96%B9%E5%BC%8F">两种共享方式</a></li>
-</ul>
-</li>
-<li><a href="#mtl%E6%9C%89%E6%95%88%E7%9A%84%E5%8E%9F%E5%9B%A0">MTL有效的原因</a></li>
-<li><a href="#dl%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E5%92%8C%E5%8F%91%E5%B1%95">DL中的应用和发展</a></li>
-<li><a href="#%E8%BE%85%E5%8A%A9%E4%BB%BB%E5%8A%A1">辅助任务</a></li>
-</ul>
-<br>
-看了一些目标检测的论文之后发现对多任务学习不够了解，下面的内容是<a href="https://arxiv.org/abs/1706.05098">Multi-Taks Learning综述论文</a>的部分总结。</p>
+            <p>今年的总结早多了。</p>
 <!-- more -->
-<h1 id="概念">概念</h1>
-<p>在传统的机器学习中通常针对一个任务来优化模型，对不同的任务使用不同的模型。Multi-Task Learning(MTL)使用共享某些隐层表达的方式来实现同时完成多个任务(或是利用辅助任务提升主任务的效果)。</p>
-<p>例如在Fast RCNN中，object Classifier 和bounding box regressor共享Conv feature map，使用multi-task loss来进行训练，可以同时完成目标识别与定位。</p>
-<h2 id="两种共享方式">两种共享方式</h2>
-<p>提到的多任务学习主要分为两种：<br>
-<strong>hard parameter sharing</strong>：不同任务直接共享隐藏层。<br>
-<code>降低过拟合风险（相对于单一任务，模型要学习更多更通用的表达。）</code><br>
-**soft parameter sharing：**每个任务对应一个模型，添加额外的权重代价（L2，trace norm）约束各个模型中的某些层。<br>
-<code>在非神经网络的方法中更常见。</code></p>
-<h1 id="mtl有效的原因">MTL有效的原因</h1>
-<ol>
-<li>同样的数据集对于不同的任务，噪声的定义可能是不同的，同时学习目标A和B对于目标的对应噪声有平均的效果，也能防止过拟合其中一个目标；</li>
-<li>任务A难以被学习时，那些对任务B有用的特征可能对A同样有用；</li>
-<li>对于不同任务，隐层学习到的特征也有不同，共享隐层增加了特征数量；</li>
-<li>多任务模型学习到的Feature Representation有利于新任务的推广；</li>
-<li>有正则化效果。<br>
-<strong>任务之间要相关，否则结果可能更差</strong></li>
-</ol>
-<h1 id="dl中的应用和发展">DL中的应用和发展</h1>
-<p>DL中层与层之间的互联或者说结构之间的互联天然地为hard parameter sharing提供了基础，可以简单的预定义某些层为共享层。MTL在深度学习上还有一些其他的结构比如Fully-Adaptive Feature Sharing、Tensor factorisation for MTL等。但要注意的是，如果任务不是紧密相关或者需要在不同级别上进行进一步推理，这样的参数共享效果并不好。</p>
-<h1 id="辅助任务">辅助任务</h1>
-<p>另一个重点是，即使我们只需要模型完成任务A，可能在加入辅助任务B之后得到对于任务A的更好的学习。但是如何选择任务B是一个问题，一般假设辅助任务应该以某种方式与主任务相关或有助于预测主任务。但是如何定义这样的相关性仍然是一个问题，这一方面还有待探索。</p>
+<h1 id="已">已</h1>
+<h2 id="路边野餐">《路边野餐》</h2>
+<pre><code>当时野餐露营挺火。
+</code></pre>
+<p>苏联时代的科幻小说，人名过于拗口了。确实几个人像工蚁一样。附录还有作者对主编修改意见的吐槽，笑死。</p>
+<h2 id="神们自己">《神们自己》</h2>
+<p>赶上了隔离的尾巴，在酒店隔离时候读的。</p>
+<pre><code>拉蒙特发现了电子通道存在的问题，想关闭电子通道，但关闭意味倒退。
+杜阿文明关系文明存亡，更不可能关闭。
+狄尼特不光指出了问题，也提出了解决问题的方法。
+</code></pre>
+<p>拉蒙特和政治家的对话。</p>
+<blockquote>
+<p>“年轻人，我的权力从名义上来说很大，但是我只能在符合公众愿望的情况下才拥有这么大的权力。”</p>
+</blockquote>
+<h2 id="教父-parti">《教父 PART:Ⅰ》</h2>
+<p>文字细节多了点，但电影确实太还原了。<br>
+图书馆只有Ⅰ和Ⅲ，读完Ⅰ就没有然后了。</p>
+<h2 id="兄弟">《兄弟》</h2>
+<p>看了余华和罗翔的对谈去看的。<br>
+上半部为宋凡平难受流了不知道多少泪，下半部看刘镇众人变化，气愤于宋钢的随波逐流。<br>
+偷别人的书评：</p>
+<blockquote>
+<p>上半部真实的荒诞<br>
+下半部荒诞的真实</p>
+</blockquote>
+<h2 id="皮囊">《皮囊》</h2>
+<p>写作者身边的人，散文印象不深。<br>
+父亲的瘫痪 倔强 偏执 精神和肉体的错位<br>
+母亲的坚毅 执念 走后的思念<br>
+神婆 小小</p>
+<h2 id="两篇网文">两篇网文</h2>
+<h3 id="深空之流浪舰队">《深空之流浪舰队》</h3>
+<p>实在是太长了，跳过不少段落，只有一句话：</p>
+<blockquote>
+<p>愿不断进步。</p>
+</blockquote>
+<h3 id="我们生活在南京">《我们生活在南京》</h3>
+<p>铺垫转折不断，篇幅不长好评。梗太多偶尔出戏但读起来相对轻松，<s>通信课外读物</s>。</p>
+<h1 id="正">正</h1>
+<h2 id="树犹如此">《树犹如此》</h2>
+<h2 id="少年pi的奇幻漂流">《少年Pi的奇幻漂流》</h2>
 
           </div>
         </div>
 
         
           <div class="next-post">
-            <a class="purple-link" href="https://txSangyj.github.io/post/决策树学习/">
+            <a class="purple-link" href="https://txSangyj.github.io/post/a/">
               <h3 class="post-title">
-                下一篇：决策树学习
+                下一篇：一个简单的脚本
               </h3>
             </a>
           </div>
