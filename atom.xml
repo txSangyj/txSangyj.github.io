@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://txSangyj.github.io/</id>
     <title>ji</title>
-    <updated>2023-01-07T04:08:41.877Z</updated>
+    <updated>2023-04-12T15:28:54.036Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://txSangyj.github.io/"/>
     <link rel="self" href="https://txSangyj.github.io/atom.xml"/>
@@ -10,6 +10,109 @@
     <logo>https://txSangyj.github.io/images/avatar.png</logo>
     <icon>https://txSangyj.github.io/favicon.ico</icon>
     <rights>All rights reserved 2023, ji</rights>
+    <entry>
+        <title type="html"><![CDATA[利用AI学习Rust]]></title>
+        <id>https://txSangyj.github.io/post/li-yong-ai-xue-xi-rust/</id>
+        <link href="https://txSangyj.github.io/post/li-yong-ai-xue-xi-rust/">
+        </link>
+        <updated>2023-04-12T15:17:52.000Z</updated>
+        <summary type="html"><![CDATA[<p>前一段时间Python的类型注解写的实在太难受了，想起了之前看过的rust，重新捡起来看看，然后学到了AI时代的学习方法。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>前一段时间Python的类型注解写的实在太难受了，想起了之前看过的rust，重新捡起来看看，然后学到了AI时代的学习方法。</p>
+<!-- more -->
+<h2 id="简单几步">简单几步</h2>
+<ol>
+<li>首选当然是读基础的文档，<a href="https://kaisery.github.io/trpl-zh-cn/">Rust程序设计语言</a></li>
+<li>看完不知道做啥，刷点题吧，找一位大佬的<a href="https://github.com/iosmanthus/leetcode-rust">刷题仓库</a>。</li>
+<li>vscode安装拓展<a href="https://github.com/mintlify/writer">Mintlify Writer</a>，一个AI生成自动生成文档的插件。</li>
+<li>看不懂就选中再按<code>Ctrl+.</code>。<s>哪里不会点哪里！</s></li>
+</ol>
+<h2 id="看看效果">看看效果</h2>
+<p>选中<code>ListNode</code>、<code>derive</code>、<code>inline</code>、<code>Box</code>、<code>unwrap_or</code>都可以生成对应的说明。放到一起是有点混乱，Rust的docstring是markdown格式的，可以很方便摘抄出来。<br>
+<code>common/src/lib.rs</code></p>
+<pre><code class="language-rust">// Definition for singly-linked list.
+pub mod structs {
+    /**
+    Defines a struct named ListNode with two fields, val of type i32 and next of type
+    Option&lt;Box&lt;ListNode&gt;&gt;.
+
+    Properties:
+
+    * `val`: The `val` property of the `ListNode` struct represents the value stored in the node. In
+    this case, it is an integer value of type `i32`.
+    * `next`: `next` is a property of the `ListNode` struct that represents a pointer to the next node
+    in a linked list. It is an `Option` type that can either be `None` if there is no next node, or
+    `Some` containing a `Box` that points to the next
+    
+    `#[derive(PartialEq,Eq,Debug)]` is a Rust attribute that automatically generates implementations
+    of the `PartialEq`, `Eq`, and `Debug` traits for the `ListNode` struct. This allows instances of
+    the `ListNode` struct to be compared for equality using the `==` operator, and printed using the
+    `println!` macro with the `{:?}` format specifier.
+    */
+    #[derive(PartialEq,Eq,Debug)]
+    pub struct ListNode{
+        pub val: i32,
+        pub next: Option&lt;Box&lt;ListNode&gt;&gt;,
+    }
+    impl ListNode{
+        /**
+        `#[inline]` is a Rust attribute that suggests the compiler to inline the function at the
+        call site. This means that instead of calling the function, the code of the function is
+        inserted directly into the calling code. This can improve performance by reducing the
+        overhead of function calls. 
+        */
+        #[inline]
+        pub fn new(val: i32) -&gt; Self {
+            ListNode { next: None, val}
+        }
+    }
+}
+
+
+#[cfg(test)]
+mod tests {
+    use super::structs::*;
+    #[test]
+    /**
+    `Box` is a smart pointer in Rust that provides **heap** allocation of
+    values. In this code, `Box` is used to create a new instance of
+    `ListNode` on the heap and store a pointer to it in the `next` field
+    of another `ListNode`. This allows for the creation of a linked list
+    data structure where each node is allocated on the heap and connected
+    to the next node through a pointer.
+    */
+    /**
+    `unwrap_or` is a method provided by the `Option` type in Rust. It
+    takes a default value as an argument and returns either the value
+    contained in the `Option` if it is `Some`, or the default value if
+    the `Option` is `None`. In the given code,
+    `result.take().unwrap_or(Box::new(ListNode::new(0))).val` is used
+    to get the value of the `ListNode` contained in `result`, or a new
+    `ListNode` with a value of 0 if `result` is `None`. The `val`
+    property of the resulting `ListNode` is then returned.
+    */
+    fn it_works() {
+        let mut result = Some(
+        Box::new(ListNode {
+            val: 9,
+            next: Some(Box::new(ListNode {
+                val: 8,
+                next: Some(Box::new(ListNode {
+                    val: 3,
+                    next: Some(Box::new(ListNode::new(3))),
+                })),
+            })),
+        }));
+
+        assert_eq!(result.take().unwrap_or(Box::new(ListNode::new(0))).val, 9);
+    }
+}
+</code></pre>
+<p>插件有个问题是选中的内容是行内的话，生成注释会破坏原来的格式，需要手动调整下。<br>
+当然自动生成的内容基本只是解释现有代码， 不涉及更深层次的内容，还需要结合其他方式学习。<br>
+就这样~</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[ 2022书单]]></title>
         <id>https://txSangyj.github.io/post/2022-shu-dan/</id>
@@ -581,163 +684,6 @@ cout &lt;&lt; &quot;i:&quot; &lt;&lt; i &lt;&lt; &quot;\tf():&quot; &lt;&lt; f()
 <li>建议文章都添加&lt;!-- more --&gt;不然有的主页显示会出现错位。</li>
 <li>字数统计、点击统计好像暂不支持。</li>
 </ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[python 多线程/多进程]]></title>
-        <id>https://txSangyj.github.io/post/multithreaded-multiprocessing/</id>
-        <link href="https://txSangyj.github.io/post/multithreaded-multiprocessing/">
-        </link>
-        <updated>2018-12-28T11:55:14.000Z</updated>
-        <summary type="html"><![CDATA[<p><br>
-进程和线程区别也是常问的问题，这也记一下。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B">进程和线程</a>
-<ul>
-<li><a href="#%E8%BF%9B%E7%A8%8B">进程</a></li>
-<li><a href="#%E7%BA%BF%E7%A8%8B">线程</a></li>
-<li><a href="#%E5%8C%BA%E5%88%AB">区别</a></li>
-</ul>
-</li>
-<li><a href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B">多线程</a>
-<ul>
-<li><a href="#gil">GIL</a></li>
-<li><a href="#threading">threading</a></li>
-</ul>
-</li>
-<li><a href="#%E5%A4%9A%E8%BF%9B%E7%A8%8B">多进程</a></li>
-<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
-</ul>
-<br>
-进程和线程区别也是常问的问题，这也记一下。</p>
-<!-- more -->
-<h1 id="进程和线程">进程和线程</h1>
-<h2 id="进程">进程</h2>
-<p>可执行的程序加载到内存中，系统为它分配资源后运行中的程序称之为进程。进程是程序关于某数据集合的一次运行活动，是操作系统进行资源分配（地址空间、内存、数据栈）和调度的基本单位。</p>
-<h2 id="线程">线程</h2>
-<p>线程被包含在进程中，是进程中的实际运作单位，是操作系统进行调度的最小单位。线程是属于进程的，同一进程下的线程共享相同的运行环境。</p>
-<h2 id="区别">区别</h2>
-<ol>
-<li>
-<p>进程是资源分配的单位；线程是CPU调度的单位。</p>
-</li>
-<li>
-<p>进程间切换代价大；线程间切换代价小。</p>
-</li>
-<li>
-<p>进程拥有资源多；线程拥有资源少。</p>
-</li>
-<li>
-<p>进程间不能直接共享信息；线程间可以通过共享数据通信。</p>
-</li>
-<li>
-<p>一个进程死掉不影响其他进程；进程下的线程死掉会导致进程死掉。</p>
-<blockquote>
-<p>（所以写多进程的时候总是同样的错报四次hhh）</p>
-</blockquote>
-</li>
-</ol>
-<h1 id="多线程">多线程</h1>
-<h2 id="gil">GIL</h2>
-<p>Python代码执行由Python虚拟机控制，而对Python虚拟机的访问由全局解释器锁GIL控制，它保证即使在多核心处理器上同一时刻也只有一个线程在运行。多线程环境下虚拟机的运行方式是（获得锁-切换到一个线程运行-间隔检查/sleep-睡眠-解锁）的循环。</p>
-<p>线程在处理I/O调用的时候会释放GIL，而CPU密集型的线程会在自己的时间片内一直占用处理器。所以CPU密集型的任务不推荐使用多线程。</p>
-<h2 id="threading">threading</h2>
-<p>threading的Thread类提供两种方式创建线程：1、传递一个可调用对象；2、派生一个子类，重写run方法。</p>
-<pre><code class="language-python">import threading
-from time import sleep,ctime
-
-def loop(x):
-    t = ctime()
-    sleep(x)
-    print(&quot;{0} start at {1},stop at {2}&quot;.format(
-        threading.current_thread().getName(),t,ctime()))
-    return x
-
-class MyThread(threading.Thread):
-    
-    def __init__(self, target=None ,args=()):
-        self.result = None
-        return super().__init__(target=target,args=args)
-    
-    #使用子类继承的好处就是更加灵活
-    def getResult(self):
-        return self.result
-    
-    def run(self):
-        self.result = self._target(*self._args)
-
-if __name__ == '__main__':
-    
-    #使用Thread类
-    for i in range(4):
-        mythread = threading.Thread(target = loop,args = (i,))
-        mythread.start()
-    sleep(4)
-    #使用MyThread类
-    thread_list = []
-    for i in range(4):
-        my_thread = MyThread(target=loop,args=(i,))
-        my_thread.start()
-        thread_list.append(my_thread)
-    
-    for t in thread_list:
-        t.join()
-    for t in thread_list:
-        print(t.getResult())
-</code></pre>
-<figure data-type="image" tabindex="1"><img src="https://i.loli.net/2019/07/16/5d2de1b3af4d466932.png" alt="运行截图" loading="lazy"></figure>
-<ul>
-<li>print函数不是线程安全的，可以用sys.stdout.write方法替换。</li>
-<li>这段没有线程通信，参考里有讲的很详细的文章。</li>
-</ul>
-<h1 id="多进程">多进程</h1>
-<p>Python多进程使用的是multiprocessing包，在接口定义上与threading大致相同。</p>
-<pre><code>import multiprocessing as mp   
-import sys
-from time import sleep,ctime
-
-def loop(x):
-    t = ctime()
-    sleep(x)
-    sys.stdout.write(&quot;{0} start at {1},stop at {2}\n&quot;.format(
-        mp.process.current_process(),t,ctime()))
-
-    return x
-
-if __name__ == '__main__':
-    
-    #类似于threading的用法
-    for i in range(4):
-        my_process = mp.Process(target = loop,args = (i,))
-        my_process.start()
-    sleep(4)
-
-    #使用进程池，可以获取函数的返回值
-    pool = mp.Pool()
-    res = pool.map(loop,range(4)) #map接收可迭代对象
-    print(res)
-    
-    #阻塞执行的apply
-    res_list = [pool.apply(loop,(i,)) for i in range(4)]
-    print(res_list)
-    
-    #异步非阻塞的apply_async
-    res_list = [pool.apply_async(loop,(i,)).get() for i in range(4)]
-    print(res_list)
-</code></pre>
-<figure data-type="image" tabindex="2"><img src="https://i.loli.net/2019/07/16/5d2de1d4531ef71329.png" alt="运行截图" loading="lazy"></figure>
-<p>多进程有一个坑点，进程间pickle进行数据序列化传递数据，然而有些数据不能被序列化，图片来自[5]。</p>
-<figure data-type="image" tabindex="3"><img src="https://i.loli.net/2019/07/16/5d2de1bc235d083052.png" alt="能被序列化的对象" loading="lazy"></figure>
-<p>再引一张进程池工作方式的图，感觉很有用，来自[4]。</p>
-<figure data-type="image" tabindex="4"><img src="https://i.loli.net/2019/07/16/5d2de1e40b90751549.png" alt="进程池工作方式" loading="lazy"></figure>
-<h1 id="参考">参考</h1>
-<p>[1] 了解GIL看这里http://cenalulu.github.io/python/gil-in-python/</p>
-<p>[2] 多线程这篇内容更全面http://codingpy.com/article/python-201-a-tutorial-on-threads/</p>
-<p>[3] 多进程pickle问题解决看这里https://strcpy.me/index.php/archives/318/</p>
-<p>[4] 进程池源码解析http://www.codexiu.cn/python/blog/939/</p>
-<p>[5] https://docs.python.org/2/library/pickle.html#what-can-be-pickled-and-unpickled</p>
-<p>PPS终于重新开始记笔记了。</p>
 ]]></content>
     </entry>
 </feed>

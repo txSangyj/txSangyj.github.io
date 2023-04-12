@@ -1,0 +1,274 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>利用AI学习Rust | ji</title>
+<meta name="description" content="学习用">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://txSangyj.github.io//favicon.ico?v=1681313329944">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://txSangyj.github.io//styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119333147-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119333147-1');
+</script>
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://txSangyj.github.io/">
+        <img class="avatar" src="https://txSangyj.github.io//images/avatar.png?v=1681313329944" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://txSangyj.github.io/">
+        <h1 class="site-title">ji</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">利用AI学习Rust</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2023-04-12</span>
+            
+          </div>
+          <div class="post-content">
+            <p>前一段时间Python的类型注解写的实在太难受了，想起了之前看过的rust，重新捡起来看看，然后学到了AI时代的学习方法。</p>
+<!-- more -->
+<h2 id="简单几步">简单几步</h2>
+<ol>
+<li>首选当然是读基础的文档，<a href="https://kaisery.github.io/trpl-zh-cn/">Rust程序设计语言</a></li>
+<li>看完不知道做啥，刷点题吧，找一位大佬的<a href="https://github.com/iosmanthus/leetcode-rust">刷题仓库</a>。</li>
+<li>vscode安装拓展<a href="https://github.com/mintlify/writer">Mintlify Writer</a>，一个AI生成自动生成文档的插件。</li>
+<li>看不懂就选中再按<code>Ctrl+.</code>。<s>哪里不会点哪里！</s></li>
+</ol>
+<h2 id="看看效果">看看效果</h2>
+<p>选中<code>ListNode</code>、<code>derive</code>、<code>inline</code>、<code>Box</code>、<code>unwrap_or</code>都可以生成对应的说明。放到一起是有点混乱，Rust的docstring是markdown格式的，可以很方便摘抄出来。<br>
+<code>common/src/lib.rs</code></p>
+<pre><code class="language-rust">// Definition for singly-linked list.
+pub mod structs {
+    /**
+    Defines a struct named ListNode with two fields, val of type i32 and next of type
+    Option&lt;Box&lt;ListNode&gt;&gt;.
+
+    Properties:
+
+    * `val`: The `val` property of the `ListNode` struct represents the value stored in the node. In
+    this case, it is an integer value of type `i32`.
+    * `next`: `next` is a property of the `ListNode` struct that represents a pointer to the next node
+    in a linked list. It is an `Option` type that can either be `None` if there is no next node, or
+    `Some` containing a `Box` that points to the next
+    
+    `#[derive(PartialEq,Eq,Debug)]` is a Rust attribute that automatically generates implementations
+    of the `PartialEq`, `Eq`, and `Debug` traits for the `ListNode` struct. This allows instances of
+    the `ListNode` struct to be compared for equality using the `==` operator, and printed using the
+    `println!` macro with the `{:?}` format specifier.
+    */
+    #[derive(PartialEq,Eq,Debug)]
+    pub struct ListNode{
+        pub val: i32,
+        pub next: Option&lt;Box&lt;ListNode&gt;&gt;,
+    }
+    impl ListNode{
+        /**
+        `#[inline]` is a Rust attribute that suggests the compiler to inline the function at the
+        call site. This means that instead of calling the function, the code of the function is
+        inserted directly into the calling code. This can improve performance by reducing the
+        overhead of function calls. 
+        */
+        #[inline]
+        pub fn new(val: i32) -&gt; Self {
+            ListNode { next: None, val}
+        }
+    }
+}
+
+
+#[cfg(test)]
+mod tests {
+    use super::structs::*;
+    #[test]
+    /**
+    `Box` is a smart pointer in Rust that provides **heap** allocation of
+    values. In this code, `Box` is used to create a new instance of
+    `ListNode` on the heap and store a pointer to it in the `next` field
+    of another `ListNode`. This allows for the creation of a linked list
+    data structure where each node is allocated on the heap and connected
+    to the next node through a pointer.
+    */
+    /**
+    `unwrap_or` is a method provided by the `Option` type in Rust. It
+    takes a default value as an argument and returns either the value
+    contained in the `Option` if it is `Some`, or the default value if
+    the `Option` is `None`. In the given code,
+    `result.take().unwrap_or(Box::new(ListNode::new(0))).val` is used
+    to get the value of the `ListNode` contained in `result`, or a new
+    `ListNode` with a value of 0 if `result` is `None`. The `val`
+    property of the resulting `ListNode` is then returned.
+    */
+    fn it_works() {
+        let mut result = Some(
+        Box::new(ListNode {
+            val: 9,
+            next: Some(Box::new(ListNode {
+                val: 8,
+                next: Some(Box::new(ListNode {
+                    val: 3,
+                    next: Some(Box::new(ListNode::new(3))),
+                })),
+            })),
+        }));
+
+        assert_eq!(result.take().unwrap_or(Box::new(ListNode::new(0))).val, 9);
+    }
+}
+</code></pre>
+<p>插件有个问题是选中的内容是行内的话，生成注释会破坏原来的格式，需要手动调整下。<br>
+当然自动生成的内容基本只是解释现有代码， 不涉及更深层次的内容，还需要结合其他方式学习。<br>
+就这样~</p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://txSangyj.github.io/post/2022-shu-dan/">
+              <h3 class="post-title">
+                下一篇： 2022书单
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      <div class="site-footer">
+  <div class="slogan">学习用</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://txSangyj.github.io//atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: 'e34e534eed4c2e648a08',
+        clientSecret: 'f8134536308fd4eae908eaf80934d839b47cfd09',
+        repo: 'txSangyj.github.io',
+        owner: 'txSangyj',
+        admin: ['txSangyj'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>
