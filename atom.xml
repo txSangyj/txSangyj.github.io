@@ -2,14 +2,79 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://txSangyj.github.io/</id>
     <title>ji</title>
-    <updated>2023-04-12T16:01:37.028Z</updated>
+    <updated>2024-02-22T16:56:18.630Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://txSangyj.github.io/"/>
     <link rel="self" href="https://txSangyj.github.io/atom.xml"/>
     <subtitle>学习用</subtitle>
     <logo>https://txSangyj.github.io/images/avatar.png</logo>
     <icon>https://txSangyj.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2023, ji</rights>
+    <rights>All rights reserved 2024, ji</rights>
+    <entry>
+        <title type="html"><![CDATA[2023书单]]></title>
+        <id>https://txSangyj.github.io/post/2023-shu-dan/</id>
+        <link href="https://txSangyj.github.io/post/2023-shu-dan/">
+        </link>
+        <updated>2024-02-22T16:50:54.000Z</updated>
+        <summary type="html"><![CDATA[<p>工作一忙起来就把书放下了，娱乐方式变多读书随着更少了。<s>都是借口😓</s></p>
+]]></summary>
+        <content type="html"><![CDATA[<p>工作一忙起来就把书放下了，娱乐方式变多读书随着更少了。<s>都是借口😓</s></p>
+<h2 id="-more-"><!-- more --></h2>
+<h1 id="已">已</h1>
+<h2 id="少年pi的奇幻漂流">少年Pi的奇幻漂流</h2>
+<p>海上漂流时孤独是最大的敌人。</p>
+<p><s>看书自动渲染电影画面</s></p>
+<h2 id="台北人树犹如此">台北人/树犹如此</h2>
+<p>一把青，战乱下的爱情<br>
+杜鹃花的王雄 什么替身文学 无根之人<br>
+看标题挑着看，也不知道还剩下几篇。</p>
+<h2 id="量子之夜">量子之夜</h2>
+<p>侧重心理学~~？？？<s>的科幻小说。设定上把人分成哲学僵尸、精神变态（有自我意识，对别人弱点本能的感知）、有自我意识且有良知的人。<br>
+开始一直以为量子之夜指的是马尔丘克失去记忆那一夜，最后还是有点惊讶的</s>这么搞真有用？？~~。<br>
+时代背景设置在2000-2020左右。<br>
+哲学僵尸的描写，凯拉哥哥苏醒的描写。<br>
+<s>这也要拯救世界是吧</s></p>
+<h2 id="信">信</h2>
+<p><s>读前以为是推理小说</s><br>
+抢劫杀人犯的弟弟直贵<br>
+偏见歧视轮回 社会道德惩罚 直贵的选择</p>
+<blockquote>
+<p>“歧视是理所当然的”<s>？？？</s></p>
+</blockquote>
+<p>直贵的人生可能，书信的催化。<br>
+逃避、面对、救赎<br>
+理想化的话还是希望最后直贵能唱好那首歌的</p>
+<h1 id="鼠疫">鼠疫</h1>
+<p>后疫情时代推荐<br>
+`人始终是老样子。不过这正是他们的力量和无辜所在。<br>
+打破残忍和痛苦景象的，是市井喧嚣的确实性。<br>
+灾难来临民众的变化。<br>
+塔鲁的道德观。<br>
+医生里厄 格朗  塔鲁 朗贝尔 神父 奥通和孩子 对鼠疫不同的抗争。</p>
+<blockquote>
+<p><em>“恢复正常生活，您指的是什么呢？”</em><br>
+<em>“电影院放映新片呗。”</em></p>
+</blockquote>
+<p>瘟疫永远不会消亡，人们的抗争也会再现。</p>
+<blockquote>
+<p>读的有点碎，标记下过段时间再重读。</p>
+</blockquote>
+<p><s>后面借了《局外人》然后翻都没翻就还回去了</s></p>
+<h1 id="永恒的终结">永恒的终结</h1>
+<p>半个多世纪前的科幻小说<br>
+时间旅行概念</p>
+<blockquote>
+<p>探索是冒险，不探索未知永恒有什么意义。</p>
+</blockquote>
+<p><strong><em>love and peace</em></strong></p>
+<h1 id="网文">网文</h1>
+<h2 id="永不解密">永不解密</h2>
+<p>篇幅不长，情节挺抓人</p>
+<h1 id="正">正</h1>
+<p>《也许，你该找个人聊聊》<s>睡前催眠</s><br>
+《置身事内》</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[利用AI学习Rust]]></title>
         <id>https://txSangyj.github.io/post/li-yong-ai-xue-xi-rust/</id>
@@ -650,40 +715,6 @@ cout &lt;&lt; &quot;i:&quot; &lt;&lt; i &lt;&lt; &quot;\tf():&quot; &lt;&lt; f()
 <hr>
 <h1 id="参考">参考</h1>
 <p>[1]<a href="https://zh.cppreference.com/w/cpp/language/lambda">cppreference-lambda</a></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Hexo 转到 Gridea]]></title>
-        <id>https://txSangyj.github.io/post/hexo-zhuan-dao-gridea/</id>
-        <link href="https://txSangyj.github.io/post/hexo-zhuan-dao-gridea/">
-        </link>
-        <updated>2019-07-17T06:36:21.000Z</updated>
-        <summary type="html"><![CDATA[<p><br>
-逛论坛时候发现个新玩具<a href="https://gridea.dev/">Gridea</a>，然后就把原来Hexo下的东西迁到了Gridea下。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#%E9%85%8D%E7%BD%AE">配置</a></li>
-<li><a href="#%E6%96%87%E7%AB%A0">文章</a></li>
-<li><a href="#%E5%9B%BE%E7%89%87">图片</a></li>
-<li><a href="#%E5%85%B6%E4%BB%96%E9%97%AE%E9%A2%98">其他问题</a></li>
-</ul>
-<br>
-逛论坛时候发现个新玩具<a href="https://gridea.dev/">Gridea</a>，然后就把原来Hexo下的东西迁到了Gridea下。</p>
-<!-- more -->
-<h1 id="配置">配置</h1>
-<p>上教程<a href="https://gridea.dev/docs/">Gridea doc</a></p>
-<h1 id="文章">文章</h1>
-<p>原Hexo的source/_post下的.md文件复制到Gridea源文件夹下的posts下。注意posts下<strong>不能</strong>有文件夹。<s>可能是Bug吧。</s></p>
-<h1 id="图片">图片</h1>
-<p>又不能有asset_folder，Gridea插入的图片使用的又是绝对路径，所以把之前的图片转成了图床链接。用的是<a href="https://github.com/kookob/smpic">Simpic</a>上传。</p>
-<h1 id="其他问题">其他问题</h1>
-<ul>
-<li>原来的主题不会适配。</li>
-<li>文章的分类没有自动识别。</li>
-<li>Gridea下写东西<strong>千万不要随便点返回</strong>。</li>
-<li>建议文章都添加&lt;!-- more --&gt;不然有的主页显示会出现错位。</li>
-<li>字数统计、点击统计好像暂不支持。</li>
-</ul>
 ]]></content>
     </entry>
 </feed>

@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>python 关闭信号 | ji</title>
+<title>2023书单 | ji</title>
 <meta name="description" content="学习用">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -89,22 +89,15 @@
       <div class="content-container">
         <div class="post-detail">
           
-          <h2 class="post-title">python 关闭信号</h2>
+          <h2 class="post-title">2023书单</h2>
           <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2018-07-16</span>
+            <span><i class="icon-calendar-outline"></i> 2024-02-23</span>
             
               <span>
                 <i class="icon-pricetags-outline"></i>
                 
-                  <a href="https://txSangyj.github.io/tag/6TykwWblv/">
-                    Linux
-                    
-                      ，
-                    
-                  </a>
-                
-                  <a href="https://txSangyj.github.io/tag/jOPoKNR3Gb/">
-                    python
+                  <a href="https://txSangyj.github.io/tag/MQ1c5AU6R/">
+                    水
                     
                   </a>
                 
@@ -112,57 +105,70 @@
             
           </div>
           <div class="post-content">
-            <p><ul class="markdownIt-TOC">
-<li><a href="#%E5%8F%82%E8%80%83">参考：</a></li>
-</ul>
-<br>
-最近在jupyter notebook中运行一个回归任务的时候总会出现一个Kernel Restarting的提示，python输出部分也没有报错，很是迷茫。</p>
-<!-- more -->
-<p>然后在PyCharm中Debug了一下相关的代码，输出显示python进程在运行时被杀掉了，最后的输出是：<br>
-<code>Process finished with exit code 137 (interrupted by signal 9: SIGKILL)</code></p>
-<p><a href="https://stackoverflow.com/questions/43268156/process-finished-with-exit-code-137-in-pycharm">这里</a>给出的回答是“In most of the cases, it caused because of excessive memory usage.”</p>
-<p>因运行时CPU占用较高，自己不确定原因，使用dmesg查询日志了解一下具体的原因方便修改程序。终端中输入：<br>
-<code>dmesg -T | grep -E -i -B100 'killed process'</code></p>
-<p>得到日志如下：</p>
-<pre><code>[一 7月 16 20:07:50 2018] Out of memory: Kill process 648 (python) score 607 or sacrifice child
-[一 7月 16 20:07:50 2018] Killed process 648 (python) total-vm:9058460kB, anon-rss:6678640kB, file-rss:0kB, shmem-rss:0kB
-</code></pre>
-<p>可以看出python被杀掉的原因确实是OOM。</p>
-<p>这里涉及到Linux的信号机制，比如常见的Ctrl-C就是向程序发送SIGINT信号，其中部分信号可以用程序捕获并进行相应的处理，放个表格在这备用。</p>
-<p>| 信号 |  值 | 处理动作 | 发出原因 |<br>
-|-| - | - |<br>
-| SIGHUP | 1 | A | 终端挂起或者控制进程终止 |<br>
-| SIGINT | 2 | A | 键盘中断 |<br>
-| SIGQUIT | 3 | C | 键盘的退出键被按下  |<br>
-| SIGILL | 4 | C | 非法指令  |<br>
-| SIGABRT | 6 | C | 由abort(3)发出的退出指令  |<br>
-| SIGFPE | 8 | C | 浮点异常  |<br>
-|** SIGKILL** | 9 | AEF | **Kill信号  **|<br>
-| SIGSEGV | 11  | C  | 无效的内存引用  |<br>
-| SIGPIPE | 13  | A  | 管道破裂: 写一个没有读端口的管道  |<br>
-| SIGALRM | 14 |  A |  由alarm(2)发出的信号  |<br>
-| SIGTERM | 15 |  A |  终止信号  |<br>
-| SIGUSR1 | 30,10,16 |  A  | 用户自定义信号1  |<br>
-| SIGUSR2 | 31,12,17 |  A  | 用户自定义信号2  |<br>
-| SIGCHLD | 20,17,18  | B  | 子进程结束信号  |<br>
-| SIGCONT | 19,18,25 | 进程继续 |（曾被停止的进程） |<br>
-| SIGSTOP | 17,19,23 | DEF | 终止进程<br>
-| SIGTSTP | 18,20,24 | D | 控制终端（tty）上按下停止键 |<br>
-| SIGTTIN | 21,21,26 | D | 后台进程企图从控制终端读 |<br>
-| SIGTTOU | 22,22,27 | D | 后台进程企图从控制终端写 |</p>
-<hr>
-<h1 id="参考">参考：</h1>
-<p><a href="https://www.cnblogs.com/xybaby/p/8098229.html">https://www.cnblogs.com/xybaby/p/8098229.html</a><br>
-<a href="https://stackoverflow.com/questions/43268156/process-finished-with-exit-code-137-in-pycharm">https://stackoverflow.com/questions/43268156/process-finished-with-exit-code-137-in-pycharm</a></p>
+            <p>工作一忙起来就把书放下了，娱乐方式变多读书随着更少了。<s>都是借口😓</s></p>
+<h2 id="-more-"><!-- more --></h2>
+<h1 id="已">已</h1>
+<h2 id="少年pi的奇幻漂流">少年Pi的奇幻漂流</h2>
+<p>海上漂流时孤独是最大的敌人。</p>
+<p><s>看书自动渲染电影画面</s></p>
+<h2 id="台北人树犹如此">台北人/树犹如此</h2>
+<p>一把青，战乱下的爱情<br>
+杜鹃花的王雄 什么替身文学 无根之人<br>
+看标题挑着看，也不知道还剩下几篇。</p>
+<h2 id="量子之夜">量子之夜</h2>
+<p>侧重心理学~~？？？<s>的科幻小说。设定上把人分成哲学僵尸、精神变态（有自我意识，对别人弱点本能的感知）、有自我意识且有良知的人。<br>
+开始一直以为量子之夜指的是马尔丘克失去记忆那一夜，最后还是有点惊讶的</s>这么搞真有用？？~~。<br>
+时代背景设置在2000-2020左右。<br>
+哲学僵尸的描写，凯拉哥哥苏醒的描写。<br>
+<s>这也要拯救世界是吧</s></p>
+<h2 id="信">信</h2>
+<p><s>读前以为是推理小说</s><br>
+抢劫杀人犯的弟弟直贵<br>
+偏见歧视轮回 社会道德惩罚 直贵的选择</p>
+<blockquote>
+<p>“歧视是理所当然的”<s>？？？</s></p>
+</blockquote>
+<p>直贵的人生可能，书信的催化。<br>
+逃避、面对、救赎<br>
+理想化的话还是希望最后直贵能唱好那首歌的</p>
+<h1 id="鼠疫">鼠疫</h1>
+<p>后疫情时代推荐<br>
+`人始终是老样子。不过这正是他们的力量和无辜所在。<br>
+打破残忍和痛苦景象的，是市井喧嚣的确实性。<br>
+灾难来临民众的变化。<br>
+塔鲁的道德观。<br>
+医生里厄 格朗  塔鲁 朗贝尔 神父 奥通和孩子 对鼠疫不同的抗争。</p>
+<blockquote>
+<p><em>“恢复正常生活，您指的是什么呢？”</em><br>
+<em>“电影院放映新片呗。”</em></p>
+</blockquote>
+<p>瘟疫永远不会消亡，人们的抗争也会再现。</p>
+<blockquote>
+<p>读的有点碎，标记下过段时间再重读。</p>
+</blockquote>
+<p><s>后面借了《局外人》然后翻都没翻就还回去了</s></p>
+<h1 id="永恒的终结">永恒的终结</h1>
+<p>半个多世纪前的科幻小说<br>
+时间旅行概念</p>
+<blockquote>
+<p>探索是冒险，不探索未知永恒有什么意义。</p>
+</blockquote>
+<p><strong><em>love and peace</em></strong></p>
+<h1 id="网文">网文</h1>
+<h2 id="永不解密">永不解密</h2>
+<p>篇幅不长，情节挺抓人</p>
+<h1 id="正">正</h1>
+<p>《也许，你该找个人聊聊》<s>睡前催眠</s><br>
+《置身事内》</p>
 
           </div>
         </div>
 
         
           <div class="next-post">
-            <a class="purple-link" href="https://txSangyj.github.io/post/Genetic-Algorithm/">
+            <a class="purple-link" href="https://txSangyj.github.io/post/li-yong-ai-xue-xi-rust/">
               <h3 class="post-title">
-                下一篇：Genetic Algorithm
+                下一篇：利用AI学习Rust
               </h3>
             </a>
           </div>
